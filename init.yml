@@ -1,0 +1,5 @@
+---
+- include: prerequisistes.yml
+- include: nginx.yml
+- include: mysql.yml
+- include: php.yml

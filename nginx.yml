@@ -1,0 +1,13 @@
+---
+# Playbook to provision Netris Appointments servers with LEMP stack
+
+- name: NetrisAppointments Provisioning
+  hosts: NetrisAppointments
+  remote_user: netris
+  tasks:
+  - name: install nginx
+    yum: name=nginx state=installed
+  - name: install mysql
+    yum: name=mysql state=installed
+  - name: install php
+    yum: name=php-fpm state=installed
