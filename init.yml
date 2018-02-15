@@ -1,5 +1,9 @@
 ---
-- include: prerequisistes.yml
-- include: nginx.yml
-- include: mysql.yml
-- include: php.yml
+- hosts: NetrisAppointments
+  remote_user: netris
+  become: yes
+  roles:
+  - common
+  - nginx
+  - mysql
+  - php
