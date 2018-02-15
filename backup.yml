@@ -13,9 +13,9 @@
       update_cache: yes
   - name: backup databases
     mysql_db:
-      state=dump
-      name={{ item }}
-      target=/home/netris/backup/netriscal_{{ item }}_{{ date }}.sql
+      state: dump
+      name: {{ item }}
+      target: /home/netris/backup/netriscal_{{ item }}_{{ date }}.sql
     with_items:
     - netriscal
     - emailqueue
