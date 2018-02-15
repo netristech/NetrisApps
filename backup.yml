@@ -8,7 +8,7 @@
   tasks:
   - name: Install MySQL-python
     yum:
-      name: MySQL-pythin
+      name: MySQL-python
       state: present
       update_cache: yes
   - name: backup databases
