@@ -1,0 +1,6 @@
+---
+- name: backup databases
+- mysql_db:
+  state=dump
+  name={{ database }}
+  target=/usr/netris/backup/netriscal_{{ database }}_{{ansible_date_time.date }}.sql
