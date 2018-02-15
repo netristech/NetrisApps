@@ -6,6 +6,11 @@
   vars:
     date: "{{ lookup('pipe', 'date +%Y%m%d') }}"
   tasks:
+  - name: Install MySQL-python
+    yum:
+      name: MySQL-pythin
+      state: present
+      update_cache: yes
   - name: backup databases
     mysql_db:
       state=dump
