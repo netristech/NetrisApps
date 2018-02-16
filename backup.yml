@@ -18,8 +18,8 @@
       state: dump
       name: "{{ item }}"
       login_user: root
-      login_password: {{ na_root_pw }}
-      target: /home/netris/backup/netriscal_{{ item }}_{{ date }}.sql
+      login_password: "{{ na_root_pw }}"
+      target: /home/netris/backup/netriscal_"{{ item }}"_"{{ date }}".sql
     with_items:
     - netriscal
     - emailqueue
