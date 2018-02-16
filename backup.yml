@@ -3,6 +3,8 @@
   remote_user: netris
   become: yes
   gather_facts: no
+  vars_files:
+  - roles/mysql/vars/pw.yml
   vars:
     date: "{{ lookup('pipe', 'date +%Y%m%d') }}"
   tasks:
@@ -14,6 +16,8 @@
   - name: backup databases
     mysql_db:
       state: dump
+      login_user: root
+      login_password: "{{ na_root_pw }}"
       name: "{{ item }}"
       target: /home/netris/backup/netriscal_{{ item }}_{{ date }}.sql
     with_items:
