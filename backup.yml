@@ -19,7 +19,7 @@
       login_user: root
       login_password: "{{ na_root_pw }}"
       name: "{{ item }}"
-      target: /home/netris/backup/netriscal_{{ item }}_{{ date }}.sql
+      target: /home/netris/backup/netriscal_{{ item }}_{{ date }}.sql.xz
     with_items:
     - netriscal
     - emailqueue
