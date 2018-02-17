@@ -1,0 +1,13 @@
+---
+- name: Restart Nginx
+  service:
+    name: nginx
+    state: restarted
+- name: Restart MySQL
+  service:
+    name: mariadb
+    state: restarted
+- name: Restart PHP-FPM
+  service:
+    name: php-fpm
+    state: restarted
