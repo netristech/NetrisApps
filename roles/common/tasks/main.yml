@@ -1,2 +1,11 @@
 ---
-- name: common packages
+- name: Install Common Packages
+  yum:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  with_items:
+  - epel-release
+  - MySQL-python
+  - nano
+  - vsftpd
