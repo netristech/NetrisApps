@@ -9,4 +9,5 @@
   - mariadb
   - php
   - php-fpm
+  - php-cli
   - php-mysql
