@@ -1,0 +1,8 @@
+---
+- hosts: NetrisAppointments
+  remote_user: netris
+  become: yes
+  gather_facts: no
+  roles:
+  - common
+  - lemp
