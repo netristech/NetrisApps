@@ -1,11 +1,12 @@
 ---
-- task:
-    name: Install LEMP Stack
-    yum:
-      name: "{{ item }}"
-      state: present
-      update_cache: yes
-    with_items:
-    - nginx
-    - mariadb
-    - php-fpm
+- name: Install LEMP Stack
+  yum:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  with_items:
+  - nginx
+  - mariadb
+  - php
+  - php-fpm
+  - php-mysql
