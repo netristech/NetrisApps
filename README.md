@@ -1,2 +1,2 @@
-# Netris Appointments
-Ansible playbooks for Appointments servers
+# Netris Apps
+Ansible playbooks for Apps servers
