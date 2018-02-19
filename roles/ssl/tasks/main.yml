@@ -1,8 +1,28 @@
 ---
-- name: Install CertBot
+- name: Install Certbot
   yum:
-    name: "{{ item }}"
+    name: certbot-nginx
     state: present
     update_cache: yes
-  with_items:
-  - certbot-nginx
+
+- name: Stop Nginx
+  service: 
+    name: nginx 
+    state: stopped
+
+- name: Install certbot and generate cert
+  command: "{{ certbot_script }} certonly --noninteractive --agree-tos --standalone --email {{ certbot_admin_email }} -d {{ inventory_hostname }}"
+  args:
+    creates: "{{ certbot_output_dir }}"
+
+- name: Start Nginx
+  service: 
+    name: nginx
+    state: started
+
+- name: Create cron job to auto renew certificate
+  cron: 
+    name="Renew LetsEncrypt Cert"
+    special_time=daily
+    job="{{ certbot_script }} renew --standalone --no-self-upgrade --pre-hook \"systemctl stop nginx\" --post-hook \"systemctl start nginx\" --quiet"
+    state=present
