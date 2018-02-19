@@ -10,7 +10,7 @@
     name: nginx 
     state: stopped
 
-- name: Install certbot and generate cert
+- name: Generate cert
   command: "{{ certbot_script }} certonly --noninteractive --agree-tos --standalone --email {{ certbot_admin_email }} -d {{ inventory_hostname }}"
   args:
     creates: "{{ certbot_output_dir }}"
