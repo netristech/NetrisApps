@@ -51,6 +51,7 @@
   - php-fpm
   - php-cli
   - php-mysql
+  
 - name: Copy PHP config files
   notify:
   - Restart PHP-FPM
