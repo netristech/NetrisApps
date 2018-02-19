@@ -7,4 +7,5 @@
   with_items:
   - epel-release
   - MySQL-python
+  - python-simplejson
   - nano
