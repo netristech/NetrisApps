@@ -13,6 +13,6 @@
   - php-cli
   - php-mysql
   notify:
-  - RestartNginx
-  - RestartMariadb
-  - RestartPHP-FPM
+  - Restart Nginx
+  - Restart MySQL
+  - Restart PHP-FPM
