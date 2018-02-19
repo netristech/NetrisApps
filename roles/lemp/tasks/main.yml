@@ -1,18 +1,32 @@
 ---
-- name: Install LEMP Stack
+- name: Install Nginx
   yum:
     name: "{{ item }}"
     state: present
     update_cache: yes
   with_items:
   - nginx
+  notify:
+  - Restart Nginx
+- name: Install MySQL
+  yum:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  with_items:
   - mariadb
   - mariadb-server
+  notify:
+  - Restart MySQL
+- name: Install PHP
+  yum:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  with_items:
   - php
   - php-fpm
   - php-cli
   - php-mysql
   notify:
-  - Restart Nginx
-  - Restart MySQL
   - Restart PHP-FPM
