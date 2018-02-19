@@ -1,4 +1,3 @@
-
 ---
 certbot_auto_renew: yes
 certbot_admin_email: admin@netris.us
