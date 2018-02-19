@@ -6,6 +6,7 @@
     update_cache: yes
   with_items:
   - nginx
+- name: Copy Nginx config files
   notify:
   - Restart Nginx
 - name: Install MySQL
@@ -16,6 +17,7 @@
   with_items:
   - mariadb
   - mariadb-server
+- name: Copy MySQL config files
   notify:
   - Restart MySQL
 - name: Install PHP
@@ -28,5 +30,6 @@
   - php-fpm
   - php-cli
   - php-mysql
+- name: Copy PHP config files
   notify:
   - Restart PHP-FPM
