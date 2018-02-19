@@ -1,5 +1,5 @@
 ---
 certbot_auto_renew: yes
 certbot_admin_email: admin@netris.us
-certbot_script: "certbot --nginx"
+certbot_script: 'certbot --nginx'
 certbot_output_dir: "/etc/letsencrypt/live/{{ inventory_hostname }}"
