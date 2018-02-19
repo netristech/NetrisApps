@@ -12,3 +12,7 @@
   - php-fpm
   - php-cli
   - php-mysql
+  notify:
+  - RestartNginx
+  - RestartMariadb
+  - RestartPHP-FPM
