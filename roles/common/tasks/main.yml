@@ -2,10 +2,26 @@
 - name: Install Common Packages
   yum:
     name: "{{ item }}"
-    state: present
+    state: latest
     update_cache: yes
   with_items:
   - epel-release
   - MySQL-python
   - python-simplejson
   - nano
+  - openssh-server
+  
+- name: Remove existing SSH Config
+  file:
+    src: "{{ item.src | default(omit) }}"
+    dest: "{{ item.dest }}"
+    state: "{{ item.state }}"
+  with_items:
+    - { dest: '/etc/ssh/sshd_config', state: 'absent' }
+    
+- name: Copy SSH Config Files
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  with_items:
+  - { src: 'sshd_config.j2' dest: '/etc/ssh/sshd_config' }
