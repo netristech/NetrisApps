@@ -4,3 +4,5 @@ nginx_conns: 1024
 fpm_sock: /var/run/php-fpm/php-fpm-na.sock
 max_child: 5
 start_serv: 2
+min_spare_serv: 1
+max_spare_serv: 5
