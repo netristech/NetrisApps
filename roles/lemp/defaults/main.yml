@@ -1,3 +1,4 @@
 ---
 https_port: 443
 nginx_conns: 1024
+fpm_sock: /var/run/php-fpm/php-fpm-na.sock
