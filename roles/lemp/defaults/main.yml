@@ -1,2 +1,3 @@
 ---
 https_port: 443
+nginx_conns: 1024
