@@ -1,18 +1,4 @@
 ---
 - include: nginx.yml
 - include: mysql.yml
-  
-- name: Install PHP
-  yum:
-    name: "{{ item }}"
-    state: present
-    update_cache: yes
-  with_items:
-  - php
-  - php-fpm
-  - php-cli
-  - php-mysql
-  
-- name: Copy PHP config files
-  notify:
-  - Restart PHP-FPM
+- include: php.yml
