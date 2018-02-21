@@ -1,1 +1,13 @@
 ---
+- name: Install MySQL
+  yum:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  with_items:
+  - mariadb
+  - mariadb-server
+  
+- name: Copy MySQL config files
+  notify:
+  - Restart MySQL
