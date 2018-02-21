@@ -1,4 +1,4 @@
-[cal]
+[na]
 user = nginx
 group = nginx
 listen = {{ fpm_sock }}
@@ -7,8 +7,8 @@ listen.group = nginx
 php_admin_value[disable_functions] = exec,passthru,shell_exec,system
 php_admin_flag[allow_url_fopen] = off
 pm = dynamic
-pm.max_children = 5
-pm.start_servers = 2
+pm.max_children = {{ max_child }}
+pm.start_servers = {{ start_serv }}
 pm.min_spare_servers = 1
 pm.max_spare_servers = 5
 chdir = /
