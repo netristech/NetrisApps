@@ -1,6 +1,6 @@
 server {
-    listen      {{ http_port }};
-    listen      [::]:{{ http_port }};
+    listen      {{ https_port }} ssl;
+    listen      [::]:{{ https_port }} ssl;
     server_name  {{ server_name }};
 
     ssl on;
