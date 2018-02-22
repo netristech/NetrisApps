@@ -10,6 +10,14 @@
   - php-cli
   - php-mysql
   
+- name: Remove existing config file
+  file:
+    src: "{{ item.src | default('omit') }}"
+    dest: "{{ item.dest }}"
+    state: "{{ item.state }}"
+  with_items:
+  - { dest: '/etc/php-fpm.conf', state: 'absent' }
+  
 - name: Copy PHP config files
   template:
     src: "{{ item.src }}"
