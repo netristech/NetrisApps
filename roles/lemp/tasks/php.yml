@@ -32,3 +32,8 @@
     - { src: 'php.ini.j2', dest: '/etc/php.ini' }
   notify:
   - Restart PHP-FPM
+ 
+- name: Enable PHP
+  service:
+    name: php-fpm
+    state: enabled
