@@ -36,4 +36,4 @@
 - name: Enable PHP
   service:
     name: php-fpm
-    state: enabled
+    enabled: yes
