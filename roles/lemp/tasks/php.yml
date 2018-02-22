@@ -17,6 +17,7 @@
     state: "{{ item.state }}"
   with_items:
   - { dest: '/etc/php-fpm.conf', state: 'absent' }
+  - { dest: '/etc/php.ini', state: 'absent' }
   
 - name: Copy PHP config files
   template:
@@ -28,5 +29,6 @@
   with_items:
     - { src: 'php-fpm.conf.j2', dest: '/etc/php-fpm.conf' }
     - { src: 'app.conf.j2', dest: '/etc/php-fpm.d/{{ app_name }}.conf' }
+    - { src: 'php.ini.j2', dest: '/etc/php.ini' }
   notify:
   - Restart PHP-FPM
