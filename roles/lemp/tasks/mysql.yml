@@ -10,7 +10,7 @@
   
 - name: Set the root password 
   mysql_user: 
-    login_user:root
+    login_user: root
     login_password: "{{ sql_root_pw }}"
     user: root
     password: "{{ sql_root_pw }}"
