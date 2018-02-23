@@ -10,18 +10,11 @@
   
 - name: Set the root password 
   mysql_user: 
-    login_user: root
-    login_password: "{{ sql_root_pw }}"
-    user: root
-    password: "{{ sql_root_pw }}"
-
-- name: Secure the root user
-  mysql_user: 
-    login_user: root
-    login_password: "{{ sql_root_pw }}"
-    user: root
+    name: root
     password: "{{ sql_root_pw }}"
     host: "{{ item }}"
+    check_implicit_admin: yes
+    state: present
   with_items:
   - ::1
   - 127.0.0.1
@@ -56,6 +49,14 @@
   changed_when: False
   
 - name: Copy MySQL config files
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ item.owner | default('root') }}"
+    group: "{{ item.group | default('root') }}"
+    mode: "{{ item.mode | default('644') }}"
+  with_items:
+    - { src: 'server.cnf.j2', dest: '/etc/my.cnf.d/server.cnf' }
   notify:
   - Restart MySQL
 
