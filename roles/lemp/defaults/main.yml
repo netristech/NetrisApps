@@ -10,3 +10,4 @@ max_child: 5
 start_serv: 2
 min_spare_serv: 1
 max_spare_serv: 5
+php_daemonize: yes
