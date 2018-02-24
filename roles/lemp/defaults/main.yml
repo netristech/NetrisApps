@@ -5,6 +5,7 @@ fpm_sock: "/var/run/php-fpm/php-fpm-{{ app_name }}.sock"
 cert_dir: "/etc/letsencrypt/live/{{ inventory_hostname }}"
 cert_filename: fullchain.pem
 cert_privkey: privkey.pem
+nginx_user: nginx
 max_child: 5
 start_serv: 2
 min_spare_serv: 1
