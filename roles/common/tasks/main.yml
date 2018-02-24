@@ -11,14 +11,6 @@
   - nano
   - openssh-server
   
-- name: Remove existing SSH Config
-  file:
-    src: "{{ item.src | default(omit) }}"
-    dest: "{{ item.dest }}"
-    state: "{{ item.state }}"
-  with_items:
-    - { dest: '/etc/ssh/sshd_config', state: 'absent' }
-    
 - name: Copy SSH Config Files
   template:
     src: "{{ item.src }}"
