@@ -1,7 +1,7 @@
 server {
     listen      {{ https_port }} ssl;
     listen      [::]:{{ https_port }} ssl;
-    server_name  {{ server_name }};
+    server_name  {{ inventory_hostname }};
 
     ssl on;
     ssl_certificate /etc/nginx/ssl/ssl.crt;
@@ -11,7 +11,7 @@ server {
     ssl_stapling on;
     ssl_stapling_verify on;
 
-    root   /usr/share/{{ server_name }};
+    root   /usr/share/{{ app_name }};
     index index.php index.html index.htm;
 
     location / {
