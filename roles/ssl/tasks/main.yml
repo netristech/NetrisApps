@@ -4,11 +4,8 @@
     name: certbot-nginx
     state: present
     update_cache: yes
-
-- name: Stop Nginx
-  service: 
-    name: nginx 
-    state: stopped
+  notify:
+  - Stop Nginx
 
 - name: Generate cert
   command: "{{ certbot_script }} certonly --noninteractive --agree-tos --standalone --email {{ certbot_admin_email }} -d {{ inventory_hostname }}"
