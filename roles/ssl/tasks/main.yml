@@ -1,14 +1,17 @@
 ---
 - name: Install Certbot
   yum:
-    name: certbot-nginx
+    name: "{{ item }}"
     state: present
     update_cache: yes
+  with_items:
+  - certbot-nginx
+  - 
   notify:
   - Stop Nginx
 
 - name: Generate cert
-  command: "{{ certbot_script }} certonly --noninteractive --agree-tos --standalone --email {{ certbot_admin_email }} -d {{ inventory_hostname }}"
+  command: "{{ certbot_script }} certonly --noninteractive --agree-tos --email {{ certbot_admin_email }} -d {{ inventory_hostname }}"
   args:
     creates: "{{ certbot_output_dir }}"
 
