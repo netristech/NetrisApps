@@ -11,7 +11,7 @@ server {
     ssl_stapling on;
     ssl_stapling_verify on;
 
-    root   /usr/share/{{ app_name }};
+    root   /usr/share/{{ app_name }}/{{ inventory_hostname }};
     index index.php index.html index.htm;
 
     location / {
