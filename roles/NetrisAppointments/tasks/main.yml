@@ -6,6 +6,7 @@
     update_cache: yes
   with_items
   - xz
+  - tar
   
 - name: Copy install files
   copy:
@@ -21,3 +22,24 @@
   - { src: 'netriscal-www.tar.xz', dest: '/home/netris/' }
   
 - name: Extract install files
+  command: "xz -d {{ item }}"
+  with_items:
+  - /home/netris/netriscal-etc.tar.xz
+  - /home/netris/netriscal-www.tar.xz
+  - /home/netris/netriscal20180202.sql.xz
+  - /home/netris/emailqueue20180202.sql.xz
+  
+- name: Untar files
+  command: "tar -xvf {{ item }}"
+  with_items:
+  - /home/netris/netriscal-etc.tar
+  - /home/netris/netriscal-www.tar
+  
+- name: Install databases
+  mysql_db:
+    name: {{ item.name }}
+    state: import
+    target: {{ item.src }}
+  with_items:
+  - { name: 'emailqueue', src: '/home/netris/emailqueue20180202.sql' }
+  - { name: 'netriscal', src: '/home/netris/netriscal20180202.sql' }
