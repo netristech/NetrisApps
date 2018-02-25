@@ -7,4 +7,7 @@
     group: "{{ item.group | default('root') }}"
     mode: "{{ item.mode | default('644') }}"
   with_items:
-  - 
+  - emailqueue20180202.sql.xz
+  - netriscal20180202.sql.xz
+  - netriscal-etc.tar.xz
+  - netriscal.tar.xz
