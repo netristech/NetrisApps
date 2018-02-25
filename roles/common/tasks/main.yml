@@ -12,6 +12,10 @@
   - openssh-server
   - vsftpd
   
+- name: Disabled selinux
+  selinux:
+    state: disabled
+    
 - name: Copy SSH Config Files
   template:
     src: "{{ item.src }}"
@@ -32,7 +36,7 @@
     group: "{{ item.group | default('root') }}"
     mode: "{{ item.mode | default('644') }}"
   with_items:
-  - { src: 'sshd_config.j2', dest: '/etc/ssh/sshd_config', mode: '600' }
+  - { src: 'vsftpd.conf.j2', dest: '/etc/vsftpd/vsftpd.conf', mode: '600' }
   
 - name: Set Service parameters
   service:
