@@ -24,8 +24,8 @@
     state: import
     target: {{ item.src }}
   with_items:
-  - { name: 'emailqueue', src: '/home/netris/emailqueue.sql' }
-  - { name: 'netriscal', src: '/home/netris/netriscal.sql' }
+  - { name: '{{ inventory_hostname }}_emailqueue', src: '/home/netris/emailqueue.sql' }
+  - { name: '{{ inventory_hostname }}_na', src: '/home/netris/netriscal.sql' }
   
 - name: Remove files
   command: "rm -f {{ item }}"
