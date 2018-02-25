@@ -16,30 +16,30 @@
     group: "{{ item.group | default('root') }}"
     mode: "{{ item.mode | default('644') }}"
   with_items:
-  - { src: 'emailqueue20180202.sql.xz', dest: '/home/netris/' }
-  - { src: 'netriscal20180202.sql.xz', dest: '/home/netris/' }
-  - { src: 'netriscal-etc.tar.xz', dest: '/home/netris/' }
-  - { src: 'netriscal-www.tar.xz', dest: '/home/netris/' }
+  - { src: 'emailqueue20180202.sql.xz', dest: '/home/netris/backup/' }
+  - { src: 'netriscal20180202.sql.xz', dest: '/home/netris/backup/' }
+  - { src: 'netriscal-etc.tar.xz', dest: '/home/netris/backup/' }
+  - { src: 'netriscal-www.tar.xz', dest: '/home/netris/backup/' }
   
 - name: Extract install files
   command: "xz -d {{ item }}"
   with_items:
-  - /home/netris/netriscal-etc.tar.xz
-  - /home/netris/netriscal-www.tar.xz
-  - /home/netris/netriscal20180202.sql.xz
-  - /home/netris/emailqueue20180202.sql.xz
+  - /home/netris/backup/netriscal-etc.tar.xz
+  - /home/netris/backup/netriscal-www.tar.xz
+  - /home/netris/backup/netriscal20180202.sql.xz
+  - /home/netris/backup/emailqueue20180202.sql.xz
   
 - name: Untar files
   command: "tar -xvf {{ item }}"
   with_items:
-  - /home/netris/netriscal-etc.tar
-  - /home/netris/netriscal-www.tar
+  - /home/netris/backup/netriscal-etc.tar
+  - /home/netris/backup/netriscal-www.tar
   
 - name: Move Directories
-  command: "mv {{ item.src }} {{ item.dest }}"
+  command: "cp -R {{ item.src }} {{ item.dest }}"
   with_items:
-  - { src: '/home/netris/etc/netriscal', dest: '/etc/' }
-  - { src: '/home/netris/usr/share/netriscal', '/usr/share/' }
+  - { src: '/home/netris/backup/etc/netriscal/*', dest: '/etc/{{ app_name }}/' }
+  - { src: '/home/netris/backup/usr/share/netriscal/*', '/usr/share/{{ app_name }}/' }
   notify:
   - Restart Nginx
   
@@ -51,3 +51,8 @@
   with_items:
   - { name: 'emailqueue', src: '/home/netris/emailqueue20180202.sql' }
   - { name: 'netriscal', src: '/home/netris/netriscal20180202.sql' }
+  
+- name: Remove directories
+  command: "rm -rf {{ item }}"
+  with_items:
+  - /home/netris/backup
