@@ -10,6 +10,7 @@
   - python-simplejson
   - nano
   - openssh-server
+  - vsftpd
   
 - name: Copy SSH Config Files
   template:
@@ -22,3 +23,22 @@
   - { src: 'sshd_config.j2', dest: '/etc/ssh/sshd_config', mode: '600' }
   notify:
   - Restart SSH
+
+- name: Copy FTP config files
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ item.owner | default('root') }}"
+    group: "{{ item.group | default('root') }}"
+    mode: "{{ item.mode | default('644') }}"
+  with_items:
+  - { src: 'sshd_config.j2', dest: '/etc/ssh/sshd_config', mode: '600' }
+  
+- name: Set Service parameters
+  service:
+    name: "{{ item.name }}"
+    enabled: "{{ item.enabled }}"
+    state: "{{ item.state }}"
+  with_items:
+  - { name: 'sshd', enabled: 'yes', state: 'started' }
+  - { name: 'vsftpd', enabled: 'no', state: 'stopped' }
