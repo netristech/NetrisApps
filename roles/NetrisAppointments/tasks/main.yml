@@ -7,14 +7,14 @@
     group: "{{ item.group | default('root') }}"
     mode: "{{ item.mode | default('644') }}"
   with_items:
-  - { src: 'emailqueue.sql.xz', dest: '/home/netris/backup/' }
-  - { src: 'netriscal.sql.xz', dest: '/home/netris/backup/' }
+  - { src: 'emailqueue.sql.xz', dest: '/home/netris/' }
+  - { src: 'netriscal.sql.xz', dest: '/home/netris/' }
   
 - name: Extract install files
   command: "xz -d {{ item }}"
   with_items:
-  - /home/netris/backup/netriscal.sql.xz
-  - /home/netris/backup/emailqueue.sql.xz
+  - /home/netris/netriscal.sql.xz
+  - /home/netris/emailqueue.sql.xz
   
 - name: Install databases
   mysql_db:
@@ -30,4 +30,5 @@
 - name: Remove files
   command: "rm -f {{ item }}"
   with_items:
-  - /home/netris/backup/*.sql
+  - /home/netris/emailqueue.sql
+  - /home/netris/netriscal.sql
