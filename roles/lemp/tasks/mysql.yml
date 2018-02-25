@@ -11,7 +11,7 @@
 - name: Set the root password 
   mysql_user: 
     name: root
-    password: "{{ sql_root_pw }}"
+    password: "{{ na_root_pw }}"
     host: "{{ item }}"
     check_implicit_admin: yes
     state: present
@@ -24,7 +24,7 @@
 - name: Deletes anonymous server user
   mysql_user:
     login_user: root
-    login_password: "{{ sql_root_password }}"
+    login_password: "{{ na_root_pw }}"
     user: ""
     host_all: yes
     state: absent
@@ -32,7 +32,7 @@
 - name: Removes the test database
   mysql_db:
     login_user: root
-    login_password: "{{ sql_root_pw }}"
+    login_password: "{{ na_root_pw }}"
     db: test
     state: absent
   
