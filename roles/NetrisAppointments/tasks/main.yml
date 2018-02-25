@@ -1,13 +1,4 @@
 ---
-- name: Install xz archiver
-  yum:
-    name: "{{ item }}"
-    state: present
-    update_cache: yes
-  with_items
-  - xz
-  - tar
-  
 - name: Copy install files
   copy:
     src: "{{ item.src }}"
