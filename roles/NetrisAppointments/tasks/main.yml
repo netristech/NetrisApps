@@ -1,4 +1,12 @@
 ---
+- name: Install xz archiver
+  yum:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  with_items
+  - xz
+  
 - name: Copy install files
   copy:
     src: "{{ item.src }}"
@@ -7,7 +15,9 @@
     group: "{{ item.group | default('root') }}"
     mode: "{{ item.mode | default('644') }}"
   with_items:
-  - emailqueue20180202.sql.xz
-  - netriscal20180202.sql.xz
-  - netriscal-etc.tar.xz
-  - netriscal.tar.xz
+  - { src: 'emailqueue20180202.sql.xz', dest: '/home/netris/' }
+  - { src: 'netriscal20180202.sql.xz', dest: '/home/netris/' }
+  - { src: 'netriscal-etc.tar.xz', dest: '/home/netris/' }
+  - { src: 'netriscal-www.tar.xz', dest: '/home/netris/' }
+  
+- name: Extract install files
