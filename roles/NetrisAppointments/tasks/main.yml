@@ -16,43 +16,26 @@
     group: "{{ item.group | default('root') }}"
     mode: "{{ item.mode | default('644') }}"
   with_items:
-  - { src: 'emailqueue20180202.sql.xz', dest: '/home/netris/backup/' }
-  - { src: 'netriscal20180202.sql.xz', dest: '/home/netris/backup/' }
-  - { src: 'netriscal-etc.tar.xz', dest: '/home/netris/backup/' }
-  - { src: 'netriscal-www.tar.xz', dest: '/home/netris/backup/' }
+  - { src: 'emailqueue.sql.xz', dest: '/home/netris/backup/' }
+  - { src: 'netriscal.sql.xz', dest: '/home/netris/backup/' }
   
 - name: Extract install files
   command: "xz -d {{ item }}"
   with_items:
-  - /home/netris/backup/netriscal-etc.tar.xz
-  - /home/netris/backup/netriscal-www.tar.xz
-  - /home/netris/backup/netriscal20180202.sql.xz
-  - /home/netris/backup/emailqueue20180202.sql.xz
-  
-- name: Untar files
-  command: "tar -xvf {{ item }}"
-  with_items:
-  - /home/netris/backup/netriscal-etc.tar
-  - /home/netris/backup/netriscal-www.tar
-  
-- name: Move Directories
-  command: "cp -R {{ item.src }} {{ item.dest }}"
-  with_items:
-  - { src: '/home/netris/backup/etc/netriscal/*', dest: '/etc/{{ app_name }}/' }
-  - { src: '/home/netris/backup/usr/share/netriscal/*', '/usr/share/{{ app_name }}/' }
-  notify:
-  - Restart Nginx
+  - /home/netris/backup/netriscal.sql.xz
+  - /home/netris/backup/emailqueue.sql.xz
   
 - name: Install databases
   mysql_db:
+    login_user: root
     name: {{ item.name }}
     state: import
     target: {{ item.src }}
   with_items:
-  - { name: 'emailqueue', src: '/home/netris/emailqueue20180202.sql' }
-  - { name: 'netriscal', src: '/home/netris/netriscal20180202.sql' }
+  - { name: 'emailqueue', src: '/home/netris/emailqueue.sql' }
+  - { name: 'netriscal', src: '/home/netris/netriscal.sql' }
   
-- name: Remove directories
-  command: "rm -rf {{ item }}"
+- name: Remove files
+  command: "rm -f {{ item }}"
   with_items:
-  - /home/netris/backup
+  - /home/netris/backup/*.sql
