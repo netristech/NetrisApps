@@ -35,6 +35,13 @@
   - /home/netris/netriscal-etc.tar
   - /home/netris/netriscal-www.tar
   
+- name: Move Directories
+  command: "mv {{ item.src }} {{ item.dest }}"
+  with_items:
+  - { src: '/home/netris/etc/netriscal', dest: '/etc/' }
+  - { src: '/home/netris/usr/share/netriscal', '/usr/share/' }
+  notify: Restart Nginx
+  
 - name: Install databases
   mysql_db:
     name: {{ item.name }}
