@@ -11,6 +11,7 @@
   - nano
   - openssh-server
   - vsftpd
+  - fail2ban
   
 - name: Disabled selinux
   selinux:
@@ -35,5 +36,6 @@
     enabled: "{{ item.enabled }}"
     state: "{{ item.state }}"
   with_items:
+  - { name: 'fail2ban', enabled: 'yes', state: 'started' }
   - { name: 'sshd', enabled: 'yes', state: 'started' }
   - { name: 'vsftpd', enabled: 'no', state: 'stopped' }
