@@ -28,6 +28,7 @@
 - name: Install databases
   mysql_db:
     login_user: root
+    login_password: "{{ na_root_pw }}"
     name: {{ item.name }}
     state: import
     target: {{ item.src }}
