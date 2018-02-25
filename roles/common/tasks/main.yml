@@ -9,6 +9,8 @@
   - MySQL-python
   - python-simplejson
   - nano
+  - tar
+  - xz
   - openssh-server
   - vsftpd
   - fail2ban
