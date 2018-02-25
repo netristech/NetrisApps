@@ -40,7 +40,8 @@
   with_items:
   - { src: '/home/netris/etc/netriscal', dest: '/etc/' }
   - { src: '/home/netris/usr/share/netriscal', '/usr/share/' }
-  notify: Restart Nginx
+  notify:
+  - Restart Nginx
   
 - name: Install databases
   mysql_db:
