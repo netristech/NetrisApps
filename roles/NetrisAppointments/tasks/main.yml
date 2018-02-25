@@ -1,8 +1,10 @@
 ---
 - name: Copy install files
   copy:
-    src:
-    dest:
-    owner:
-    group:
-    mode:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ item.owner | default('root') }}"
+    group: "{{ item.group | default('root') }}"
+    mode: "{{ item.mode | default('644') }}"
+  with_items:
+  - 
