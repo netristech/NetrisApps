@@ -1,2 +1,8 @@
 ---
 - name: Copy install files
+  copy:
+    src:
+    dest:
+    owner:
+    group:
+    mode:
