@@ -5,6 +5,8 @@
   gather_facts: no
   vars:
     app_name: NetrisAppointments
+  vars_files:
+  - roles/lemp/vars/main.yml
   roles:
   - common
   - lemp
