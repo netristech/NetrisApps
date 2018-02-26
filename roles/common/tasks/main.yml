@@ -15,9 +15,15 @@
   - vsftpd
   - fail2ban
   
-- name: Disabled selinux
+- name: Check for selinux
+  stat:
+    path: /etc/selinux/config
+  register: selinux
+  
+- name: Disabled selinux if it exists
   selinux:
     state: disabled
+  when: selinux.stat.exists == True
     
 - name: Copy Config Files
   template:
