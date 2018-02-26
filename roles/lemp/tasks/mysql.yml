@@ -8,6 +8,11 @@
   - mariadb
   - mariadb-server
   
+- name: Ensure MySQL service is started
+  service:
+    name: mariadb
+    state: started
+  
 - name: Set the root password 
   mysql_user: 
     name: root
