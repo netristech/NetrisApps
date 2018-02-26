@@ -1,0 +1,9 @@
+---
+- name: Create Directories
+  file:
+    path: "{{ item.path }}"
+    state: directory
+    mode: "{{ item.mode | default('755') }}"
+  with_items:
+  - { path: '/etc/{{ app_name }}/{{ inventory_hostname }}' }
+  - { path: '/usr/share/{{ app_name }}/{{ inventory_hostname }}' }
