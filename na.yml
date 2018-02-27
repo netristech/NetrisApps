@@ -9,6 +9,6 @@
     app_name: NetrisAppointments
   roles:
   - common
-  - lemp
   - ssl
+  - lemp
   - NetrisAppointments
