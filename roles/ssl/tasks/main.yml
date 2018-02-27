@@ -23,6 +23,16 @@
   args:
     creates: "{{ certbot_output_dir }}"
   when: cert.stat.exists == False
+  
+- name: Copy Nginx config files
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ item.owner | default('root') }}"
+    group: "{{ item.group | default('root') }}"
+    mode: "{{ item.mode | default('644') }}"
+  with_items:
+    - { src: 'virtualhost.conf.j2', dest: '/etc/nginx/conf.d/{{ app_name }}.conf' }
 
 - name: Start Nginx
   service: 
