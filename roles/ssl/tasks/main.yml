@@ -6,18 +6,25 @@
     update_cache: yes
   with_items:
   - certbot-nginx
-  notify:
-  - Stop Nginx
 
 - name: Check if cert already exists
   stat:
     path: "/etc/letsencrypt/live/{{ inventory_hostname }}/cert.pem"
   register: cert
   
+- name: Stop nginx
+  service:
+    name: nginx
+    state: stopped
+  when: cert.stat.exists == False
+  
 - name: Generate cert
   command: "{{ certbot_script }} certonly --noninteractive --agree-tos --email {{ certbot_admin_email }} -d {{ inventory_hostname }}"
   args:
     creates: "{{ certbot_output_dir }}"
+  when: cert.stat.exists == False
+  notify:
+  - Create Cron Job
 
 - name: Start Nginx
   service: 
