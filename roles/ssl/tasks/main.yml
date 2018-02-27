@@ -23,8 +23,6 @@
   args:
     creates: "{{ certbot_output_dir }}"
   when: cert.stat.exists == False
-  notify:
-  - Create Cron Job
 
 - name: Start Nginx
   service: 
