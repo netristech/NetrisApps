@@ -15,10 +15,12 @@
   
 - name: Set the root password 
   mysql_user: 
+    login_user: root
+    login_password: "{{ na_root_pw }}"
+    check_implicit_admin: yes
     name: root
     password: "{{ na_root_pw }}"
     host: "{{ item }}"
-    check_implicit_admin: yes
     state: present
   with_items:
   - ::1
