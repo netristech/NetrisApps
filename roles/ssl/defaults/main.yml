@@ -3,3 +3,9 @@ certbot_auto_renew: yes
 certbot_admin_email: admin@netris.us
 certbot_script: 'certbot --nginx'
 certbot_output_dir: "/etc/letsencrypt/live/{{ inventory_hostname }}"
+https_port: 443
+fpm_sock: "/var/run/php-fpm/php-fpm-{{ app_name }}.sock"
+cert_dir: "/etc/letsencrypt/live/{{ inventory_hostname }}"
+cert_filename: fullchain.pem
+cert_privkey: privkey.pem
+nginx_user: nginx
