@@ -1,5 +1,6 @@
 ---
 nginx_conns: 1024
+http_port: 80
 fpm_sock: "/var/run/php-fpm/php-fpm-{{ app_name }}.sock"
 nginx_user: nginx
 max_child: 5
