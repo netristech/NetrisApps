@@ -24,7 +24,7 @@
     creates: "{{ certbot_output_dir }}"
   when: cert.stat.exists == False
   
-- name: Copy Nginx config files
+- name: Copy virtual host config file
   template:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
