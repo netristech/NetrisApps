@@ -40,12 +40,6 @@
     db: test
     state: absent
   
-- name: Reload privilege tables
-  command: 'mysql -ne "{{ item }}"'
-  with_items:
-    - FLUSH PRIVILEGES
-  changed_when: False
-  
 - name: Copy MySQL config files
   template:
     src: "{{ item.src }}"
