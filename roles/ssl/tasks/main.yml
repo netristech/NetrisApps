@@ -20,8 +20,6 @@
   
 - name: Generate cert
   command: "{{ certbot_script }} certonly --noninteractive --agree-tos --email {{ certbot_admin_email }} -d {{ inventory_hostname }}"
-  args:
-    creates: "{{ certbot_output_dir }}"
   when: cert.stat.exists == False
   
 - name: Copy virtual host config file
