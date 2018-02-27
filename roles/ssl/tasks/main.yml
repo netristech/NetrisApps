@@ -30,7 +30,7 @@
     group: "{{ item.group | default('root') }}"
     mode: "{{ item.mode | default('644') }}"
   with_items:
-    - { src: 'virtualhost.conf.j2', dest: '/etc/nginx/conf.d/{{ app_name }}.conf' }
+    - { src: 'virtualhost.conf.j2', dest: '/etc/nginx/conf.d/{{ inventory_hostname }}.conf' }
 
 - name: Start Nginx
   service: 
