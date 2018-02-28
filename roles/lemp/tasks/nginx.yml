@@ -29,7 +29,10 @@
   notify:
   - Restart Nginx
   
-- name: Enable Nginx service
+- name: Set Service parameters
   service:
-    name: nginx
-    enabled: yes
+    name: "{{ item.name }}"
+    enabled: "{{ item.enabled }}"
+    state: "{{ item.state }}"
+  with_items:
+  - { name: 'nginx', enabled: 'yes', state: 'started' }
