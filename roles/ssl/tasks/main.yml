@@ -2,10 +2,11 @@
 - name: Install Certbot
   yum:
     name: "{{ item }}"
-    state: present
+    state: latest
     update_cache: yes
   with_items:
   - certbot-nginx
+  - python-certbot-nginx
 
 - name: Check if cert already exists
   stat:
