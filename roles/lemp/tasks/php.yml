@@ -24,7 +24,10 @@
   notify:
   - Restart PHP-FPM
  
-- name: Enable PHP
+- name: Set Service parameters
   service:
-    name: php-fpm
-    enabled: yes
+    name: "{{ item.name }}"
+    enabled: "{{ item.enabled }}"
+    state: "{{ item.state }}"
+  with_items:
+  - { name: 'php-fpm', enabled: 'yes', state: 'started' }
