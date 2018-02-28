@@ -16,7 +16,7 @@
     dest: "{{ item.dest }}"
     owner: "{{ item.owner | default('root') }}"
     group: "{{ item.group | default('root') }}"
-    mode: "{{ item.mode | default('644') }}"
+    mode: "{{ item.mode | default('0644') }}"
   with_items:
     - { src: 'php-fpm.conf.j2', dest: '/etc/php-fpm.conf' }
     - { src: 'app.conf.j2', dest: '/etc/php-fpm.d/{{ app_name }}.conf' }
