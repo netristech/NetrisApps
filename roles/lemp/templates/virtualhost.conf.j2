@@ -3,7 +3,7 @@ server {
     listen      [::]:{{ http_port }};
     server_name  {{ inventory_hostname }};
 
-    root   /usr/share/{{ app_name }}/{{ inventory_hostname }};
+    root   {{ instance_root }};
     index index.php index.html index.htm;
 
     location / {
