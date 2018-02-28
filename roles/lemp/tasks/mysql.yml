@@ -51,7 +51,7 @@
     dest: "{{ item.dest }}"
     owner: "{{ item.owner | default('root') }}"
     group: "{{ item.group | default('root') }}"
-    mode: "{{ item.mode | default('644') }}"
+    mode: "{{ item.mode | default('0644') }}"
   with_items:
     - { src: 'server.cnf.j2', dest: '/etc/my.cnf.d/server.cnf' }
   notify:
