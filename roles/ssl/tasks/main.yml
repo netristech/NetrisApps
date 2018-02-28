@@ -13,12 +13,6 @@
     path: "/etc/letsencrypt/live/{{ inventory_hostname }}/cert.pem"
   register: cert
   
-- name: Stop nginx
-  service:
-    name: nginx
-    state: stopped
-  when: cert.stat.exists == False
-  
 - name: Generate cert
   command: "{{ certbot_script }} certonly --noninteractive --agree-tos --email {{ certbot_admin_email }} -d {{ inventory_hostname }}"
   when: cert.stat.exists == False
@@ -32,11 +26,8 @@
     mode: "{{ item.mode | default('644') }}"
   with_items:
     - { src: 'virtualhost.conf.j2', dest: '/etc/nginx/conf.d/{{ inventory_hostname }}.conf' }
-
-- name: Start Nginx
-  service: 
-    name: nginx
-    state: started
+  notify:
+  - Restart Nginx
 
 - name: Create cron job to auto renew certificate
   cron: 
