@@ -8,4 +8,4 @@
     mode: "{{ item.mode | default('0755') }}"
   with_items:
   - { path: '/etc/{{ app_name }}/{{ inventory_hostname }}', state: 'directory' }
-  - { path: '/usr/share/{{ app_name }}/{{ inventory_hostname }}', state: 'directory', owner: '{{ nginx_user }}', group: '{{ nginx_user }}' }
+  - { path: '/usr/share/{{ app_name }}/{{ inventory_hostname }}', state: 'directory', owner: '{{ http_user }}', group: '{{ http_user }}' }
