@@ -3,7 +3,7 @@ nginx_conns: 1024
 http_port: 80
 instance_root: "/usr/share/{{ app_name }}/{{ inventory_hostname }}"
 fpm_sock: "/var/run/php-fpm/php-fpm-{{ app_name }}.sock"
-nginx_user: nginx
+http_user: nginx
 max_child: 5
 start_serv: 2
 min_spare_serv: 1
