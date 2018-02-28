@@ -8,10 +8,13 @@
   - mariadb
   - mariadb-server
   
-- name: Ensure MySQL service is started
+- name: Set Service parameters
   service:
-    name: mariadb
-    state: started
+    name: "{{ item.name }}"
+    enabled: "{{ item.enabled }}"
+    state: "{{ item.state }}"
+  with_items:
+  - { name: 'mariadb', enabled: 'yes', state: 'started' }
   
 - name: Set the root password 
   mysql_user: 
@@ -53,8 +56,3 @@
     - { src: 'server.cnf.j2', dest: '/etc/my.cnf.d/server.cnf' }
   notify:
   - Restart MySQL
-
-- name: Enable MySQL service
-  service:
-    name: mariadb
-    enabled: yes
