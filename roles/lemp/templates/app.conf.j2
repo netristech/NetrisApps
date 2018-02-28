@@ -1,9 +1,9 @@
 [{{ app_name }}]
-user = {{ nginx_user }}
-group = {{ nginx_user }}
+user = {{ http_user }}
+group = {{ http_user }}
 listen = {{ fpm_sock }}
-listen.owner = {{ nginx_user }}
-listen.group = {{ nginx_user }}
+listen.owner = {{ http_user }}
+listen.group = {{ http_user }}
 php_admin_value[disable_functions] = exec,passthru,shell_exec,system
 php_admin_flag[allow_url_fopen] = off
 pm = dynamic
