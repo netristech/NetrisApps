@@ -21,8 +21,6 @@
     path: "{{ instance_root }}"
     state: directory
     mode: 755
-  args:
-  - creates: "{{ instance_root }}"
 
 - name: Copy Nginx config files
   template:
