@@ -24,7 +24,7 @@
   command: "{{ certbot_script }} certonly --noninteractive --agree-tos --email {{ certbot_admin_email }} -d {{ inventory_hostname }}"
   when: cert.stat.exists == False
   
-- name: Copy virtual host config file
+- name: Copy config files
   template:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
@@ -33,6 +33,7 @@
     mode: "{{ item.mode | default('0644') }}"
   with_items:
     - { src: 'virtualhost.conf.j2', dest: '/etc/nginx/conf.d/{{ inventory_hostname }}.conf' }
+    - { src: 'redirect.conf.j2', dest: '/etc/nginx/conf.d/redirect.conf' }
   notify:
   - Restart Nginx
 
