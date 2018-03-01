@@ -1,4 +1,6 @@
 ---
+- name: Check if files already exist
+  
 - name: Copy database files
   copy:
     src: "{{ item.src }}"
@@ -7,14 +9,14 @@
     group: "{{ item.group | default('root') }}"
     mode: "{{ item.mode | default('0644') }}"
   with_items:
-  - { src: 'emailqueue.sql.xz', dest: '/home/netris/' }
-  - { src: 'netriscal.sql.xz', dest: '/home/netris/' }
+  - { src: 'emailqueue.sql.xz', dest: '/home/netris/{{ inventory_hostname }}' }
+  - { src: 'netriscal.sql.xz', dest: '/home/netris/{{ inventory_hostname }}' }
   
 - name: Extract database files
   command: "xz -df {{ item }}"
   with_items:
-  - /home/netris/netriscal.sql.xz
-  - /home/netris/emailqueue.sql.xz
+  - /home/netris/{{ inventory_hostname }}/netriscal.sql.xz
+  - /home/netris/{{ inventory_hostname }}/emailqueue.sql.xz
   
 - name: Install databases
   mysql_db:
@@ -24,5 +26,5 @@
     target: "{{ item.src }}"
     state: "{{ item.state }}"
   with_items:
-  - { name: '{{ eq_database }}', src: '/home/netris/emailqueue.sql', state: 'import' }
-  - { name: '{{ na_database }}', src: '/home/netris/netriscal.sql', state: 'import' }
+  - { name: '{{ eq_database }}', src: '/home/netris/{{ inventory_hostname }}/emailqueue.sql', state: 'import' }
+  - { name: '{{ na_database }}', src: '/home/netris/{{ inventory_hostname }}/netriscal.sql', state: 'import' }
