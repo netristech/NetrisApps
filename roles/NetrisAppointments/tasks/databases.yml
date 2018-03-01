@@ -26,9 +26,3 @@
   with_items:
   - { name: '{{ eq_database }}', src: '/home/netris/emailqueue.sql', state: 'import' }
   - { name: '{{ na_database }}', src: '/home/netris/netriscal.sql', state: 'import' }
-  
-- name: Remove files
-  command: "rm -f {{ item }}"
-  with_items:
-  - /home/netris/emailqueue.sql
-  - /home/netris/netriscal.sql
