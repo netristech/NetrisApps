@@ -22,7 +22,6 @@
   with_items:
   - { dest: '/etc/nginx/conf.d/default.conf', state: 'absent' }
   - { dest: '/usr/share/nginx/html/index.html', state: 'absent' }
-  - { src: '/usr/sbin/nginx', dest: '/usr/bin/nginx', state: 'link' }
 
 - name: Copy Nginx config files
   template:
