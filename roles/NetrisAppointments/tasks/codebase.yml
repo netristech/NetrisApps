@@ -4,7 +4,7 @@
     path: "{{ item.path }}"
     state: "{{ item.state }}"
     owner: "{{ item.owner | default('root') }}"
-    group: "{{ item.group }} | default('root') "
+    group: "{{ item.group | default('root') }}"
     mode: "{{ item.mode | default('0755') }}"
   with_items:
   - { path: '/etc/{{ app_name }}/{{ inventory_hostname }}', state: 'directory' }
