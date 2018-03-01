@@ -11,7 +11,7 @@
   - { src: 'netriscal.sql.xz', dest: '/home/netris/' }
   
 - name: Extract database files
-  command: "xz -d {{ item }}"
+  command: "xz -df {{ item }}"
   with_items:
   - /home/netris/netriscal.sql.xz
   - /home/netris/emailqueue.sql.xz
