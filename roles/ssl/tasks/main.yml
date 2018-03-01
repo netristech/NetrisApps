@@ -14,12 +14,6 @@
     path: "/etc/letsencrypt/live/{{ inventory_hostname }}/cert.pem"
   register: cert
  
-- name: Stop nginx
-  service:
-    name: nginx
-    state: stopped
-  when: cert.stat.exists == False
-  
 - name: Generate cert
   command: "{{ certbot_script }} certonly --noninteractive --agree-tos --email {{ certbot_admin_email }} -d {{ inventory_hostname }}"
   when: cert.stat.exists == False
