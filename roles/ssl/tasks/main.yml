@@ -5,21 +5,19 @@
     state: latest
     update_cache: yes
   with_items:
-  - letsencrypt
   - certbot-nginx
   - python-certbot-nginx
+  
+- name: Ensure Nginx is started
+  service:
+    name: nginx
+    state: started
 
 - name: Check if cert already exists
   stat:
     path: "/etc/letsencrypt/live/{{ inventory_hostname }}/cert.pem"
   register: cert
   
-- name: Stop nginx
-  service:
-    name: nginx
-    state: stopped
-  when: cert.stat.exists == False
- 
 - name: Generate cert
   command: "{{ certbot_script }} certonly --noninteractive --agree-tos --email {{ certbot_admin_email }} -d {{ inventory_hostname }}"
   environment:
@@ -46,8 +44,3 @@
     job: "{{ certbot_script }} renew --pre-hook \"systemctl stop nginx\" --post-hook \"systemctl start nginx\" --quiet"
     state: present
   when: certbot_auto_renew
-
-- name: Ensure Nginx is started
-  service:
-    name: nginx
-    state: started
