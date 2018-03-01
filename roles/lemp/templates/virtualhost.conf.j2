@@ -1,6 +1,6 @@
 server {
-    listen      {{ http_port }};
-    listen      [::]:{{ http_port }} ipv6only=on;
+    #listen      {{ http_port }};
+    listen      [::]:{{ http_port }};
     server_name  {{ inventory_hostname }};
 
     root   {{ instance_root }};
