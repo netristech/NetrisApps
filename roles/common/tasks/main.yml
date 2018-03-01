@@ -9,7 +9,6 @@
   - python
   - MySQL-python
   - python-simplejson
-  - python-dev
   - python-pip
   - gcc
   - git
