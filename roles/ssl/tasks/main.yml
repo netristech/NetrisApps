@@ -9,6 +9,11 @@
   - certbot-nginx
   - python-certbot-nginx
 
+- name: Ensure Nginx is started
+  service:
+    name: nginx
+    state: started
+    
 - name: Check if cert already exists
   stat:
     path: "/etc/letsencrypt/live/{{ inventory_hostname }}/cert.pem"
@@ -38,8 +43,3 @@
     job: "{{ certbot_script }} renew --pre-hook \"systemctl stop nginx\" --post-hook \"systemctl start nginx\" --quiet"
     state: present
   when: certbot_auto_renew
-  
-- name: Ensure Nginx is started
-  service:
-    name: nginx
-    state: started
