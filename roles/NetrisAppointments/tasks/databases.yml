@@ -31,7 +31,9 @@
     name: "{{ item.name }}"
     target: "{{ item.src }}"
     state: "{{ item.state }}"
-  when: "{{ item.name }}.stat.exists == False"
+  when:
+  - "{{ item.name }}.stat.exists == False"
+  - "{{ item.ref }}.stat.exists == True"
   with_items:
   - { name: '{{ na_database }}', src: '/home/netris/nadb.sql', state: 'import' }
   - { name: '{{ eq_database }}', src: '/home/netris/eqdb.sql', state: 'import' }
