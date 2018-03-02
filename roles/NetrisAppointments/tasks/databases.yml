@@ -12,8 +12,8 @@
   register: "{{ item }}"
   failed_when: "{{ item }}.rc == 2"
   with_items:
-  - {{ na_database }}
-  - {{ eq_database }}
+  - "{{ na_database }}"
+  - "{{ eq_database }}"
   
 - name: Extract database files
   command: "xz -dkf /home/netris/{{ item }}.sql.xz"
