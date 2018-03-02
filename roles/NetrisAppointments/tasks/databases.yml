@@ -1,41 +1,29 @@
 ---
-- name: Create Directories
-  file:
-    path: "{{ item.path }}"
-    state: "{{ item.state }}"
-    owner: "{{ item.owner | default('root') }}"
-    group: "{{ item.group | default('root') }}"
-    mode: "{{ item.mode | default('0755') }}"
-  with_items:
-  - { path: '/home/netris/{{ app_name }}/{{ inventory_hostname }}', state: 'directory', owner: 'netris', group: 'netris' }
-  
-- name: Check if files already exist
+- name: Check if install files exist
   stat:
     path: "/home/netris/{{ item }}.sql.xz"
-  register: {{ item }}
+  register: "{{ item }}"
   with_items:
   - nadb
   - eqdb
-
-- name: Copy database files
-  copy:
-    src: "{{ item.src }}"
-    dest: "{{ item.dest }}"
-    owner: "{{ item.owner | default('root') }}"
-    group: "{{ item.group | default('root') }}"
-    mode: "{{ item.mode | default('0644') }}"
+  
+- name: Check if databases exist
+  command: "mysql -u root -p{{ na_root_pw }} -e 'SHOW DATABASES;' | grep {{ item }}"
+  register: "{{ item }}"
+  failed_when: "{{ item }}.rc == 2"
   with_items:
-  - { src: 'emailqueue.sql.xz', dest: '/home/netris/{{ app_name }}/{{ inventory_hostname }}' }
-  - { src: 'netriscal.sql.xz', dest: '/home/netris/{{ app_name }}/{{ inventory_hostname }}' }
-  when: db.stat.exists == False
+  - {{ na_database }}
+  - {{ eq_database }}
   
 - name: Extract database files
-  command: "xz -df {{ item }}"
-  with_items:
-  - /home/netris/{{ app_name }}/{{ inventory_hostname }}/netriscal.sql.xz
-  - /home/netris/{{ app_name }}/{{ inventory_hostname }}/emailqueue.sql.xz
-  when: db.stat.exists == False
-  
+  command: "xz -dkf /home/netris/{{ item }}.sql.xz"
+  when:
+  - "{{ item.name }}.stat.exists == False"
+  - "{{ item.ref }}.stat.exists == True"
+    with_items:
+  - { name: '{{ na_database }}', ref: 'nadb' }
+  - { name: '{{ eq_database }}', ref: 'eqdb' }
+    
 - name: Install databases
   mysql_db:
     login_user: root
@@ -43,7 +31,14 @@
     name: "{{ item.name }}"
     target: "{{ item.src }}"
     state: "{{ item.state }}"
+  when: "{{ item.name }}.stat.exists == False"
   with_items:
-  - { name: '{{ eq_database }}', src: '/home/netris/{{ app_name }}/{{ inventory_hostname }}/emailqueue.sql', state: 'import' }
-  - { name: '{{ na_database }}', src: '/home/netris/{{ app_name }}/{{ inventory_hostname }}/netriscal.sql', state: 'import' }
-  when: db.stat.exists == False
+  - { name: '{{ na_database }}', src: '/home/netris/nadb.sql', state: 'import' }
+  - { name: '{{ eq_database }}', src: '/home/netris/eqdb.sql', state: 'import' }
+  
+  - name: Cleanup leftover files
+    command: "rm -f /home/netris/{{ item }}.sql"
+    when: "{{ item }}.stat.exists == True"
+    with_items:
+    - nadb
+    - eqdb
