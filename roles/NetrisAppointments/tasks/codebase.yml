@@ -12,7 +12,7 @@
 
 - name: Check if tarballs exist
   stat:
-    path: "/home/netris/{{ app_name }}/{{ inventory_hostname }}/na_etc.tar"
+    path: "/home/netris/{{ app_name }}/{{ inventory_hostname }}/na_etc.tar.xz"
   register: codebase
   
 - name: Extract tarballs
@@ -20,9 +20,9 @@
   with_items:
   - /home/netris/{{ app_name }}/{{ inventory_hostname }}/na_etc.tar.xz
   - /home/netris/{{ app_name }}/{{ inventory_hostname }}/na_www.tar.xz
-  when: codebase.stat.exists == False
+  when: codebase.stat.exists == True
   
 - name: Untar files
   command: "tar -xvf /home/netris/{{ app_name }}/{{ inventory_hostname }}/na_etc.tar /"
   command: "tar -xvf /home/netris/{{ app_name }}/{{ inventory_hostname }}/na_www.tar /"
-  when: codebase.stat.exists == False
+  when: codebase.stat.exists == True
