@@ -40,7 +40,9 @@
   
   - name: Cleanup leftover files
     command: "rm -f /home/netris/{{ item }}.sql"
-    when: "{{ item }}.stat.exists == True"
+  when:
+  - "{{ item.name }}.stat.exists == False"
+  - "{{ item.ref }}.stat.exists == True"
     with_items:
-    - nadb
-    - eqdb
+  - { name: '{{ na_database }}', ref: 'nadb' }
+  - { name: '{{ eq_database }}', ref: 'eqdb' }
