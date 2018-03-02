@@ -1,4 +1,20 @@
 ---
+- name: Check if install files exist
+  stat:
+    path: "/home/netris/{{ item }}.tar.xz"
+  register: "{{ item }}"
+  with_items:
+  - naetc
+  - nawww
+  
+- name: Check if reference files exist
+  stat:
+    path: "{{ item.path }}/{{ item.ref }}.php"
+  register: "{{ item.ref }}"
+  with_items:
+  - { path: '/etc/{{ app_name }}/{{ inventory_hostname }}', ref: 'config' }
+  - { path: '/usr/share/{{ app_name }}/{{ inventory_hostname }}', ref: 'index' }
+  
 - name: Create Directories
   file:
     path: "{{ item.path }}"
@@ -6,34 +22,19 @@
     owner: "{{ item.owner | default('root') }}"
     group: "{{ item.group | default('root') }}"
     mode: "{{ item.mode | default('0755') }}"
+  when: "{{ item.ref }}.stat.exists == False"
   with_items:
-  - { path: '/etc/{{ app_name }}/{{ inventory_hostname }}', state: 'directory' }
-  - { path: '/usr/share/{{ app_name }}/{{ inventory_hostname }}', state: 'directory', owner: '{{ http_user }}', group: '{{ http_user }}' }
-
-- name: Check if install files exist
-  stat:
-    path: "/home/netris/{{ item }}.sql.xz"
-  register: "{{ item }}"
-  with_items:
-  - nadb
-  - eqdb
+  - { path: '/etc/{{ app_name }}/{{ inventory_hostname }}', state: 'directory', ref: 'config' }
+  - { path: '/usr/share/{{ app_name }}/{{ inventory_hostname }}', state: 'directory', owner: '{{ http_user }}', group: '{{ http_user }}', ref: 'index' }
   
-- name: Check if databases exist
-  command: "mysql -u root -p{{ na_root_pw }} -e 'SHOW DATABASES;' | grep {{ item }}"
-  register: "{{ item }}"
-  failed_when: "{{ item }}.rc == 2"
-  with_items:
-  - {{ na_database }}
-  - {{ eq_database }}
-  
-- name: Extract database files
-  command: "xz -dkf /home/netris/{{ item }}.sql.xz"
+- name: Extract installation files
+  command: "xz -dkf /home/netris/{{ item.name }}.tar.xz"
   when:
-  - "{{ item.name }}.stat.exists == False"
-  - "{{ item.ref }}.stat.exists == True"
+  - "{{ item.name }}.stat.exists == True"
+  - "{{ item.ref }}.stat.exists == False"
     with_items:
-  - { name: '{{ na_database }}', ref: 'nadb' }
-  - { name: '{{ eq_database }}', ref: 'eqdb' }
+  - { name: 'naetc', ref: 'nadb' }
+  - { name: 'nawww', ref: 'eqdb' }
     
 - name: Install databases
   mysql_db:
