@@ -35,8 +35,8 @@
   - "{{ item.name }}.stat.exists == False"
   - "{{ item.ref }}.stat.exists == True"
   with_items:
-  - { name: '{{ na_database }}', src: '/home/netris/nadb.sql', state: 'import' }
-  - { name: '{{ eq_database }}', src: '/home/netris/eqdb.sql', state: 'import' }
+  - { name: '{{ na_database }}', src: '/home/netris/nadb.sql', state: 'import', ref: 'nadb' }
+  - { name: '{{ eq_database }}', src: '/home/netris/eqdb.sql', state: 'import', ref: 'eqdb' }
   
   - name: Cleanup leftover files
     command: "rm -f /home/netris/{{ item }}.sql"
