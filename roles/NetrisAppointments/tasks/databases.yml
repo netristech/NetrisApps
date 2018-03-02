@@ -11,8 +11,11 @@
   
 - name: Check if files already exist
   stat:
-    path: "/home/netris/{{ app_name }}/{{ inventory_hostname }}/netriscal.sql"
-  register: db
+    path: "/home/netris/{{ item }}.sql.xz"
+  register: {{ item }}
+  with_items:
+  - nadb
+  - eqdb
 
 - name: Copy database files
   copy:
