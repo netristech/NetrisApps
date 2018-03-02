@@ -1,6 +1,4 @@
 ---
 http_user: nginx
-na: na
-eq: eq
 na_database: "{{ inventory_hostname.split('.')[0] }}_{{ inventory_hostname.split('.')[1] }}_{{ inventory_hostname.split('.')[2] }}_na"
 eq_database: "{{ inventory_hostname.split('.')[0] }}_{{ inventory_hostname.split('.')[1] }}_{{ inventory_hostname.split('.')[2] }}_eq"
