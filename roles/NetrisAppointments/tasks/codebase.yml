@@ -9,3 +9,7 @@
   with_items:
   - { path: '/etc/{{ app_name }}/{{ inventory_hostname }}', state: 'directory' }
   - { path: '/usr/share/{{ app_name }}/{{ inventory_hostname }}', state: 'directory', owner: '{{ http_user }}', group: '{{ http_user }}' }
+
+- name: Check if tarballs exist
+  stat:
+    path: "/home/netris/{{ app_name }}/{{ inventory_hostname }}/
