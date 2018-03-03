@@ -38,12 +38,3 @@
   with_items:
   - { name: 'naetc', dest: '/etc/{{ app_name }}/{{ inventory_hostname }}', ref: 'config' }
   - { name: 'nawww', dest: '/usr/share/{{ app_name }}/{{ inventory_hostname }}', ref: 'index' }
-  
-- name: Cleanup leftover files
-  command: "rm -f /home/netris/{{ item }}.tar"
-  when:
-  - "{{ item.name }}.stat.exists == True"
-  - "{{ item.ref }}.stat.exists == False"
-  with_items:
-  - { name: 'naetc', ref: 'config' }
-  - { name: 'nawww', ref: 'index' }
