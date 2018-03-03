@@ -14,13 +14,14 @@
     state: directory
     mode: 0755
     
-- name: remove default files and create symlinks
+- name: remove default files
   file:
     src: "{{ item.src | default('omit') }}"
     dest: "{{ item.dest }}"
     state: "{{ item.state }}"
   with_items:
   - { dest: '/etc/nginx/conf.d/default.conf', state: 'absent' }
+  - { dest: '/etc/nginx/conf.d/redirect.conf', state: 'absent' }
   - { dest: '/usr/share/nginx/html/index.html', state: 'absent' }
 
 - name: Copy Nginx config files
