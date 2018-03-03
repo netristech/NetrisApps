@@ -39,7 +39,7 @@
   - { name: '{{ eq_database }}', src: '/home/netris/eqdb.sql', state: 'import', ref: 'eqdb' }
   
   - name: Cleanup leftover files
-    command: "rm -f /home/netris/{{ item }}.sql"
+    command: "rm -f /home/netris/{{ item.ref }}.sql"
   when:
   - "{{ item.name }}.stat.exists == False"
   - "{{ item.ref }}.stat.exists == True"
