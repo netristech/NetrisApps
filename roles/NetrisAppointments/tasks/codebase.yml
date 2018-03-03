@@ -2,18 +2,18 @@
 - name: Check if install files exist
   stat:
     path: "/home/netris/{{ item }}.tar.xz"
-  register: "{{ item }}"
+  register: instfile
   with_items:
   - naetc
   - nawww
   
 - name: Check if reference files exist
   stat:
-    path: "{{ item.path }}/{{ item.ref }}.php"
-  register: "{{ item.ref }}"
+    path: "{{ item }}"
+  register: reffile
   with_items:
-  - { path: '/etc/{{ app_name }}/{{ inventory_hostname }}', ref: 'config' }
-  - { path: '/usr/share/{{ app_name }}/{{ inventory_hostname }}', ref: 'index' }
+  - "/etc/{{ app_name }}/{{ inventory_hostname }}/config.php"
+  - "/usr/share/{{ app_name }}/{{ inventory_hostname }}/index.php"
   
 - name: Create Directories
   file:
@@ -22,10 +22,10 @@
     owner: "{{ item.owner | default('root') }}"
     group: "{{ item.group | default('root') }}"
     mode: "{{ item.mode | default('0755') }}"
-  when: item.ref.stat.exists == False
+  when: reffile.stat.exists == False
   with_items:
-  - { path: '/etc/{{ app_name }}/{{ inventory_hostname }}', state: 'directory', ref: 'config' }
-  - { path: '/usr/share/{{ app_name }}/{{ inventory_hostname }}', state: 'directory', owner: '{{ http_user }}', group: '{{ http_user }}', ref: 'index' }
+  - { path: '/etc/{{ app_name }}/{{ inventory_hostname }}', state: 'directory' }
+  - { path: '/usr/share/{{ app_name }}/{{ inventory_hostname }}', state: 'directory', owner: '{{ http_user }}', group: '{{ http_user }}' }
   
 - name: Install {{ app_name }}
   unarchive:
@@ -33,8 +33,8 @@
     dest: "{{ item.dest }}"
     remote_src: yes
   when:
-  - item.name.stat.exists == True
-  - item.ref.stat.exists == False
+  - instfile.stat.exists == True
+  - reffile.stat.exists == False
   with_items:
-  - { name: 'naetc', dest: '/etc/{{ app_name }}/{{ inventory_hostname }}', ref: 'config' }
-  - { name: 'nawww', dest: '/usr/share/{{ app_name }}/{{ inventory_hostname }}', ref: 'index' }
+  - { name: 'naetc', dest: '/etc/{{ app_name }}/{{ inventory_hostname }}' }
+  - { name: 'nawww', dest: '/usr/share/{{ app_name }}/{{ inventory_hostname }}' }
