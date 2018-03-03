@@ -1,27 +1,27 @@
 ---
-- name: Check if install file exists
+- name: Check if install files exist
   stat:
-    path: "/home/netris/{{ item }}.sql.xz"
-  with_items: 
-  - nadb
-  - eqdb
-  register: instfile
+    path: "/home/netris/nadb.sql.xz"
+  register: instfile1
+  stat:
+    path: "/home/netris/eqdb.sql.xz"
+  register: instfile2
   
-- name: Check if database exists
-  command: "mysql -u root -p{{ na_root_pw }} -e 'SHOW DATABASES;' | grep {{ item }}"
-  with_items:
-  - "{{ na_database }}"
-  - "{{ eq_database }}"
-  register: database
+- name: Check if databases exist
+  command: "mysql -u root -p{{ na_root_pw }} -e 'SHOW DATABASES;' | grep {{ na_database }}"
+  register: database1
+  failed_when: database.rc == 2
+  command: "mysql -u root -p{{ na_root_pw }} -e 'SHOW DATABASES;' | grep {{ eq_database }}"
+  register: database2
   failed_when: database.rc == 2
   
 - name: Extract database files
   command: "xz -dkf /home/netris/{{ item }}.sql.xz"
   when:
-  - instfile.results[0].stdout.stat.exists == True
-  - instfile.results[1].stdout.stat.exists == True
-  - database.results[0].rc == 1
-  - database.results[1].rc == 1
+  - instfile1.stat.exists == True
+  - instfile2.stat.exists == True
+  - database1.rc == 1
+  - database2.rc == 1
   with_items:
   - nadb
   - eqdb
@@ -34,10 +34,10 @@
     target: "{{ item.src }}"
     state: "{{ item.state }}"
   when:
-  - instfile.results[0].stdout.stat.exists == True
-  - instfile.results[1].stdout.stat.exists == True
-  - database.results[0].rc == 1
-  - database.results[1].rc == 1
+  - instfile1.stat.exists == True
+  - instfile2.stat.exists == True
+  - database1.rc == 1
+  - database2.rc == 1
   with_items:
   - { name: '{{ na_database }}', src: '/home/netris/nadb.sql', state: 'import' }
   - { name: '{{ eq_database }}', src: '/home/netris/eqdb.sql', state: 'import' }
@@ -45,10 +45,10 @@
 - name: Cleanup leftover files
   command: "rm -f /home/netris/{{ item }}.sql"
   when:
-  - instfile.results[0].stdout.stat.exists == True
-  - instfile.results[1].stdout.stat.exists == True
-  - database.results[0].rc == 1
-  - database.results[1].rc == 1
+  - instfile1.stat.exists == True
+  - instfile2.stat.exists == True
+  - database1.rc == 1
+  - database2.rc == 1
   with_items:
   - nadb
   - eqdb
