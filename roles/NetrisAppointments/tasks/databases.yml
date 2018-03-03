@@ -1,16 +1,20 @@
 ---
-- name: Check if install files exist
+- name: Check if install file exists
   stat:
     path: "/home/netris/nadb.sql.xz"
   register: instfile1
+
+- name: Check if install file exists
   stat:
     path: "/home/netris/eqdb.sql.xz"
   register: instfile2
   
-- name: Check if databases exist
+- name: Check if database exists
   command: "mysql -u root -p{{ na_root_pw }} -e 'SHOW DATABASES;' | grep {{ na_database }}"
   register: database1
   failed_when: database.rc == 2
+
+- name: Check if database exists
   command: "mysql -u root -p{{ na_root_pw }} -e 'SHOW DATABASES;' | grep {{ eq_database }}"
   register: database2
   failed_when: database.rc == 2
