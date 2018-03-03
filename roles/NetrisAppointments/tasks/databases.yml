@@ -2,15 +2,15 @@
 - name: Check if install files exist
   stat:
     path: "/home/netris/{{ item }}.sql.xz"
-  register: "{{ item }}"
+  register: instfile
   with_items:
   - nadb
   - eqdb
   
 - name: Check if databases exist
   command: "mysql -u root -p{{ na_root_pw }} -e 'SHOW DATABASES;' | grep {{ item }}"
-  register: "{{ item }}"
-  failed_when: "{{ item }}.rc == 2"
+  register: database
+  failed_when: database.rc == 2
   with_items:
   - "{{ na_database }}"
   - "{{ eq_database }}"
@@ -18,11 +18,11 @@
 - name: Extract database files
   command: "xz -dkf /home/netris/{{ item }}.sql.xz"
   when:
-  - item.name.stat.exists == False
-  - item.ref.stat.exists == True
+  - database.rc == 1
+  - instfile.stat.exists == True
   with_items:
-  - { name: '{{ na_database }}', ref: 'nadb' }
-  - { name: '{{ eq_database }}', ref: 'eqdb' }
+  - "{{ na_database }}"
+  - "{{ eq_database }}"
     
 - name: Install databases
   mysql_db:
@@ -32,17 +32,17 @@
     target: "{{ item.src }}"
     state: "{{ item.state }}"
   when:
-  - item.name.stat.exists == False
-  - item.ref.stat.exists == True
+  - database.rc == 1
+  - instfile.stat.exists == True
   with_items:
-  - { name: '{{ na_database }}', src: '/home/netris/nadb.sql', state: 'import', ref: 'nadb' }
-  - { name: '{{ eq_database }}', src: '/home/netris/eqdb.sql', state: 'import', ref: 'eqdb' }
+  - { name: '{{ na_database }}', src: '/home/netris/nadb.sql', state: 'import' }
+  - { name: '{{ eq_database }}', src: '/home/netris/eqdb.sql', state: 'import' }
   
 - name: Cleanup leftover files
-  command: "rm -f /home/netris/{{ item.ref }}.sql"
+  command: "rm -f /home/netris/{{ item }}.sql"
   when:
-  - item.name.stat.exists == False
-  - item.ref.stat.exists == True
+  - database.rc == 1
+  - instfile.stat.exists == True
   with_items:
-  - { name: '{{ na_database }}', ref: 'nadb' }
-  - { name: '{{ eq_database }}', ref: 'eqdb' }
+  - nadb
+  - eqdb
