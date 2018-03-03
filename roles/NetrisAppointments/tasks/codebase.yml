@@ -27,34 +27,23 @@
   - { path: '/etc/{{ app_name }}/{{ inventory_hostname }}', state: 'directory', ref: 'config' }
   - { path: '/usr/share/{{ app_name }}/{{ inventory_hostname }}', state: 'directory', owner: '{{ http_user }}', group: '{{ http_user }}', ref: 'index' }
   
-- name: Extract installation files
-  command: "xz -dkf /home/netris/{{ item.name }}.tar.xz"
+- name: Install {{ app_name }}
+  unarchive:
+    src: "/home/netris/{{ item.name }}.tar.xz"
+    dest: "{{ item.dest }}"
+    remote_src: yes
   when:
   - "{{ item.name }}.stat.exists == True"
   - "{{ item.ref }}.stat.exists == False"
-    with_items:
-  - { name: 'naetc', ref: 'nadb' }
-  - { name: 'nawww', ref: 'eqdb' }
-    
-- name: Install databases
-  mysql_db:
-    login_user: root
-    login_password: "{{ na_root_pw }}"
-    name: "{{ item.name }}"
-    target: "{{ item.src }}"
-    state: "{{ item.state }}"
-  when:
-  - "{{ item.name }}.stat.exists == False"
-  - "{{ item.ref }}.stat.exists == True"
   with_items:
-  - { name: '{{ na_database }}', src: '/home/netris/nadb.sql', state: 'import', ref: 'nadb' }
-  - { name: '{{ eq_database }}', src: '/home/netris/eqdb.sql', state: 'import', ref: 'eqdb' }
+  - { name: 'naetc', dest: '/etc/{{ app_name }}/{{ inventory_hostname }}', ref: 'config' }
+  - { name: 'nawww', dest: '/usr/share/{{ app_name }}/{{ inventory_hostname }}', ref: 'index' }
   
-  - name: Cleanup leftover files
-    command: "rm -f /home/netris/{{ item }}.sql"
+- name: Cleanup leftover files
+  command: "rm -f /home/netris/{{ item }}.tar"
   when:
-  - "{{ item.name }}.stat.exists == False"
-  - "{{ item.ref }}.stat.exists == True"
-    with_items:
-  - { name: '{{ na_database }}', ref: 'nadb' }
-  - { name: '{{ eq_database }}', ref: 'eqdb' }
+  - "{{ item.name }}.stat.exists == True"
+  - "{{ item.ref }}.stat.exists == False"
+  with_items:
+  - { name: 'naetc', ref: 'config' }
+  - { name: 'nawww', ref: 'index' }
