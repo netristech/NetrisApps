@@ -2,18 +2,18 @@
 - name: Check if install files exist
   stat:
     path: "/home/netris/{{ item }}.sql.xz"
-  register: instfile
   with_items:
   - nadb
   - eqdb
+  register: instfile
   
 - name: Check if databases exist
   command: "mysql -u root -p{{ na_root_pw }} -e 'SHOW DATABASES;' | grep {{ item }}"
-  register: database
-  failed_when: database.rc == 2
   with_items:
   - "{{ na_database }}"
   - "{{ eq_database }}"
+  register: database
+  failed_when: database.rc == 2
   
 - name: Extract database files
   command: "xz -dkf /home/netris/{{ item }}.sql.xz"
@@ -21,8 +21,8 @@
   - database.rc == 1
   - instfile.stat.exists == True
   with_items:
-  - "{{ na_database }}"
-  - "{{ eq_database }}"
+  - nadb
+  - eqdb
     
 - name: Install databases
   mysql_db:
