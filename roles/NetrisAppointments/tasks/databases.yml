@@ -12,12 +12,12 @@
 - name: Check if database exists
   command: "mysql -u root -p{{ na_root_pw }} -e 'SHOW DATABASES;' | grep {{ na_database }}"
   register: database1
-  failed_when: database.rc == 2
+  failed_when: database1.rc == 2
 
 - name: Check if database exists
   command: "mysql -u root -p{{ na_root_pw }} -e 'SHOW DATABASES;' | grep {{ eq_database }}"
   register: database2
-  failed_when: database.rc == 2
+  failed_when: database2.rc == 2
   
 - name: Extract database files
   command: "xz -dkf /home/netris/{{ item }}.sql.xz"
