@@ -30,6 +30,14 @@
   - { path: '/etc/{{ app_name }}/{{ inventory_hostname }}', state: 'directory' }
   - { path: '/usr/share/{{ app_name }}/{{ inventory_hostname }}', state: 'directory', owner: '{{ http_user }}', group: '{{ http_user }}' }
   
+- name: Remove framework index.html
+  file:
+    src: "{{ item.src | default('omit') }}"
+    dest: "{{ item.dest }}"
+    state: "{{ item.state }}"
+  with_items:
+  - { dest: '/usr/share/{{ app_name }}/{{ inventory_hostname }}/index.html', state: 'absent' }
+  
 - name: Install {{ app_name }}
   unarchive:
     src: "/home/netris/{{ item.name }}.tar.xz"
