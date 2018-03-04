@@ -1,19 +1,23 @@
 ---
-- name: Check if install files exist
+- name: Check if install file exists
   stat:
-    path: "/home/netris/{{ item }}.tar.xz"
-  register: instfile
-  with_items:
-  - naetc
-  - nawww
+    path: "/home/netris/naetc.tar.xz"
+  register: instfile1
   
-- name: Check if reference files exist
+- name: Check if install file exists
   stat:
-    path: "{{ item }}"
-  register: reffile
-  with_items:
-  - "/etc/{{ app_name }}/{{ inventory_hostname }}/config.php"
-  - "/usr/share/{{ app_name }}/{{ inventory_hostname }}/index.php"
+    path: "/home/netris/nawww.tar.xz"
+  register: instfile2
+  
+- name: Check if reference file exists
+  stat:
+    path: "/etc/{{ app_name }}/{{ inventory_hostname }}/config.php"
+  register: reffile1
+
+- name: Check if reference file exists
+  stat:
+    path: "/usr/share/{{ app_name }}/{{ inventory_hostname }}/index.php"
+  register: reffile2
   
 - name: Create Directories
   file:
@@ -22,7 +26,6 @@
     owner: "{{ item.owner | default('root') }}"
     group: "{{ item.group | default('root') }}"
     mode: "{{ item.mode | default('0755') }}"
-  when: reffile.stat.exists == False
   with_items:
   - { path: '/etc/{{ app_name }}/{{ inventory_hostname }}', state: 'directory' }
   - { path: '/usr/share/{{ app_name }}/{{ inventory_hostname }}', state: 'directory', owner: '{{ http_user }}', group: '{{ http_user }}' }
@@ -32,9 +35,11 @@
     src: "/home/netris/{{ item.name }}.tar.xz"
     dest: "{{ item.dest }}"
     remote_src: yes
-  when:
-  - instfile.stat.exists == True
-  - reffile.stat.exists == False
   with_items:
   - { name: 'naetc', dest: '/etc/{{ app_name }}/{{ inventory_hostname }}' }
   - { name: 'nawww', dest: '/usr/share/{{ app_name }}/{{ inventory_hostname }}' }
+  when:
+  - instfile1.stat.exists == True
+  - instfile2.stat.exists == True
+  - reffile1.stat.exists == False
+  - reffile2.stat.exists == False
