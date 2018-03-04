@@ -51,3 +51,5 @@
   - instfile2.stat.exists == True
   - reffile1.stat.exists == False
   - reffile2.stat.exists == False
+  notify:
+  - Restart Nginx
