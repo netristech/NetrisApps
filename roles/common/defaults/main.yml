@@ -1,6 +1,6 @@
 ---
 ssh_port: 22
-pass_auth: no
-root_login: no
+pass_auth: 'no'
+root_login: 'no'
 anon_ftp: NO
 write_enable: YES
