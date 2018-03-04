@@ -54,8 +54,3 @@
   with_items:
   - { dest: '/home/netris/nadb.sql', state: 'absent' }
   - { dest: '/home/netris/eqdb.sql', state: 'absent' }
-  when:
-  - instfile1.stat.exists == True
-  - instfile2.stat.exists == True
-  - database1.rc == 1
-  - database2.rc == 1
