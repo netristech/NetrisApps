@@ -3,3 +3,5 @@ http_user: nginx
 http_proto: https
 na_database: "{{ inventory_hostname.split('.')[0] }}_{{ inventory_hostname.split('.')[1] }}_{{ inventory_hostname.split('.')[2] }}_na"
 eq_database: "{{ inventory_hostname.split('.')[0] }}_{{ inventory_hostname.split('.')[1] }}_{{ inventory_hostname.split('.')[2] }}_eq"
+etc_dir: /etc/{{ app_name }}/{{ inventory_hostname }}
+www_dir: /usr/share/{{ app_name }}/{{ inventory_hostname }}
