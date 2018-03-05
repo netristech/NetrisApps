@@ -1,3 +1,4 @@
 ---
-- import_tasks: databases.yml
 - import_tasks: codebase.yml
+- import_tasks: databases.yml
+- import_tasks: instance.yml
