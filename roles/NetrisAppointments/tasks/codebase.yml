@@ -19,25 +19,6 @@
     path: "/usr/share/{{ app_name }}/src/index.php"
   register: reffile2
   
-- name: Create Directories
-  file:
-    path: "{{ item.path }}"
-    state: "{{ item.state }}"
-    owner: "{{ item.owner | default('root') }}"
-    group: "{{ item.group | default('root') }}"
-    mode: "{{ item.mode | default('0755') }}"
-  with_items:
-  - { path: '/etc/{{ app_name }}/{{ inventory_hostname }}', state: 'directory' }
-  - { path: '/usr/share/{{ app_name }}/{{ inventory_hostname }}', state: 'directory', owner: '{{ http_user }}', group: '{{ http_user }}' }
-  
-- name: Remove framework index.html
-  file:
-    src: "{{ item.src | default('omit') }}"
-    dest: "{{ item.dest }}"
-    state: "{{ item.state }}"
-  with_items:
-  - { dest: '/usr/share/{{ app_name }}/{{ inventory_hostname }}/index.html', state: 'absent' }
-  
 - name: Install {{ app_name }} codebase
   unarchive:
     src: "/home/netris/{{ item.name }}.tar.xz"
