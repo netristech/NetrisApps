@@ -17,8 +17,18 @@
     state: "{{ item.state }}"
   with_items:
   - { dest: '/usr/share/{{ app_name }}/{{ inventory_hostname }}/index.html', state: 'absent' }
-  
-- name: Create symlinks to codebase
+
+- name: Copy config files
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ item.owner | default('{{ http_user }}') }}"
+    group: "{{ item.group | default('{{ http_user }}') }}"
+    mode: "{{ item.mode | default('0644') }}"
+  with_items:
+    - { src: 'na_config.php.j2', dest: '/etc/{{ app_name }}/{{ inventory_hostname }}/na_config.php' }
+
+- name: Create symlinks
   file:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
@@ -34,3 +44,4 @@
   - { src: '/usr/share/{{ app_name }}/src/index.php', dest: '/usr/share/{{ app_name }}/{{ inventory_hostname }}/index.php', state: 'link' }
   - { src: '/usr/share/{{ app_name }}/src/autoload.php', dest: '/usr/share/{{ app_name }}/{{ inventory_hostname }}/autoload.php', state: 'link' }
   - { src: '/usr/share/{{ app_name }}/src/functions.php', dest: '/usr/share/{{ app_name }}/{{ inventory_hostname }}/functions.php', state: 'link' }
+  - { src: '/etc/{{ app_name }}/{{ inventory_hostname }}/na_config.php', dest: '/usr/share/{{ app_name }}/{{ inventory_hostname }}/config.php', state: 'link' }
