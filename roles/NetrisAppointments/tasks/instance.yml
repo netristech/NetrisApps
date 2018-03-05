@@ -22,11 +22,11 @@
   template:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
-    owner: "{{ item.owner | default('{{ http_user }}') }}"
-    group: "{{ item.group | default('{{ http_user }}') }}"
+    owner: "{{ item.owner | default('root') }}"
+    group: "{{ item.group | default('root') }}"
     mode: "{{ item.mode | default('0644') }}"
   with_items:
-    - { src: 'na_config.php.j2', dest: '/etc/{{ app_name }}/{{ inventory_hostname }}/na_config.php' }
+  - { src: 'na_config.php.j2', dest: '/etc/{{ app_name }}/{{ inventory_hostname }}/na_config.php', owner: '{{ http_user }}', group: '{{ http_user }}' }
 
 - name: Create symlinks
   file:
