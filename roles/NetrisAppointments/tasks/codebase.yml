@@ -51,5 +51,13 @@
   - instfile2.stat.exists == True
   - reffile1.stat.exists == False
   - reffile2.stat.exists == False
+  
+- name: Create symlinks to codebase
+  file:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: "{{ item.state }}"
+  with_items:
+  - { src: '/usr/share/{{ app_name }}/codebase', dest: '/usr/share/{{ app_name }}/{{ inventory_hostname }}/src', state: 'link' }
   notify:
   - Restart Nginx
