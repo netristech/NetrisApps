@@ -44,8 +44,8 @@
     dest: "{{ item.dest }}"
     remote_src: yes
   with_items:
-  - { name: 'naetc', dest: '/etc/{{ app_name }}' }
-  - { name: 'nawww', dest: '/usr/share/{{ app_name }}' }
+  - { name: 'naetc', dest: '/etc/{{ app_name }}/src' }
+  - { name: 'nawww', dest: '/usr/share/{{ app_name }}/src' }
   when:
   - instfile1.stat.exists == True
   - instfile2.stat.exists == True
@@ -58,6 +58,6 @@
     dest: "{{ item.dest }}"
     state: "{{ item.state }}"
   with_items:
-  - { src: '/usr/share/{{ app_name }}/codebase', dest: '/usr/share/{{ app_name }}/{{ inventory_hostname }}/src', state: 'link' }
+  - { src: '/usr/share/{{ app_name }}/src', dest: '/usr/share/{{ app_name }}/{{ inventory_hostname }}/src', state: 'link' }
   notify:
   - Restart Nginx
