@@ -51,6 +51,8 @@
   - instfile2.stat.exists == True
   - reffile1.stat.exists == False
   - reffile2.stat.exists == False
+  notify:
+  - Restart Nginx
   
 - name: Create symlinks to codebase
   file:
@@ -65,5 +67,3 @@
   - { src: '/usr/share/{{ app_name }}/src/storage', dest: '/usr/share/{{ app_name }}/{{ inventory_hostname }}/storage', state: 'link' }
   - { src: '/usr/share/{{ app_name }}/src/system', dest: '/usr/share/{{ app_name }}/{{ inventory_hostname }}/system', state: 'link' }
   - { src: '/usr/share/{{ app_name }}/src/vendor', dest: '/usr/share/{{ app_name }}/{{ inventory_hostname }}/vendor', state: 'link' }
-  notify:
-  - Restart Nginx
