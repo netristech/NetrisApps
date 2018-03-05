@@ -11,12 +11,12 @@
   
 - name: Check if reference file exists
   stat:
-    path: "/etc/{{ app_name }}/{{ inventory_hostname }}/config.php"
+    path: "/etc/{{ app_name }}/src/config.php"
   register: reffile1
 
 - name: Check if reference file exists
   stat:
-    path: "/usr/share/{{ app_name }}/{{ inventory_hostname }}/index.php"
+    path: "/usr/share/{{ app_name }}/src/index.php"
   register: reffile2
   
 - name: Create Directories
