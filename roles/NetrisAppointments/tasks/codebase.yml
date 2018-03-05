@@ -59,5 +59,6 @@
     state: "{{ item.state }}"
   with_items:
   - { src: '/usr/share/{{ app_name }}/src', dest: '/usr/share/{{ app_name }}/{{ inventory_hostname }}/src', state: 'link' }
+  - { src: '/etc/{{ app_name }}/src', dest: '/etc/{{ app_name }}/{{ inventory_hostname }}/src', state: 'link' }
   notify:
   - Restart Nginx
