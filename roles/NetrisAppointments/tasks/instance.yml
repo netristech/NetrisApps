@@ -7,8 +7,8 @@
     group: "{{ item.group | default('root') }}"
     mode: "{{ item.mode | default('0755') }}"
   with_items:
-  - { path: '/etc/{{ app_name }}/{{ inventory_hostname }}', state: 'directory' }
-  - { path: '/usr/share/{{ app_name }}/{{ inventory_hostname }}', state: 'directory', owner: '{{ http_user }}', group: '{{ http_user }}' }
+  - { path: '{{ etc_dir }}', state: 'directory' }
+  - { path: '{{ www_dir }}', state: 'directory', owner: '{{ http_user }}', group: '{{ http_user }}' }
   
 - name: Remove framework index.html
   file:
@@ -16,7 +16,7 @@
     dest: "{{ item.dest }}"
     state: "{{ item.state }}"
   with_items:
-  - { dest: '/usr/share/{{ app_name }}/{{ inventory_hostname }}/index.html', state: 'absent' }
+  - { dest: '{{ www_dir }}/index.html', state: 'absent' }
 
 - name: Copy config files
   template:
@@ -26,8 +26,8 @@
     group: "{{ item.group | default('root') }}"
     mode: "{{ item.mode | default('0644') }}"
   with_items:
-  - { src: 'na_config.php.j2', dest: '/etc/{{ app_name }}/{{ inventory_hostname }}/na_config.php', owner: '{{ http_user }}', group: '{{ http_user }}' }
-  - { src: 'index.php.j2', dest: '/usr/share/{{ app_name }}/{{ inventory_hostname }}/index.php', owner: '{{ http_user }}', group: '{{ http_user }}' }
+  - { src: 'na_config.php.j2', dest: '{{ etc_dir }}/na_config.php', owner: '{{ http_user }}', group: '{{ http_user }}' }
+  - { src: 'index.php.j2', dest: '{{ www_dir }}/index.php', owner: '{{ http_user }}', group: '{{ http_user }}' }
 
 - name: Create symlinks
   file:
@@ -35,13 +35,13 @@
     dest: "{{ item.dest }}"
     state: "{{ item.state }}"
   with_items:
-  - { src: '/usr/share/{{ app_name }}/src/application', dest: '/usr/share/{{ app_name }}/{{ inventory_hostname }}/application', state: 'link' }
-  - { src: '/usr/share/{{ app_name }}/src/assets', dest: '/usr/share/{{ app_name }}/{{ inventory_hostname }}/assets', state: 'link' }
-  - { src: '/usr/share/{{ app_name }}/src/engine', dest: '/usr/share/{{ app_name }}/{{ inventory_hostname }}/engine', state: 'link' }
-  - { src: '/usr/share/{{ app_name }}/src/frontend', dest: '/usr/share/{{ app_name }}/{{ inventory_hostname }}/frontend', state: 'link' }
-  - { src: '/usr/share/{{ app_name }}/src/storage', dest: '/usr/share/{{ app_name }}/{{ inventory_hostname }}/storage', state: 'link' }
-  - { src: '/usr/share/{{ app_name }}/src/system', dest: '/usr/share/{{ app_name }}/{{ inventory_hostname }}/system', state: 'link' }
-  - { src: '/usr/share/{{ app_name }}/src/vendor', dest: '/usr/share/{{ app_name }}/{{ inventory_hostname }}/vendor', state: 'link' }
-  - { src: '/usr/share/{{ app_name }}/src/index.php', dest: '/usr/share/{{ app_name }}/{{ inventory_hostname }}/index.php', state: 'link' }
-  - { src: '/usr/share/{{ app_name }}/src/autoload.php', dest: '/usr/share/{{ app_name }}/{{ inventory_hostname }}/autoload.php', state: 'link' }
-  - { src: '/usr/share/{{ app_name }}/src/functions.php', dest: '/usr/share/{{ app_name }}/{{ inventory_hostname }}/functions.php', state: 'link' }
+  - { src: '/usr/share/{{ app_name }}/src/application', dest: '{{ www_dir }}/application', state: 'link' }
+  - { src: '/usr/share/{{ app_name }}/src/assets', dest: '{{ www_dir }}/assets', state: 'link' }
+  - { src: '/usr/share/{{ app_name }}/src/engine', dest: '{{ www_dir }}/engine', state: 'link' }
+  - { src: '/usr/share/{{ app_name }}/src/frontend', dest: '{{ www_dir }}/frontend', state: 'link' }
+  - { src: '/usr/share/{{ app_name }}/src/storage', dest: '{{ www_dir }}/storage', state: 'link' }
+  - { src: '/usr/share/{{ app_name }}/src/system', dest: '{{ www_dir }}/system', state: 'link' }
+  - { src: '/usr/share/{{ app_name }}/src/vendor', dest: '{{ www_dir }}/vendor', state: 'link' }
+  - { src: '/usr/share/{{ app_name }}/src/index.php', dest: '{{ www_dir }}/index.php', state: 'link' }
+  - { src: '/usr/share/{{ app_name }}/src/autoload.php', dest: '{{ www_dir }}/autoload.php', state: 'link' }
+  - { src: '/usr/share/{{ app_name }}/src/functions.php', dest: '{{ www_dir }}/functions.php', state: 'link' }
