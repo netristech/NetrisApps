@@ -1,0 +1,13 @@
+- name: Create symlinks to codebase
+  file:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: "{{ item.state }}"
+  with_items:
+  - { src: '/usr/share/{{ app_name }}/src/application', dest: '/usr/share/{{ app_name }}/{{ inventory_hostname }}/application', state: 'link' }
+  - { src: '/usr/share/{{ app_name }}/src/assets', dest: '/usr/share/{{ app_name }}/{{ inventory_hostname }}/assets', state: 'link' }
+  - { src: '/usr/share/{{ app_name }}/src/engine', dest: '/usr/share/{{ app_name }}/{{ inventory_hostname }}/engine', state: 'link' }
+  - { src: '/usr/share/{{ app_name }}/src/frontend', dest: '/usr/share/{{ app_name }}/{{ inventory_hostname }}/frontend', state: 'link' }
+  - { src: '/usr/share/{{ app_name }}/src/storage', dest: '/usr/share/{{ app_name }}/{{ inventory_hostname }}/storage', state: 'link' }
+  - { src: '/usr/share/{{ app_name }}/src/system', dest: '/usr/share/{{ app_name }}/{{ inventory_hostname }}/system', state: 'link' }
+  - { src: '/usr/share/{{ app_name }}/src/vendor', dest: '/usr/share/{{ app_name }}/{{ inventory_hostname }}/vendor', state: 'link' }
