@@ -1,3 +1,4 @@
+---
 - name: Create Directories
   file:
     path: "{{ item.path }}"
