@@ -1,3 +1,22 @@
+- name: Create Directories
+  file:
+    path: "{{ item.path }}"
+    state: "{{ item.state }}"
+    owner: "{{ item.owner | default('root') }}"
+    group: "{{ item.group | default('root') }}"
+    mode: "{{ item.mode | default('0755') }}"
+  with_items:
+  - { path: '/etc/{{ app_name }}/{{ inventory_hostname }}', state: 'directory' }
+  - { path: '/usr/share/{{ app_name }}/{{ inventory_hostname }}', state: 'directory', owner: '{{ http_user }}', group: '{{ http_user }}' }
+  
+- name: Remove framework index.html
+  file:
+    src: "{{ item.src | default('omit') }}"
+    dest: "{{ item.dest }}"
+    state: "{{ item.state }}"
+  with_items:
+  - { dest: '/usr/share/{{ app_name }}/{{ inventory_hostname }}/index.html', state: 'absent' }
+  
 - name: Create symlinks to codebase
   file:
     src: "{{ item.src }}"
@@ -11,3 +30,6 @@
   - { src: '/usr/share/{{ app_name }}/src/storage', dest: '/usr/share/{{ app_name }}/{{ inventory_hostname }}/storage', state: 'link' }
   - { src: '/usr/share/{{ app_name }}/src/system', dest: '/usr/share/{{ app_name }}/{{ inventory_hostname }}/system', state: 'link' }
   - { src: '/usr/share/{{ app_name }}/src/vendor', dest: '/usr/share/{{ app_name }}/{{ inventory_hostname }}/vendor', state: 'link' }
+  - { src: '/usr/share/{{ app_name }}/src/index.php', dest: '/usr/share/{{ app_name }}/{{ inventory_hostname }}/index.php', state: 'link' }
+  - { src: '/usr/share/{{ app_name }}/src/autoload.php', dest: '/usr/share/{{ app_name }}/{{ inventory_hostname }}/autoload.php', state: 'link' }
+  - { src: '/usr/share/{{ app_name }}/src/functions.php', dest: '/usr/share/{{ app_name }}/{{ inventory_hostname }}/functions.php', state: 'link' }
