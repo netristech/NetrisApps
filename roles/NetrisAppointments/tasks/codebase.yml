@@ -38,14 +38,14 @@
   with_items:
   - { dest: '/usr/share/{{ app_name }}/{{ inventory_hostname }}/index.html', state: 'absent' }
   
-- name: Install {{ app_name }}
+- name: Install {{ app_name }} codebase
   unarchive:
     src: "/home/netris/{{ item.name }}.tar.xz"
     dest: "{{ item.dest }}"
     remote_src: yes
   with_items:
-  - { name: 'naetc', dest: '/etc/{{ app_name }}/{{ inventory_hostname }}' }
-  - { name: 'nawww', dest: '/usr/share/{{ app_name }}/{{ inventory_hostname }}' }
+  - { name: 'naetc', dest: '/etc/{{ app_name }}' }
+  - { name: 'nawww', dest: '/usr/share/{{ app_name }}' }
   when:
   - instfile1.stat.exists == True
   - instfile2.stat.exists == True
