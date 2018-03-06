@@ -33,19 +33,19 @@
   file:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
-    state: "{{ item.state }}"
+    state: "{{ item.state | default('link') }}"
     owner: "{{ item.owner | default('{{ http_user }}') }}
     group: "{{ item.group | default('{{ http_user }}') }}
   with_items:
-  - { src: '/usr/share/{{ app_name }}/src/application', dest: '{{ www_dir }}/application', state: 'link' }
-  - { src: '/usr/share/{{ app_name }}/src/assets', dest: '{{ www_dir }}/assets', state: 'link' }
-  - { src: '/usr/share/{{ app_name }}/src/engine', dest: '{{ www_dir }}/engine', state: 'link' }
-  - { src: '/usr/share/{{ app_name }}/src/frontend', dest: '{{ www_dir }}/frontend', state: 'link' }
-  - { src: '/usr/share/{{ app_name }}/src/storage', dest: '{{ www_dir }}/storage', state: 'link' }
-  - { src: '/usr/share/{{ app_name }}/src/system', dest: '{{ www_dir }}/system', state: 'link' }
-  - { src: '/usr/share/{{ app_name }}/src/vendor', dest: '{{ www_dir }}/vendor', state: 'link' }
-  - { src: '/usr/share/{{ app_name }}/src/autoload.php', dest: '{{ www_dir }}/autoload.php', state: 'link' }
-  - { src: '/usr/share/{{ app_name }}/src/functions.php', dest: '{{ www_dir }}/functions.php', state: 'link' }
-  - { src: '/etc/{{ app_name }}/src/easyappointments-master', dest: '{{ etc_dir }}/easyappointments-master', state: 'link', owner: 'root', group: 'root' }
-  - { src: '/etc/{{ app_name }}/src/emailqueue', dest: '{{ etc_dir }}/emailqueue', state: 'link', owner: 'root', group: 'root' }
-  - { src: '/etc/{{ app_name }}/src/flowroute-messaging-php', dest: '{{ etc_dir }}/flowroute-messaging-php', state: 'link', owner: 'root', group: 'root' }
+  - { src: '/usr/share/{{ app_name }}/src/application', dest: '{{ www_dir }}/application' }
+  - { src: '/usr/share/{{ app_name }}/src/assets', dest: '{{ www_dir }}/assets' }
+  - { src: '/usr/share/{{ app_name }}/src/engine', dest: '{{ www_dir }}/engine' }
+  - { src: '/usr/share/{{ app_name }}/src/frontend', dest: '{{ www_dir }}/frontend' }
+  - { src: '/usr/share/{{ app_name }}/src/storage', dest: '{{ www_dir }}/storage' }
+  - { src: '/usr/share/{{ app_name }}/src/system', dest: '{{ www_dir }}/system' }
+  - { src: '/usr/share/{{ app_name }}/src/vendor', dest: '{{ www_dir }}/vendor' }
+  - { src: '/usr/share/{{ app_name }}/src/autoload.php', dest: '{{ www_dir }}/autoload.php' }
+  - { src: '/usr/share/{{ app_name }}/src/functions.php', dest: '{{ www_dir }}/functions.php' }
+  - { src: '/etc/{{ app_name }}/src/easyappointments-master', dest: '{{ etc_dir }}/easyappointments-master', owner: 'root', group: 'root' }
+  - { src: '/etc/{{ app_name }}/src/emailqueue', dest: '{{ etc_dir }}/emailqueue', owner: 'root', group: 'root' }
+  - { src: '/etc/{{ app_name }}/src/flowroute-messaging-php', dest: '{{ etc_dir }}/flowroute-messaging-php', owner: 'root', group: 'root' }
