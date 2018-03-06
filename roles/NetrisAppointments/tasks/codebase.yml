@@ -19,7 +19,7 @@
     path: "/usr/share/{{ app_name }}/src/index.php"
   register: reffile2
   
-- Create source directories
+- name: Create source directories
   file:
     path: "{{ item.path }}"
     state: "{{ item.state }}"
