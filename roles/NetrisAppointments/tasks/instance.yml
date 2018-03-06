@@ -34,6 +34,8 @@
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
     state: "{{ item.state }}"
+    owner: "{{ item.owner | default('{{ http_user }}') }}
+    group: "{{ item.group | default('{{ http_user }}') }}
   with_items:
   - { src: '/usr/share/{{ app_name }}/src/application', dest: '{{ www_dir }}/application', state: 'link' }
   - { src: '/usr/share/{{ app_name }}/src/assets', dest: '{{ www_dir }}/assets', state: 'link' }
@@ -44,6 +46,6 @@
   - { src: '/usr/share/{{ app_name }}/src/vendor', dest: '{{ www_dir }}/vendor', state: 'link' }
     - { src: '/usr/share/{{ app_name }}/src/autoload.php', dest: '{{ www_dir }}/autoload.php', state: 'link' }
   - { src: '/usr/share/{{ app_name }}/src/functions.php', dest: '{{ www_dir }}/functions.php', state: 'link' }
-  - { src: '/etc/{{ app_name }}/src/easyappointments-master', dest: '{{ etc_dir }}/easyappointments-master', state: 'link' }
-  - { src: '/etc/{{ app_name }}/src/emailqueue', dest: '{{ etc_dir }}/emailqueue', state: 'link' }
-  - { src: '/etc/{{ app_name }}/src/flowroute-messaging-php', dest: '{{ etc_dir }}/flowroute-messaging-php', state: 'link' }
+  - { src: '/etc/{{ app_name }}/src/easyappointments-master', dest: '{{ etc_dir }}/easyappointments-master', state: 'link', owner: 'root', group: 'root' }
+  - { src: '/etc/{{ app_name }}/src/emailqueue', dest: '{{ etc_dir }}/emailqueue', state: 'link', owner: 'root', group: 'root' }
+  - { src: '/etc/{{ app_name }}/src/flowroute-messaging-php', dest: '{{ etc_dir }}/flowroute-messaging-php', state: 'link', owner: 'root', group: 'root' }
