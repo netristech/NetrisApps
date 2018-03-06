@@ -19,6 +19,17 @@
     path: "/usr/share/{{ app_name }}/src/index.php"
   register: reffile2
   
+- Create source directories
+  file:
+    path: "{{ item.path }}"
+    state: "{{ item.state }}"
+    owner: "{{ item.owner | default('root') }}"
+    group: "{{ item.group | default('root') }}"
+    mode: "{{ item.mode | default('0755') }}"
+  with_items:
+  - { path: '/etc/{{ app_name }}/src', state: 'directory' }
+  - { path: '/usr/share/{{ app_name }}/src', state: 'directory', owner: '{{ http_user }}', group: '{{ http_user }}' }
+  
 - name: Install {{ app_name }} codebase
   unarchive:
     src: "/home/netris/{{ item.name }}.tar.xz"
