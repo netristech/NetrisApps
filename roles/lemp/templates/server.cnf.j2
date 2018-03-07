@@ -19,7 +19,7 @@ innodb_buffer_pool_size = 1500M
 innodb_doublewrite = off
 innodb_additional_mem_pool_size = 80M
 innodb_flush_log_at_trx_commit = 2
-innodb_flush_log_at_timeout = 3
+#innodb_flush_log_at_timeout = 3
 innodb_read_io_threads = 32
 innodb_write_io_threads = 16
 
@@ -37,7 +37,7 @@ innodb_write_io_threads = 16
 #
 # Allow server to accept connections on all interfaces.
 #
-#bind-address=0.0.0.0
+bind-address=127.0.0.1
 #
 # Optional setting
 #wsrep_slave_threads=1
