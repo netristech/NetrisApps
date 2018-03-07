@@ -1,5 +1,5 @@
 ---
-- name: Create Directories
+- name: Create instance directories
   file:
     path: "{{ item.path }}"
     state: "{{ item.state }}"
@@ -27,6 +27,8 @@
     mode: "{{ item.mode | default('0644') }}"
   with_items:
   - { src: 'na_config.php.j2', dest: '{{ etc_dir }}/na_config.php', owner: '{{ http_user }}', group: '{{ http_user }}' }
+  - { src: 'application.config.inc.php.j2', dest: '{{ etc_dir }}/emailqueue/config/application.config.inc.php' }
+  - { src: 'db.config.inc.php.j2', dest: '{{ etc_dir }}/emailqueue/config/db.config.inc.php' }
   - { src: 'index.php.j2', dest: '{{ www_dir }}/index.php', owner: '{{ http_user }}', group: '{{ http_user }}' }
 
 - name: Create symlinks
