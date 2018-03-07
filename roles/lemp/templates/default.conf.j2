@@ -1,0 +1,7 @@
+server {
+    listen      {{ http_port }} default_server;
+    listen      [::]:{{ http_port }} ipv6only=on default_server;
+    server_name  _;
+
+    return 444;
+}
