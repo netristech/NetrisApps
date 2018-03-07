@@ -34,8 +34,8 @@
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
     state: "{{ item.state | default('link') }}"
-    owner: "{{ item.owner | default('{{ http_user }}') }}"
-    group: "{{ item.group | default('{{ http_user }}') }}"
+    owner: "{{ item.owner | default('nginx') }}"
+    group: "{{ item.group | default('nginx') }}"
   with_items:
   - { src: '/usr/share/{{ app_name }}/src/application', dest: '{{ www_dir }}/application' }
   - { src: '/usr/share/{{ app_name }}/src/assets', dest: '{{ www_dir }}/assets' }
