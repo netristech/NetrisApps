@@ -19,7 +19,7 @@
     mode: "{{ item.mode | default('0644') }}"
   with_items:
     - { src: 'php-fpm.conf.j2', dest: '/etc/php-fpm.conf' }
-    - { src: 'app.conf.j2', dest: '/etc/php-fpm.d/{{ app_name }}.conf' }
+    - { src: 'app.conf.j2', dest: '/etc/php-fpm.d/{{ pool_name }}.conf' }
     - { src: 'php.ini.j2', dest: '/etc/php.ini' }
   notify:
   - Restart PHP-FPM
