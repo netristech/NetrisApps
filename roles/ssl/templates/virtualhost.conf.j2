@@ -1,6 +1,6 @@
 server {
-    #listen      {{ https_port }} ssl;
-    listen      [::]:{{ https_port }} ipv6only=off ssl;
+    listen      {{ https_port }} ssl;
+    listen      [::]:{{ https_port }} ipv6only=on ssl;
     server_name  {{ inventory_hostname }};
 
     ssl on;
