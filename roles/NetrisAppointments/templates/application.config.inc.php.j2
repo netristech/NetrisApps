@@ -8,7 +8,7 @@
   $sql_db = '{{ na_database }}';
   $sql_query = 'SELECT name, value FROM ea_settings';
   
-  $result = sqlQuery();
+  $result = sqlQuery($sql_server, $sql_user, $sql_pw, $sql_db, $sql_query);
 	while ($row = $result->fetch_assoc()) {
 		switch ($row['name']) {
 			case "smtp_server":
