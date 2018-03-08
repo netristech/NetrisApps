@@ -1,5 +1,5 @@
 ---
-- name: Create instance directories
+- name: Create directories
   file:
     path: "{{ item.path }}"
     state: "{{ item.state }}"
@@ -8,6 +8,7 @@
     mode: "{{ item.mode | default('0755') }}"
   with_items:
   - { path: '{{ etc_dir }}', state: 'directory' }
+  - { path: '{{ etc_dir }}/emailqueue', state: 'directory' }
   - { path: '{{ www_dir }}', state: 'directory', owner: '{{ http_user }}', group: '{{ http_user }}' }
   
 - name: Remove framework index.html
@@ -49,5 +50,8 @@
   - { src: '/usr/share/{{ app_name }}/src/autoload.php', dest: '{{ www_dir }}/autoload.php' }
   - { src: '/usr/share/{{ app_name }}/src/functions.php', dest: '{{ www_dir }}/functions.php' }
   - { src: '/etc/{{ app_name }}/src/easyappointments-master', dest: '{{ etc_dir }}/easyappointments-master', owner: 'root', group: 'root' }
-  - { src: '/etc/{{ app_name }}/src/emailqueue', dest: '{{ etc_dir }}/emailqueue', owner: 'root', group: 'root' }
   - { src: '/etc/{{ app_name }}/src/flowroute-messaging-php', dest: '{{ etc_dir }}/flowroute-messaging-php', owner: 'root', group: 'root' }
+  - { src: '/etc/{{ app_name }}/src/emailqueue/classes', dest: '{{ etc_dir }}/emailqueue/classes', owner: 'root', group: 'root' }
+  - { src: '/etc/{{ app_name }}/src/emailqueue/config', dest: '{{ etc_dir }}/emailqueue/config', owner: 'root', group: 'root' }
+  - { src: '/etc/{{ app_name }}/src/emailqueue/lib', dest: '{{ etc_dir }}/emailqueue/lib', owner: 'root', group: 'root' }
+  - { src: '/etc/{{ app_name }}/src/emailqueue/scripts', dest: '{{ etc_dir }}/emailqueue/scripts', owner: 'root', group: 'root' }
