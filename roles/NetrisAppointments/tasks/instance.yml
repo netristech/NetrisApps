@@ -29,7 +29,6 @@
     mode: "{{ item.mode | default('0644') }}"
   with_items:
   - { src: 'na_config.php.j2', dest: '{{ etc_dir }}/na_config.php', owner: '{{ http_user }}', group: '{{ http_user }}' }
-  - { src: 'common.inc.php.j2', dest: '{{ etc_dir }}/emailqueue/common.inc.php' }
   - { src: 'application.config.inc.php.j2', dest: '{{ etc_dir }}/emailqueue/config/application.config.inc.php' }
   - { src: 'db.config.inc.php.j2', dest: '{{ etc_dir }}/emailqueue/config/db.config.inc.php' }
   - { src: 'index.php.j2', dest: '{{ www_dir }}/index.php', owner: '{{ http_user }}', group: '{{ http_user }}' }
@@ -56,3 +55,4 @@
   - { src: '/etc/{{ app_name }}/src/emailqueue/classes', dest: '{{ etc_dir }}/emailqueue/classes', owner: 'root', group: 'root' }
   - { src: '/etc/{{ app_name }}/src/emailqueue/lib', dest: '{{ etc_dir }}/emailqueue/lib', owner: 'root', group: 'root' }
   - { src: '/etc/{{ app_name }}/src/emailqueue/scripts', dest: '{{ etc_dir }}/emailqueue/scripts', owner: 'root', group: 'root' }
+  - { src: '/etc/{{ app_name }}/src/emailqueue/common.inc.php', dest: '{{ etc_dir }}/emailqueue/common.inc.php', owner: 'root', group: 'root' }
