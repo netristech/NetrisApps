@@ -64,6 +64,9 @@
   cron:
     name: "{{ item.name }}"
     job: "{{ item.job }}"
+    minute: "{{ item.minute | default('omit') }}"
+    hour: "{{ item.hour | default('omit') }}"
+    state: present
   with_items:
-  - { name: '', job: '' }
-  - { name: '', job: '' }
+  - { name: 'Emailqueue Delivery Script', job: '/etc/{{ app_name }}/src/emailqueue/scripts/delivery' }
+  - { name: 'Emailqueue Purge Script', job: '/etc/{{ app_name }}/src/emailqueue/scripts/purge', minute: '0', hour: '6' }
