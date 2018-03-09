@@ -1,14 +1,11 @@
 <?php
 /* ----------------------------- ADDED BY NETRIS ---------------------------- */
   include '{{ www_dir }}/functions.php';
+  include '{{ etc_dir }}/na_config.php';
   
-  $sql_server = 'localhost';
-  $sql_user = 'root';
-  $sql_pw = '{{ na_root_pw }}';
-  $sql_db = '{{ na_database }}';
   $sql_query = 'SELECT name, value FROM ea_settings';
   
-  $result = sqlQuery($sql_server, $sql_user, $sql_pw, $sql_db, $sql_query);
+  $result = sqlQuery(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME, $sql_query);
 	while ($row = $result->fetch_assoc()) {
 		switch ($row['name']) {
 			case "smtp_server":
