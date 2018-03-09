@@ -44,7 +44,7 @@
   - { src: '/usr/share/{{ app_name }}/src/application', dest: '{{ www_dir }}/application' }
   - { src: '/usr/share/{{ app_name }}/src/assets', dest: '{{ www_dir }}/assets' }
   - { src: '/usr/share/{{ app_name }}/src/engine', dest: '{{ www_dir }}/engine' }
-  - { src: '/usr/share/{{ app_name }}/src/frontend', dest: '{{ www_dir }}/frontend' }
+  - { src: '/usr/share/{{ app_name }}/src/frontend', dest: '{{ www_dir }}/emailqueue' }
   - { src: '/usr/share/{{ app_name }}/src/storage', dest: '{{ www_dir }}/storage' }
   - { src: '/usr/share/{{ app_name }}/src/system', dest: '{{ www_dir }}/system' }
   - { src: '/usr/share/{{ app_name }}/src/vendor', dest: '{{ www_dir }}/vendor' }
