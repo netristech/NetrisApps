@@ -5,9 +5,6 @@
 		Frontend component
 	*/
 	
-	define("LIB_DIR", "{{ etc_dir }}/emailqueue/lib");
-	define("APP_DIR", "{{ etc_dir }}/emailqueue");
-	
 	include APP_DIR."common.inc.php";
 
 	if (!($_SERVER['PHP_AUTH_USER'] == FRONTEND_USER && $_SERVER['PHP_AUTH_PW'] == FRONTEND_PASSWORD)) {
