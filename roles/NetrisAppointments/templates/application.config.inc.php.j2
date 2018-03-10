@@ -5,7 +5,7 @@
     
   $sql_query = 'SELECT name, value FROM ea_settings';
   
-  $result = sqlQuery(SQL_SERVER, SQL_USER, SQL_PW, NA_DB, $sql_query);
+  $result = sqlQuery(DB_HOST, DB_UID, DB_PWD, NA_DB, $sql_query);
 	while ($row = $result->fetch_assoc()) {
 		switch ($row['name']) {
 			case "smtp_server":
