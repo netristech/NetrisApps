@@ -58,7 +58,6 @@
   - { src: '/etc/{{ app_name }}/src/emailqueue/lib', dest: '{{ etc_dir }}/emailqueue/lib', owner: 'root', group: 'root' }
   - { src: '/etc/{{ app_name }}/src/emailqueue/scripts', dest: '{{ etc_dir }}/emailqueue/scripts', owner: 'root', group: 'root' }
   - { src: '/etc/{{ app_name }}/src/emailqueue/common.inc.php', dest: '{{ etc_dir }}/emailqueue/common.inc.php', owner: 'root', group: 'root' }
-  - { src: '/etc/{{ app_name }}/src/emailqueue/config/db.config.inc.php', dest: '{{ etc_dir }}/emailqueue/config/db.config.inc.php', owner: 'root', group: 'root' }
   
 - name: Create cron jobs for emailqueue
   cron:
