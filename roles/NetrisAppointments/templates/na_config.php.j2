@@ -8,7 +8,6 @@ class Config {
     const BASE_URL      = '{{ http_proto }}://{{ inventory_hostname }}';
     const LANGUAGE      = 'english';
     const DEBUG_MODE    = FALSE;
-    const PURGE_DAYS    = {{ eq_purge }};
 
     // ------------------------------------------------------------------------
     // DATABASE SETTINGS
@@ -16,7 +15,6 @@ class Config {
 
     const DB_HOST       = 'localhost';
     const DB_NAME       = '{{ na_database }}';
-    const EQ_DB_NAME    = '{{ eq_database }}';
     const DB_USERNAME   = 'root';
     const DB_PASSWORD   = '{{ na_root_pw }}';
 
@@ -36,8 +34,6 @@ class Config {
     
     const WWW_DIR   = '{{ www_dir }}';
     const ETC_DIR   = '{{ etc_dir }}';
-    const APP_DIR   = '{{ etc_dir }}/emailqueue/';
-    const LIB_DIR   = '{{ etc_dir }}/emailqueue/lib/';
     
 }
 
