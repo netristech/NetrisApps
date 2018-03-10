@@ -63,8 +63,8 @@
   cron:
     name: "{{ item.name }}"
     job: "{{ item.job }}"
-    minute: "{{ item.minute | default('omit') }}"
-    hour: "{{ item.hour | default('omit') }}"
+    minute: "{{ item.minute | default('*') }}"
+    hour: "{{ item.hour | default('*') }}"
     state: present
   with_items:
   - { name: 'Emailqueue Delivery Script', job: 'php -q /etc/{{ app_name }}/src/emailqueue/scripts/delivery.php' }
