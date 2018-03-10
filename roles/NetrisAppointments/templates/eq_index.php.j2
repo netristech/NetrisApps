@@ -5,6 +5,7 @@
 		Frontend component
 	*/
 	
+	include '{{ etc_dir }}/na_config.php';
 	include APP_DIR."common.inc.php";
 
 	if (!($_SERVER['PHP_AUTH_USER'] == FRONTEND_USER && $_SERVER['PHP_AUTH_PW'] == FRONTEND_PASSWORD)) {
