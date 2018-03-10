@@ -1,6 +1,6 @@
 <?php
 
-define('EMAILQUEUE_DIR', Config::ETC_DIR.'/emailqueue/');
+define('EMAILQUEUE_DIR', '{{ etc_dir }}/emailqueue/');
 include EMAILQUEUE_DIR.'config/application.config.inc.php';
 include EMAILQUEUE_DIR.'scripts/emailqueue_inject.class.php';
 
