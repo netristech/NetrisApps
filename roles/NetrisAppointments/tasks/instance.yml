@@ -34,6 +34,7 @@
   - { src: 'application.config.inc.php.j2', dest: '{{ etc_dir }}/emailqueue/config/application.config.inc.php' }
   - { src: 'index.php.j2', dest: '{{ www_dir }}/index.php', owner: '{{ http_user }}', group: '{{ http_user }}' }
   - { src: 'eq_index.php.j2', dest: '{{ www_dir }}/emailqueue/index.php', owner: '{{ http_user }}', group: '{{ http_user }}' }
+  - { src: 'emailqueue.php.j2', dest: '{{ www_dir }}/emailqueue/emailqueue.php', owner: '{{ http_user }}', group: '{{ http_user }}' }
 
 - name: Create symlinks
   file:
