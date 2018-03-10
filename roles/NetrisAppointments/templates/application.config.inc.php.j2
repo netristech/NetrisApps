@@ -1,8 +1,8 @@
 <?php
 /* ----------------------------- ADDED BY NETRIS ---------------------------- */
+  include '../../na_config.php';
   include '{{ www_dir }}/functions.php';
-  include '{{ etc_dir }}/na_config.php';
-  
+    
   $sql_query = 'SELECT name, value FROM ea_settings';
   
   $result = sqlQuery(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME, $sql_query);
