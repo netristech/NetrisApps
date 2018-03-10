@@ -30,6 +30,7 @@
     mode: "{{ item.mode | default('0644') }}"
   with_items:
   - { src: 'na_config.php.j2', dest: '{{ etc_dir }}/na_config.php', owner: '{{ http_user }}', group: '{{ http_user }}' }
+  - { src: 'eq_config.php.j2', dest: '{{ etc_dir }}/eq_config.php' }
   - { src: 'application.config.inc.php.j2', dest: '{{ etc_dir }}/emailqueue/config/application.config.inc.php' }
   - { src: 'index.php.j2', dest: '{{ www_dir }}/index.php', owner: '{{ http_user }}', group: '{{ http_user }}' }
   - { src: 'eq_index.php.j2', dest: '{{ www_dir }}/emailqueue/index.php', owner: '{{ http_user }}', group: '{{ http_user }}' }
