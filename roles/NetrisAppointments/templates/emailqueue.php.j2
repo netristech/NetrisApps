@@ -1,7 +1,7 @@
 <?php
 
 define('APP_DIR', '{{ etc_dir }}/emailqueue/');
-include APP_DIR.'config/application.config.inc.php';
+include APP_DIR.'eq_config.php';
 include APP_DIR.'scripts/emailqueue_inject.class.php';
 
 if(isset($_POST['functioncall']) && !empty($_POST['functioncall'])) {
