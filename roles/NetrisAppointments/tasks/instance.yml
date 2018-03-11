@@ -29,7 +29,8 @@
     mode: "{{ item.mode | default('0644') }}"
   with_items:
   - { src: 'na_config.php.j2', dest: '{{ etc_dir }}/na_config.php', owner: '{{ http_user }}', group: '{{ http_user }}' }
-  - { src: 'eq_config.php.j2', dest: '{{ etc_dir }}/emailqueue/eq_config.php' }
+  - { src: 'eq_config.php.j2', dest: '{{ etc_dir }}/eq_config.php' }
+  - { src: 'common.inc.php.j2', dest: '{{ etc_dir }}/emailqueue/common.inc.php' }
   - { src: 'na_index.php.j2', dest: '{{ www_dir }}/index.php', owner: '{{ http_user }}', group: '{{ http_user }}' }
   - { src: 'eq_index.php.j2', dest: '{{ www_dir }}/emailqueue/index.php', owner: '{{ http_user }}', group: '{{ http_user }}' }
   - { src: 'emailqueue.php.j2', dest: '{{ www_dir }}/emailqueue/emailqueue.php', owner: '{{ http_user }}', group: '{{ http_user }}' }
@@ -57,7 +58,6 @@
   - { src: '/etc/{{ app_name }}/src/emailqueue/classes', dest: '{{ etc_dir }}/emailqueue/classes', owner: 'root', group: 'root' }
   - { src: '/etc/{{ app_name }}/src/emailqueue/lib', dest: '{{ etc_dir }}/emailqueue/lib', owner: 'root', group: 'root' }
   - { src: '/etc/{{ app_name }}/src/emailqueue/scripts', dest: '{{ etc_dir }}/emailqueue/scripts', owner: 'root', group: 'root' }
-  - { src: '/etc/{{ app_name }}/src/emailqueue/common.inc.php', dest: '{{ etc_dir }}/emailqueue/common.inc.php', owner: 'root', group: 'root' }
   
 - name: Create cron jobs for emailqueue
   cron:
@@ -67,5 +67,5 @@
     hour: "{{ item.hour | default('*') }}"
     state: present
   with_items:
-  - { name: 'Emailqueue Delivery Script', job: 'cd {{ etc_dir }}/emailqueue/scripts/ && /usr/bin/php -q delivery.php' }
-  - { name: 'Emailqueue Purge Script', job: 'cd {{ etc_dir }}/emailqueue/scripts/ && /usr/bin/php -q purge.php', minute: '0', hour: '6' }
+  - { name: 'Emailqueue Delivery Script', job: 'php -q {{ etc_dir }}/emailqueue/scripts/delivery.php' }
+  - { name: 'Emailqueue Purge Script', job: 'php -q {{ etc_dir }}/emailqueue/scripts/purge.php', minute: '0', hour: '6' }
