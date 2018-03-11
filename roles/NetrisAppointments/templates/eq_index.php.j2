@@ -5,8 +5,7 @@
 		Frontend component
 	*/
 	
-	define("APP_DIR", "{{ etc_dir }}/emailqueue/");
-	include APP_DIR."common.inc.php";
+	include "{{ etc_dir }}/emailqueue/common.inc.php";
 
 	if (!($_SERVER['PHP_AUTH_USER'] == FRONTEND_USER && $_SERVER['PHP_AUTH_PW'] == FRONTEND_PASSWORD)) {
 		header("WWW-Authenticate: Basic realm=\"Emailqueue frontend\"");
