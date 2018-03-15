@@ -1,11 +1,21 @@
 ---
-- name: Install Nginx / remove Apache
+- name: Check if Apache is installed
+  stat:
+    path: /usr/lib/systemd/system/httpd.service
+  reister: httpd
+
+- name: Ensure Apache is stopped if it exists
+  service:
+    name: httpd
+    state: stopped
+  when:httpd.stat.exists == True
+  
+- name: Install Nginx
   yum:
     name: "{{ item.name }}"
     state: "{{ item.state }}"
     update_cache: yes
   with_items:
-  - { name: 'httpd', state: 'absent' }
   - { name: 'nginx', state: 'present' }
   
 - name: Create instance directory
@@ -14,9 +24,9 @@
     state: directory
     mode: 0755
     
-- name: Check if SSL is configured
+- name: Check if SSL has been configured
   stat:
-    path: "/etc/nginx/conf.d/redirect.conf"
+    path: "/etc/nginx/conf.d/{{ inventory_hostname }}_redirect.conf"
   register: ssl
 
 - name: Copy config files and template index
