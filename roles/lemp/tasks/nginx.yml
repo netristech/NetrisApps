@@ -2,7 +2,7 @@
 - name: Check if Apache is installed
   stat:
     path: /usr/lib/systemd/system/httpd.service
-  reister: httpd
+  register: httpd
 
 - name: Ensure Apache is disabled if it exists
   service:
