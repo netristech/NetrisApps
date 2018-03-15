@@ -11,7 +11,7 @@
     state: "{{ item.state }}"
   with_items:
   - { name: 'httpd', enabled: 'no', state: 'stopped' }
-  when:httpd.stat.exists == True
+  when: httpd.stat.exists == True
   
 - name: Install Nginx
   yum:
