@@ -69,5 +69,5 @@
     hour: "{{ item.hour | default('*') }}"
     state: present
   with_items:
-  - { name: 'Emailqueue Delivery Script', job: 'php -q {{ etc_dir }}/emailqueue/delivery.php' }
-  - { name: 'Emailqueue Purge Script', job: 'php -q {{ etc_dir }}/emailqueue/purge.php', minute: '0', hour: '6' }
+  - { name: '{{ inventory_hostname }} Delivery Script', job: 'php -q {{ etc_dir }}/emailqueue/delivery.php' }
+  - { name: '{{ inventory_hostname }} Purge Script', job: 'php -q {{ etc_dir }}/emailqueue/purge.php', minute: '0', hour: '6' }
