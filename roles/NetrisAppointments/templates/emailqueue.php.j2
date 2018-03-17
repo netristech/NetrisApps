@@ -14,10 +14,10 @@ if(isset($_POST['functioncall']) && !empty($_POST['functioncall'])) {
     }
 }
 
-function sendEmail($send_time, $from_email, $from_name, $to_email, $email_subject, $email_body) {
+function sendEmail($appointment_id, $send_time, $from_email, $from_name, $to_email, $email_subject, $email_body) {
   $emailqueue_inject = new emailqueue_inject(DB_HOST, DB_UID, DB_PWD, DB_DATABASE);
   $result = $emailqueue_inject->inject(
-    null,
+    $appointment_id,
     null,
     null,
     false,
