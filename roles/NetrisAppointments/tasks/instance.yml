@@ -11,6 +11,7 @@
   - { path: '{{ etc_dir }}/emailqueue', state: 'directory' }
   - { path: '{{ www_dir }}', state: 'directory', owner: '{{ http_user }}', group: '{{ http_user }}' }
   - { path: '{{ www_dir }}/emailqueue', state: 'directory', owner: '{{ http_user }}', group: '{{ http_user }}' }
+  - { path: '{{ www_dir }}/uploads', state: 'directory', owner: '{{ http_user }}', group: '{{ http_user }}' }
   
 - name: Remove framework index.html
   file:
