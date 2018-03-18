@@ -40,6 +40,17 @@ function sendEmail($appointment_id, $send_time, $from_email, $from_name, $to_ema
   }
 }
 
+function deleteEmail($email_id) {
+  $emailqueue_inject = new emailqueue_inject(DB_HOST, DB_UID, DB_PWD, DB_DATABASE);
+  $result = $emailqueue_inject->empty_email($email_id);
+  if($result) {
+    echo "Email deleted successfully";
+  }
+  else {
+    echo "Could not delete email";
+  }
+}
+
 function testEmail($email, $from_email, $from_name) {
   $emailqueue_inject = new emailqueue_inject(DB_HOST, DB_UID, DB_PWD, DB_DATABASE);
   $result = $emailqueue_inject->inject(
