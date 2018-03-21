@@ -53,8 +53,6 @@
   - { src: '/usr/share/{{ app_name }}/src/vendor', dest: '{{ www_dir }}/vendor' }
   - { src: '/usr/share/{{ app_name }}/src/autoload.php', dest: '{{ www_dir }}/autoload.php' }
   - { src: '/usr/share/{{ app_name }}/src/functions.php', dest: '{{ www_dir }}/functions.php' }
-  - { src: '/usr/share/{{ app_name }}/src/upload.php', dest: '{{ www_dir }}/upload.php' }
-  - { src: '/usr/share/{{ app_name }}/src/index.php', dest: '{{ www_dir }}/index.php' }
   - { src: '/usr/share/{{ app_name }}/src/emailqueue/gfx', dest: '{{ www_dir }}/emailqueue/gfx' }
   - { src: '/usr/share/{{ app_name }}/src/emailqueue/favicon.ico', dest: '{{ www_dir }}/emailqueue/favicon.ico' }
   - { src: '/etc/{{ app_name }}/src/easyappointments-master', dest: '{{ etc_dir }}/easyappointments-master', owner: 'root', group: 'root' }
@@ -63,6 +61,17 @@
   - { src: '/etc/{{ app_name }}/src/emailqueue/lib', dest: '{{ etc_dir }}/emailqueue/lib', owner: 'root', group: 'root' }
   - { src: '/etc/{{ app_name }}/src/emailqueue/common.inc.php', dest: '{{ etc_dir }}/emailqueue/common.inc.php', owner: 'root', group: 'root' }
   - { src: '/etc/{{ app_name }}/src/emailqueue/scripts/emailqueue_inject.class.php', dest: '{{ etc_dir }}/emailqueue/emailqueue_inject.class.php', owner: 'root', group: 'root' }
+  
+- name: Copy additional files
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    remote_src: yes
+    owner: "{{ item.owner | default('nginx') }}"
+    group: "{{ item.group | default('nginx') }}"
+  with_items:
+  - { src: '/usr/share/{{ app_name }}/src/index.php', dest: '{{ www_dir }}/index.php' }
+  - { src: '/usr/share/{{ app_name }}/src/upload.php', dest: '{{ www_dir }}/upload.php' }
   
 - name: Create cron jobs for emailqueue
   cron:
