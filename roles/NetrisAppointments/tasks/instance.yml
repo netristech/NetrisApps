@@ -53,6 +53,7 @@
   - { src: '/usr/share/{{ app_name }}/src/vendor', dest: '{{ www_dir }}/vendor' }
   - { src: '/usr/share/{{ app_name }}/src/autoload.php', dest: '{{ www_dir }}/autoload.php' }
   - { src: '/usr/share/{{ app_name }}/src/functions.php', dest: '{{ www_dir }}/functions.php' }
+  - { src: '/usr/share/{{ app_name }}/src/upload.php', dest: '{{ www_dir }}/upload.php' }
   - { src: '/usr/share/{{ app_name }}/src/index.php', dest: '{{ www_dir }}/index.php' }
   - { src: '/usr/share/{{ app_name }}/src/emailqueue/gfx', dest: '{{ www_dir }}/emailqueue/gfx' }
   - { src: '/usr/share/{{ app_name }}/src/emailqueue/favicon.ico', dest: '{{ www_dir }}/emailqueue/favicon.ico' }
