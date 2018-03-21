@@ -31,9 +31,8 @@
   with_items:
   - { src: 'na_config.php.j2', dest: '{{ etc_dir }}/na_config.php', owner: '{{ http_user }}', group: '{{ http_user }}' }
   - { src: 'eq_config.php.j2', dest: '{{ etc_dir }}/emailqueue/eq_config.php' }
-  - { src: 'delivery.php.j2', dest: '{{ etc_dir }}/emailqueue/delivery.php' }
-  - { src: 'purge.php.j2', dest: '{{ etc_dir }}/emailqueue/purge.php' }
-  - { src: 'include.php.j2', dest: '{{ www_dir }}/include.php', owner: '{{ http_user }}', group: '{{ http_user }}' }
+  - { src: 'eq_include.php.j2', dest: '{{ etc_dir }}/emailqueue/include.php' }
+  - { src: 'na_include.php.j2', dest: '{{ www_dir }}/include.php', owner: '{{ http_user }}', group: '{{ http_user }}' }
   - { src: 'eq_index.php.j2', dest: '{{ www_dir }}/emailqueue/index.php', owner: '{{ http_user }}', group: '{{ http_user }}' }
   - { src: 'emailqueue.php.j2', dest: '{{ www_dir }}/emailqueue/emailqueue.php', owner: '{{ http_user }}', group: '{{ http_user }}' }
 
@@ -72,6 +71,8 @@
   with_items:
   - { src: '/usr/share/{{ app_name }}/src/index.php', dest: '{{ www_dir }}/index.php' }
   - { src: '/usr/share/{{ app_name }}/src/upload.php', dest: '{{ www_dir }}/upload.php' }
+  - { src: '/etc/{{ app_name }}/src/delivery.php', dest: '{{ etc_dir }}/emailqueue/delivery.php' }
+  - { src: '/etc/{{ app_name }}/src/purge.php', dest: '{{ etc_dir }}/emailqueue/purge.php' }
   
 - name: Create cron jobs for emailqueue
   cron:
