@@ -33,7 +33,7 @@
   - { src: 'eq_config.php.j2', dest: '{{ etc_dir }}/emailqueue/eq_config.php' }
   - { src: 'delivery.php.j2', dest: '{{ etc_dir }}/emailqueue/delivery.php' }
   - { src: 'purge.php.j2', dest: '{{ etc_dir }}/emailqueue/purge.php' }
-  - { src: 'na_index.php.j2', dest: '{{ www_dir }}/index.php', owner: '{{ http_user }}', group: '{{ http_user }}' }
+  - { src: 'include.php.j2', dest: '{{ www_dir }}/include.php', owner: '{{ http_user }}', group: '{{ http_user }}' }
   - { src: 'eq_index.php.j2', dest: '{{ www_dir }}/emailqueue/index.php', owner: '{{ http_user }}', group: '{{ http_user }}' }
   - { src: 'emailqueue.php.j2', dest: '{{ www_dir }}/emailqueue/emailqueue.php', owner: '{{ http_user }}', group: '{{ http_user }}' }
 
@@ -53,6 +53,7 @@
   - { src: '/usr/share/{{ app_name }}/src/vendor', dest: '{{ www_dir }}/vendor' }
   - { src: '/usr/share/{{ app_name }}/src/autoload.php', dest: '{{ www_dir }}/autoload.php' }
   - { src: '/usr/share/{{ app_name }}/src/functions.php', dest: '{{ www_dir }}/functions.php' }
+  - { src: '/usr/share/{{ app_name }}/src/index.php', dest: '{{ www_dir }}/index.php' }
   - { src: '/usr/share/{{ app_name }}/src/emailqueue/gfx', dest: '{{ www_dir }}/emailqueue/gfx' }
   - { src: '/usr/share/{{ app_name }}/src/emailqueue/favicon.ico', dest: '{{ www_dir }}/emailqueue/favicon.ico' }
   - { src: '/etc/{{ app_name }}/src/easyappointments-master', dest: '{{ etc_dir }}/easyappointments-master', owner: 'root', group: 'root' }
