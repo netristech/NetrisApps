@@ -70,8 +70,8 @@
   with_items:
   - { src: '/usr/share/{{ app_name }}/src/index.php', dest: '{{ www_dir }}/index.php' }
   - { src: '/usr/share/{{ app_name }}/src/upload.php', dest: '{{ www_dir }}/upload.php' }
-  - { src: '/etc/{{ app_name }}/src/delivery.php', dest: '{{ etc_dir }}/emailqueue/delivery.php' }
-  - { src: '/etc/{{ app_name }}/src/purge.php', dest: '{{ etc_dir }}/emailqueue/purge.php' }
+  - { src: '/etc/{{ app_name }}/src/emailqueue/scripts/delivery.php', dest: '{{ etc_dir }}/emailqueue/delivery.php' }
+  - { src: '/etc/{{ app_name }}/src/emailqueue/scripts/purge.php', dest: '{{ etc_dir }}/emailqueue/purge.php' }
   
 - name: Create cron jobs for emailqueue
   cron:
