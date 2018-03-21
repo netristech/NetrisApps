@@ -10,7 +10,6 @@
   - { path: '{{ etc_dir }}', state: 'directory' }
   - { path: '{{ etc_dir }}/emailqueue', state: 'directory' }
   - { path: '{{ www_dir }}', state: 'directory', owner: '{{ http_user }}', group: '{{ http_user }}' }
-  - { path: '{{ www_dir }}/emailqueue', state: 'directory', owner: '{{ http_user }}', group: '{{ http_user }}' }
   - { path: '{{ www_dir }}/uploads', state: 'directory', owner: '{{ http_user }}', group: '{{ http_user }}' }
   
 - name: Remove framework index.html
@@ -32,8 +31,6 @@
   - { src: 'na_config.php.j2', dest: '{{ etc_dir }}/na_config.php', owner: '{{ http_user }}', group: '{{ http_user }}' }
   - { src: 'eq_config.php.j2', dest: '{{ etc_dir }}/emailqueue/eq_config.php' }
   - { src: 'na_include.php.j2', dest: '{{ www_dir }}/include.php', owner: '{{ http_user }}', group: '{{ http_user }}' }
-  - { src: 'eq_index.php.j2', dest: '{{ www_dir }}/emailqueue/index.php', owner: '{{ http_user }}', group: '{{ http_user }}' }
-  - { src: 'emailqueue.php.j2', dest: '{{ www_dir }}/emailqueue/emailqueue.php', owner: '{{ http_user }}', group: '{{ http_user }}' }
 
 - name: Create symlinks
   file:
@@ -45,6 +42,7 @@
   with_items:
   - { src: '/usr/share/{{ app_name }}/src/application', dest: '{{ www_dir }}/application' }
   - { src: '/usr/share/{{ app_name }}/src/assets', dest: '{{ www_dir }}/assets' }
+  - { src: '/usr/share/{{ app_name }}/src/emailqueue', dest: '{{ www_dir }}/emailqueue' }
   - { src: '/usr/share/{{ app_name }}/src/engine', dest: '{{ www_dir }}/engine' }
   - { src: '/usr/share/{{ app_name }}/src/storage', dest: '{{ www_dir }}/storage' }
   - { src: '/usr/share/{{ app_name }}/src/system', dest: '{{ www_dir }}/system' }
@@ -53,8 +51,6 @@
   - { src: '/usr/share/{{ app_name }}/src/functions.php', dest: '{{ www_dir }}/functions.php' }
   - { src: '/usr/share/{{ app_name }}/src/index.php', dest: '{{ www_dir }}/index.php' }
   - { src: '/usr/share/{{ app_name }}/src/upload.php', dest: '{{ www_dir }}/upload.php' }
-  - { src: '/usr/share/{{ app_name }}/src/emailqueue/gfx', dest: '{{ www_dir }}/emailqueue/gfx' }
-  - { src: '/usr/share/{{ app_name }}/src/emailqueue/favicon.ico', dest: '{{ www_dir }}/emailqueue/favicon.ico' }
   - { src: '/etc/{{ app_name }}/src/easyappointments-master', dest: '{{ etc_dir }}/easyappointments-master', owner: 'root', group: 'root' }
   - { src: '/etc/{{ app_name }}/src/flowroute-messaging-php', dest: '{{ etc_dir }}/flowroute-messaging-php', owner: 'root', group: 'root' }
   - { src: '/etc/{{ app_name }}/src/emailqueue/classes', dest: '{{ etc_dir }}/emailqueue/classes', owner: 'root', group: 'root' }
