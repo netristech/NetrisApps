@@ -10,6 +10,16 @@
   - { name: '{{ na_database }}', dest: '/home/netris/backup/{{ na_database }}_{{ date }}.sql.xz', state: 'dump' }
   - { name: '{{ eq_database }}', dest: '/home/netris/backup/{{ eq_database }}_{{ date }}.sql.xz', state: 'dump' }
 
+- name: Change permissions on database backups
+  file:
+    path: "{{ item.path }}"
+    owner: "{{ item.owner | default('netris') }}"
+    group: "{{ item.group | default('netris') }}"
+    mode: "{{ item.mode | default('0644') }}"
+  with_items:
+  - { path: '/home/netris/backup/{{ na_database }}_{{ date }}.sql.xz' }
+  - { path: '/home/netris/backup/{{ eq_database }}_{{ date }}.sql.xz' }
+  
 - name: Backup {{ app_name }} codebase
   archive:
     path: "{{ item.src }}"
