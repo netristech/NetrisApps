@@ -12,9 +12,8 @@
 
 - name: Backup {{ app_name }} codebase
   archive:
-    src: "{{ item.src }}"
+    path: "{{ item.src }}"
     dest: "/home/netris/backup/{{ item.name }}.tar.xz"
-    remote_src: yes
   with_items:
   - { name: 'naetc', src: '/etc/{{ app_name }}/src' }
   - { name: 'nawww', src: '/usr/share/{{ app_name }}/src' }
