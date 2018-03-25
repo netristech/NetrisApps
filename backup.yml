@@ -4,7 +4,11 @@
   become: yes
   gather_facts: no
   vars_files:
-  - roles/mysql/vars/pw.yml
+  - roles/lemp/vars/main.yml
+  vars:
+    app_name: NetrisAppointments
+  roles:
+  - common
   vars:
     date: "{{ lookup('pipe', 'date +%Y%m%d') }}"
   tasks:
