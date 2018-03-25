@@ -1,10 +1,12 @@
 - name: backup databases
   mysql_db:
     state: dump
-    login_user: root
+    login_user: "{{ item.user | default('root') }}"
     login_password: "{{ na_root_pw }}"
-    name: "{{ item }}"
-    target: /home/netris/backup/netriscal_{{ item }}_{{ date }}.sql.xz
+    name: "{{ item.name }}"
+    target: "{{ item.target }}"/home/netris/backup/na_{{ item }}_{{ date }}.sql.xz
   with_items:
-  - netriscal
-  - emailqueue
+  - { name: '{{ na_database }}', target: '/home/netris/backup/{{ na_database }}_{{ date }}.sql.xz' }
+  - { name: '{{ eq_database }}', target: '/home/netris/backup/{{ eq_database }}_{{ date }}.sql.xz' }
+
+- name: Backup directories
