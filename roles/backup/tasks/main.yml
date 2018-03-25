@@ -1,12 +1,13 @@
-- name: backup databases
+---
+- name: Backup databases
   mysql_db:
-    state: dump
-    login_user: "{{ item.user | default('root') }}"
+    login_user: root
     login_password: "{{ na_root_pw }}"
     name: "{{ item.name }}"
-    target: "{{ item.target }}"/home/netris/backup/na_{{ item }}_{{ date }}.sql.xz
+    target: "{{ item.dest }}"
+    state: "{{ item.state }}"
   with_items:
-  - { name: '{{ na_database }}', target: '/home/netris/backup/{{ na_database }}_{{ date }}.sql.xz' }
-  - { name: '{{ eq_database }}', target: '/home/netris/backup/{{ eq_database }}_{{ date }}.sql.xz' }
+  - { name: '{{ na_database }}', dest: '/home/netris/backup/{{ na_database }}_{{ date }}.sql.xz', state: 'dump' }
+  - { name: '{{ eq_database }}', dest: '/home/netris/backup/{{ eq_database }}_{{ date }}.sql.xz', state: 'dump' }
 
 - name: Backup directories
