@@ -19,3 +19,14 @@
   - { dest: '/home/netris/backup/naetc_{{ date }}.tar.xz', src: '/usr/share/{{ app_name }}/src' }
   - { dest: '/home/netris/backup/{{ inventory_hostname }}_nawww_{{ date }}.tar.xz', src: '/etc/{{ app_name }}/{{ inventory_hostname }}' }
   - { dest: '/home/netris/backup/{{ inventory_hostname }}_naetc_{{ date }}.tar.xz', src: '/usr/share/{{ app_name }}/{{ inventory_hostname }}' }
+  
+- name: Ensure ownership and permissions
+  file:
+    src: "{{ item.src | default('omit') }}"
+    dest: "{{ item.dest }}"
+    state: "{{ item.state }}"
+    owner: "{{ item.owner | default('netris') }}"
+    group: "{{ item.group | default('netris') }}"
+    mode: "{{ item.mode | default('0644') }}"
+  with_items:
+  - { dest: '/home/netris/backup/*.xz', state: 'file' }
