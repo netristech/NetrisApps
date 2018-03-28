@@ -68,6 +68,7 @@
   with_items:
   - { src: '/usr/share/{{ app_name }}/src/index.php', dest: '{{ www_dir }}/index.php' }
   - { src: '/usr/share/{{ app_name }}/src/upload.php', dest: '{{ www_dir }}/upload.php' }
+  - { src: '/usr/share/{{ app_name }}/src/netris.css.php', dest: '{{ www_dir }}/netris.css.php' }
   - { src: '/usr/share/{{ app_name }}/src/emailqueue/emailqueue.php', dest: '{{ www_dir }}/emailqueue/emailqueue.php' }
   - { src: '/usr/share/{{ app_name }}/src/emailqueue/index.php', dest: '{{ www_dir }}/emailqueue/index.php' }
   - { src: '/etc/{{ app_name }}/src/emailqueue/scripts/delivery.php', dest: '{{ etc_dir }}/emailqueue/delivery.php', owner: 'root', group: 'root' }
