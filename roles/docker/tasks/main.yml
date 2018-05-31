@@ -1,11 +1,18 @@
 ---
+- name: Install Prerequisites
+  yum:
+    name: "{{ item.name }}"
+    state: latest
+    update_cache: yes
+  with_items:
+  - 'apt-transport-https'
+  - 'ca-certificates'
+
 - name: Install Docker
   yum:
     name: "{{ item.name }}"
     state: "{{ item.state }}"
     update_cache: yes
   with_items:
-  - { name: 'apt-transport-https', state: 'latest' }
-  - { name: 'ca-certificates', state: 'latest' }
-  - { name: 'docker', state: 'present' }
+  - { name: 'docker-ce', state: 'present' }
   - { name: 'docker-compose', state: 'present' }
