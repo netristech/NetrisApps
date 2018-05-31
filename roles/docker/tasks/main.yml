@@ -11,8 +11,8 @@
 - name: Install Docker
   yum:
     name: "{{ item.name }}"
-    state: "{{ item.state }}"
+    state: present
     update_cache: yes
   with_items:
-  - { name: 'docker-ce', state: 'present' }
-  - { name: 'docker-compose', state: 'present' }
+  - 'docker-{{ docker_edition }}-{{ docker-version }}'
+  - 'docker-compose'
