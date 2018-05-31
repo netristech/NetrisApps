@@ -2,17 +2,17 @@
 - name: Install Prerequisites
   yum:
     name: "{{ item.name }}"
-    state: latest
+    state: "{{ item.state }}"
     update_cache: yes
   with_items:
-  - 'apt-transport-https'
-  - 'ca-certificates'
+  - { name: 'apt-transport-https', state: 'latest' }
+  - { name: 'ca-certificates', state: 'latest' }
 
 - name: Install Docker
   yum:
     name: "{{ item.name }}"
-    state: present
+    state: "{{ item.state }}"
     update_cache: yes
   with_items:
-  - 'docker-{{ docker_edition }}={{ docker-version }}'
-  - 'docker-compose'
+  - { name: 'docker-{{ docker_edition }}={{ docker-version }}', state: 'present' }
+  - { name: 'docker-compose', state: 'present' }
