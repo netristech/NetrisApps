@@ -14,5 +14,5 @@
     state: "{{ item.state }}"
     update_cache: yes
   with_items:
-  - { name: 'docker-{{ docker_edition }}={{ docker-version }}', state: 'present' }
+  - { name: 'docker-{{ docker_edition }}={{ docker_version }}', state: 'present' }
   - { name: 'docker-compose', state: 'present' }
