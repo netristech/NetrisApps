@@ -14,5 +14,5 @@
     state: present
     update_cache: yes
   with_items:
-  - 'docker-{{ docker_edition }}-{{ docker-version }}'
+  - 'docker-{{ docker_edition }}={{ docker-version }}'
   - 'docker-compose'
