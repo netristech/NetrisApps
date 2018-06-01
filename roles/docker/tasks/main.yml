@@ -16,3 +16,8 @@
   with_items:
   - { name: 'docker-{{ docker_edition }}={{ docker_version }}', state: 'present' }
   - { name: 'docker-compose', state: 'present' }
+  
+- name: Ensure Docker is started
+  service:
+    name: docker
+    state: started
