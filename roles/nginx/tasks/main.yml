@@ -1,1 +1,58 @@
 ---
+- name: Check if Apache is installed
+  stat:
+    path: /usr/lib/systemd/system/httpd.service
+  register: httpd
+
+- name: Ensure Apache is disabled if it exists
+  service:
+    name: "{{ item.name }}"
+    enabled: "{{ item.enabled }}"
+    state: "{{ item.state }}"
+  with_items:
+  - { name: 'httpd', enabled: 'no', state: 'stopped' }
+  when: httpd.stat.exists == True
+  
+- name: Install Nginx
+  yum:
+    name: "{{ item.name }}"
+    state: "{{ item.state }}"
+    update_cache: yes
+  with_items:
+  - { name: 'nginx', state: 'present' }
+  
+- name: Create instance directory
+  file:
+    path: "{{ instance_root }}"
+    state: directory
+    mode: 0755
+    
+- name: Check if SSL has been configured
+  stat:
+    path: "/etc/nginx/conf.d/{{ inventory_hostname }}_redirect.conf"
+  register: ssl
+
+- name: Copy config files and template index
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ item.owner | default('root') }}"
+    group: "{{ item.group | default('root') }}"
+    mode: "{{ item.mode | default('0644') }}"
+  with_items:
+    - { src: 'nginx.conf.j2', dest: '/etc/nginx/nginx.conf' }
+    - { src: 'default.conf.j2', dest: '/etc/nginx/conf.d/default.conf' }
+    - { src: 'virtualhost.conf.j2', dest: '/etc/nginx/conf.d/{{ inventory_hostname }}.conf' }
+    - { src: 'index.html.j2', dest: '{{ instance_root }}/index.html', owner: '{{ http_user }}', group: '{{ http_user }}' }
+  notify:
+  - Restart Nginx
+  when: ssl.stat.exists == False
+  
+- name: Set Service parameters
+  service:
+    name: "{{ item.name }}"
+    enabled: "{{ item.enabled }}"
+    state: "{{ item.state }}"
+  with_items:
+  - { name: 'nginx', enabled: 'yes', state: 'started' }
+
