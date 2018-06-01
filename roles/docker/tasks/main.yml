@@ -38,7 +38,11 @@
     update_cache: yes
   with_items:
   - { name: 'docker-{{ docker_edition }}', state: 'present' }
-  - { name: 'docker-compose', state: 'present' }
+  
+- name: Install Docker compose
+  pip: 
+    name: docker-compose
+    state: present
   
 - name: Set Service parameters
   service:
