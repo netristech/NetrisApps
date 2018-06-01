@@ -1,17 +1,14 @@
 ---
-- name: Add Docker GPG key.
-  rpm_key:
-    key: https://download.docker.com/linux/centos/gpg
-    state: present
-
-- name: Add Docker repository.
-  get_url:
-    url: "{{ docker_repo_url }}"
-    dest: '/etc/yum.repos.d/docker-{{ docker_edition }}.repo'
-    owner: root
-    group: root
-    mode: 0644
-    
+- name: Remove old docker versions
+  yum:
+    name: "{{ item }}"
+    state: absent
+  with_items:
+  - docker
+  - docker-engine
+  - docker-common
+  - docker-client
+  
 - name: Install Prerequisites
   yum:
     name: "{{ item.name }}"
@@ -20,6 +17,19 @@
   with_items:
   - { name: 'apt-transport-https', state: 'latest' }
   - { name: 'ca-certificates', state: 'latest' }
+  
+- name: Add Docker GPG key.
+  rpm_key:
+    key: "{{ docker_gpg_key_url }}"
+    state: present
+
+- name: Add Docker ce repo
+  get_url:
+    url: "{{ docker_repo_url }}"
+    dest: /etc/yum.repos.d/docker-ce.repo
+    owner: root
+    group: root
+    mode: 0644
 
 - name: Install Docker
   yum:
@@ -27,7 +37,7 @@
     state: "{{ item.state }}"
     update_cache: yes
   with_items:
-  - { name: 'docker-{{ docker_edition }}={{ docker_version }}', state: 'present' }
+  - { name: 'docker-{{ docker_edition }}', state: 'present' }
   - { name: 'docker-compose', state: 'present' }
   
 - name: Set Service parameters
