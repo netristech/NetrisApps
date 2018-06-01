@@ -9,15 +9,6 @@
   - docker-common
   - docker-client
   
-- name: Install Prerequisites
-  yum:
-    name: "{{ item.name }}"
-    state: "{{ item.state }}"
-    update_cache: yes
-  with_items:
-  - { name: 'apt-transport-https', state: 'latest' }
-  - { name: 'ca-certificates', state: 'latest' }
-  
 - name: Add Docker GPG key.
   rpm_key:
     key: "{{ docker_gpg_key_url }}"
