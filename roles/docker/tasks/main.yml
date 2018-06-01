@@ -17,8 +17,10 @@
   - { name: 'docker-{{ docker_edition }}={{ docker_version }}', state: 'present' }
   - { name: 'docker-compose', state: 'present' }
   
-- name: Ensure Docker is enabled
+- name: Set Service parameters
   service:
-    name: docker
-    state: started
-    enabled: yes
+    name: "{{ item.name }}"
+    enabled: "{{ item.enabled }}"
+    state: "{{ item.state }}"
+  with_items:
+  - { name: 'docker', enabled: 'yes', state: 'started' }
