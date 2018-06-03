@@ -1,1 +1,12 @@
 ---
+- name: Create proxy network for nginx
+  docker_network:
+    name: nginx-proxy
+    
+- name: Create SSL directory for certificates
+  file:
+    path:
+    state:
+    group:
+    owner:
+    mode:
