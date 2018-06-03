@@ -1,13 +1,4 @@
 ---
-- name: Install EPEL Repo
-  yum_repository:
-    name: epel
-    baseurl: "{{ epel_repo_url }}"
-    file: "{{ epel_repofile_path }}"
-    gpgkey: "{{ epel_repo_gpg_key_url }}"
-    gpgcheck: yes
-    state: present
-    
 - name: Install Common Packages
   yum:
     name: "{{ item }}"
@@ -17,8 +8,6 @@
   - epel-release
   - python
   - MySQL-python
-  - python-simplejson
-  - python-pip
   - gcc
   - git
   - nano
@@ -27,6 +16,15 @@
   - openssh-server
   - vsftpd
   - fail2ban
+
+- name: Install Additional Common Packages
+  yum:
+    name: "{{ item }}"
+    state: latest
+    update_cache: yes
+  with_items:
+  - python-simplejson
+  - python-pip
   
 - name: Check for selinux
   stat:
