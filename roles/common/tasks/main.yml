@@ -1,4 +1,14 @@
 ---
+- name: Install EPEL Repo
+  yum_repository:
+    name: epel
+    baseurl: "{{ epel_repo_url }}"
+    description: "Extra Packages for Enterprise Linux {{ ansible_distribution_major_version }} - $basearch"
+    file: "{{ epel_repofile_path }}"
+    gpgkey: "{{ epel_repo_gpg_key_url }}"
+    gpgcheck: yes
+    state: present
+    
 - name: Install Common Packages
   yum:
     name: "{{ item }}"
