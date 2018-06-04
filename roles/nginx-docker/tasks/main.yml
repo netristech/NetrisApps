@@ -1,7 +1,7 @@
 ---
 - name: Create proxy network for nginx
   docker_network:
-    name: nginx-proxy
+    name: {{ docker_network_name }}
     
 - name: Create directories
   file:
