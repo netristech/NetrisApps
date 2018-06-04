@@ -1,8 +1,4 @@
 ---
-- name: Create proxy network for nginx
-  docker_network:
-    name: {{ docker_network_name }}
-    
 - name: Create directories
   file:
     path: "{{ item.path }}"
@@ -11,4 +7,9 @@
     group: "{{ item.group | default('root') }}"
     mode: "{{ item.mode | default('0755') }}"
   with_items:
+  - { path: '{{ nginx_proxy_dir }}', state: 'directory' }
   - { path: '{{ ssl_dir }}', state: 'directory' }
+  
+- name: Create proxy network for nginx
+  docker_network:
+    name: {{ docker_network_name }}
