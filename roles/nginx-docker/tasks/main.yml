@@ -9,6 +9,17 @@
   with_items:
   - { path: '{{ nginx_proxy_dir }}', state: 'directory' }
   
+  - name: Copy template files
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ item.owner | default('root') }}"
+    group: "{{ item.group | default('root') }}"
+    mode: "{{ item.mode | default('0644') }}"
+  with_items:
+    - { src: 'nginx.tmpl.j2', dest: '{{ nginx_proxy_dir }}/nginx.tmpl' }
+    - { src: 'docker-compose.yml.j2', dest: '{{ nginx_proxy_dir }}/docker-compose.yml' }
+  
 - name: Create proxy network for nginx
   docker_network:
     name: {{ docker_network_name }}
