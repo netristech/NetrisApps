@@ -3,9 +3,14 @@
   remote_user: netris
   become: yes
   gather_facts: no
+  vars_files:
+  - roles/lemp/vars/main.yml
+  vars:
+    app_name: nginx-docker
   pre_tasks:
   - set_fact:
       ansible_distribution_major_version: "7"
   roles:
   - common
   - docker
+  - nginx-docker
