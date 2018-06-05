@@ -31,15 +31,7 @@
   - tar
   - xz
   - openssh-server
-  - vsftpd
   - fail2ban
-
-- name: Install Additional Common Packages
-  yum:
-    name: "{{ item }}"
-    state: latest
-    update_cache: yes
-  with_items:
   - python-simplejson
   - python-pip
   
