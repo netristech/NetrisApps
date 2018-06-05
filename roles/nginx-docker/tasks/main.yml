@@ -17,8 +17,17 @@
     group: "{{ item.group | default('root') }}"
     mode: "{{ item.mode | default('0644') }}"
   with_items:
-  - { src: '../files/nginx.tmpl', dest: '{{ nginx_proxy_dir }}' }
   - { src: 'docker-compose.yml.j2', dest: '{{ nginx_proxy_dir }}/docker-compose.yml' }
+  
+- name: Pull nginx template
+  get_url:
+    url: "{{ item.src }}"
+    dest: "{{ item-dest }}"
+    owner: "{{ item.owner | default('root') }}"
+    group: "{{ item.group | default('root') }}" 
+    mode: "{{ item.mode | default('0644') }}"
+  with_items:
+  - { src: 'https://raw.githubusercontent.com/jwilder/nginx-proxy/master/nginx.tmpl', dest: '{{ nginx_proxy_dir }}/nginx.tmpl' }
   
 - name: Create docker network for nginx-proxy
   docker_network:
