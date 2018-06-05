@@ -20,7 +20,7 @@
     - { src: 'nginx.tmpl.j2', dest: '{{ nginx_proxy_dir }}/nginx.tmpl' }
     - { src: 'docker-compose.yml.j2', dest: '{{ nginx_proxy_dir }}/docker-compose.yml' }
   
-- name: Create proxy network for nginx
+- name: Create docker network for nginx-proxy
   docker_network:
     name: {{ docker_network_name }}
     
