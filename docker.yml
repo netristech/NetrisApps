@@ -6,7 +6,7 @@
   vars_files:
   - roles/lemp/vars/main.yml
   vars:
-    app_name: nginx-docker
+    app_name: nginx-proxy
   pre_tasks:
   - set_fact:
       ansible_distribution_major_version: "7"
