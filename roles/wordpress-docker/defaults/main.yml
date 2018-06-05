@@ -1,3 +1,5 @@
 ---
 instance_root: "/usr/share/{{ app_name }}/{{ inventory_hostname }}"
+db_container: "{{ inventory_hostname.split('.')[0] }}_{{ inventory_hostname.split('.')[1] }}_{{ inventory_hostname.split('.')[2] }}_db"
+wp_container: "{{ inventory_hostname.split('.')[0] }}_{{ inventory_hostname.split('.')[1] }}_{{ inventory_hostname.split('.')[2] }}_wp"
 letsencrypt_email: admin@netristech.com
