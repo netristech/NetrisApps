@@ -5,6 +5,7 @@
   gather_facts: no
   vars_files:
   - roles/lemp/vars/main.yml
+  - roles/nginx-docker/vars/main.yml
   vars:
     app_name: wordpress
   roles:
