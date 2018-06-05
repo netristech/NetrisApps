@@ -10,5 +10,5 @@
   roles:
   - common
   - docker
-  - docker-nginx
-  - docker-wordpress
+  - nginx-docker
+  - wordpress-docker
