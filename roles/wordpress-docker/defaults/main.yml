@@ -1,2 +1,3 @@
 ---
 instance_root: "/usr/share/{{ app_name }}/{{ inventory_hostname }}"
+letsencrypt_email: admin@netristech.com
