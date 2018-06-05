@@ -1,33 +1,33 @@
 version: "3"
 
 services:
-   db_node_domain:
-     image: mysql:5.7
+   {{ app_name }}_db:
+     image: mariadb:latest
      volumes:
-        - db_data:/var/lib/mysql
+       - db_data:/var/lib/mysql
      restart: always
      environment:
-        MYSQL_ROOT_PASSWORD: "{{ na_root_pw }}"
-        MYSQL_DATABASE: wordpress
-        MYSQL_USER: root
-        MYSQL_PASSWORD: "{{ na_root_pw }}"
-     container_name: wp_test_db
+       MYSQL_ROOT_PASSWORD: {{ na_root_pw }}
+       MYSQL_DATABASE: {{ app_name }}
+       MYSQL_USER: root
+       MYSQL_PASSWORD: {{ na_root_pw }}
+     container_name: {{ db_container }}
 
-   wordpress:
+   {{ app_name }}:
      depends_on:
-        - db_node_domain
+       - {{ app_name }}_db
      image: wordpress:latest
      expose:
-        - 80
+       - 80
      restart: always
      environment:
-        VIRTUAL_HOST: "{{ inventory_hostname }}"
-        LETSENCRYPT_HOST: "{{ inventory_hostname }}"
-        LETSENCRYPT_EMAIL: "{{ letsencrypt_email }}"
-        WORDPRESS_DB_HOST: db_node_domain:3306
-        WORDPRESS_DB_USER: root
-        WORDPRESS_DB_PASSWORD: "{{ na_root_pw }}"
-     container_name: wp_test
+       VIRTUAL_HOST: {{ inventory_hostname }}
+       LETSENCRYPT_HOST: {{ inventory_hostname }}
+       LETSENCRYPT_EMAIL: {{ letsencrypt_email }}
+       WORDPRESS_DB_HOST: {{ app_name }}_db:3306
+       WORDPRESS_DB_USER: root
+       WORDPRESS_DB_PASSWORD: {{ na_root_pw }}
+     container_name: {{ wp_container }}
 volumes:
   db_data:
 
