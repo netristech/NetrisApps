@@ -22,7 +22,7 @@
   
 - name: Create docker network for nginx-proxy
   docker_network:
-    name: {{ docker_network_name }}
+    name: "{{ docker_network_name }}"
     
 - name: Run Docker containers with compose
   command: "chdir={{ nginx_proxy_dir }} docker-compose up -d"
