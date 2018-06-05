@@ -1,4 +1,3 @@
 ---
-docker_network_name: nginx-proxy
-nginx_proxy_dir: "/usr/share/nginx-proxy"
-ssl_dir: "{{ nginx_proxy_dir }}/certs"
+docker_network_name: {{ app_name }}
+nginx_proxy_dir: "/usr/share/{{ app_name }}"
