@@ -1,2 +1,2 @@
 ---
-instance_dir: "/usr/share/{{ inventory_hostname }}/"
+instance_root: "/usr/share/{{ app_name }}/{{ inventory_hostname }}"
