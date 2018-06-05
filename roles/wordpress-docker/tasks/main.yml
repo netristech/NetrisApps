@@ -1,0 +1,3 @@
+---
+- name: Run wordpress docker container
+  command: "chdir={{ instance_dir }} docker-compose up -d"
