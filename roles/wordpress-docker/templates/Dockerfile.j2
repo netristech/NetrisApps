@@ -1,2 +1,7 @@
 FROM wordpress:latest
-RUN mv /var/www/html/wp-config.php /var/www/wp-config.php
+# move generated wp-config file outside web root
+RUN mv /var/www/html/wp-config.php {{ wp_config_file }}
+# add custom wp-config file to include real wp-config file
+ADD ./wp-config.php /var/www/html/
+# remove default themes
+RUN rm -rf /var/www/html/wp-content/themes/twenty*
