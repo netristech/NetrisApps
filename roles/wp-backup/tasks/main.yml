@@ -1,9 +1,16 @@
 ---
-- name: backup wordpress database
-  when: not docker
-- name: backup wp database in docker
+- name: create backup dir
+  file:
+    path: "{{ item.path }}"
+    state: "{{ item.state }}"
+    owner: "{{ item.owner | default('root') }}"
+    group: "{{ item.group | default('root') }}"
+    mode: "{{ item.mode | default('0755') }}"
+  with_items:
+  - { path: '/home/netris/backup/{{ inventory_hostname }}', state: 'directory' }
+  
+- import_tasks: docker.yml
   when: docker
-- name: backup html directory
+  
+- import_tasks: bare_metal.yml
   when: not docker
-- name: backup html dir in docker
-  when: docker
