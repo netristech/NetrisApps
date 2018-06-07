@@ -1,3 +1,5 @@
 ---
 - name: backup wordpress database
+  when: not docker
 - name: backup html directory
+  when: not docker
