@@ -25,4 +25,4 @@
     group: "{{ item.group | default('netris') }}"
     mode: "{{ item.mode | default('0644') }}"
   with_items:
-  - { dest: '/home/netris/backup/{{ inventory_hostname }}/{{ app_name }}_{{ date }}.tar.xz', src: '{{ html_root }}' }
+  - { dest: '/home/netris/backup/{{ inventory_hostname }}/{{ app_name }}_{{ date }}.tar.xz', src: '/usr/share/nginx/html' }
