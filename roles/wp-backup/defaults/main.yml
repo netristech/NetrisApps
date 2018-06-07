@@ -1,2 +1,2 @@
 ---
-docker: true
+date: "{{ lookup('pipe', 'date +%Y%m%d') }}"
