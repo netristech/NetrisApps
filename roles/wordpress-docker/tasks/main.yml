@@ -18,6 +18,7 @@
     mode: "{{ item.mode | default('0644') }}"
   with_items:
   - { src: 'docker-compose.yml.j2', dest: '{{ instance_root }}/docker-compose.yml' }
+  - { src: 'wp-config.php.j2', dest: '{{ instance_root }}/wp-config.php' }
     
 - name: Run Docker containers with compose
   command: "chdir={{ instance_root }} docker-compose up -d"
@@ -26,10 +27,10 @@
   command: "docker exec -d {{ wp_container }} mkdir -p {{ wp_config_dir }}"
   
 - name: Move wp-config file to new dir
-  command: "docker exec -d {{ wp_container }} mv wp-config.php {{ wp_config_dir }}/wp-config.php"
+  command: "docker exec -d {{ wp_container }} [ ! -e {{ wp_config_dir }}/wp-config.php ] && mv wp-config.php {{ wp_config_dir }}/wp-config.php"
   
-- name: Generate dummy wp-config
-  command: "docker exec -d {{ wp_container }} echo '<?php require_once(''{{ wp_config_dir }}/wp-config.php''); ?>' > wp-config.php"
+- name: Copy dummy wp-config
+  command: "docker cp {{ instance_root }}/wp-config.php {{ wp_container }}:/var/www/html/wp-config.php"
   
 - name: Remove default themes
   command: "docker exec -d {{ wp_container }} rm -rf /var/www/html/wp-content/themes/twenty*"
