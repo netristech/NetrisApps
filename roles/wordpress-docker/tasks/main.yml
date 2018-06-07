@@ -29,7 +29,7 @@
   command: "docker exec -d {{ wp_container }} mv wp-config.php {{ wp_config_dir }}/wp-config.php"
   
 - name: Generate dummy wp-config
-  command: "docker exec -d {{ wp_container }} { echo '<?php' echo ' ' echo 'require_once(\"{{ wp_config_dir }}/wp-config.php\")' echo ' ' echo '?>' > wp-config.php"
+  command: "docker exec -d {{ wp_container }} echo '<?php require_one(''{{ wp_config_dir }}/wp-config.php''); ?>' > wp-config.php"
   
 - name: Remove default themes
   command: "docker exec -d {{ wp_container }} rm -rf wp-content/themes/twenty*"
