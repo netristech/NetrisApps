@@ -1,8 +1,8 @@
 FROM wordpress:latest
 # create directory outside of web root
-RUN mkdir -p /etc/{{ app_name }}
+RUN mkdir -p {{ wp_config_dir }}
 # move generated wp-config file outside web root
-RUN mv /var/www/html/wp-config.php /etc/{{ app_name }}/wp-config.php
+RUN mv /var/www/html/wp-config.php {{ wp_config_dir }}/wp-config.php
 # add custom wp-config file to include real wp-config file
 ADD ./wp-config.php /var/www/html/
 # remove default themes
