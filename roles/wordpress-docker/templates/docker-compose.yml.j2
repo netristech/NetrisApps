@@ -16,7 +16,10 @@ services:
    {{ app_name }}:
      depends_on:
        - {{ app_name }}_db
-     image: wordpress:latest
+     #image: wordpress:latest
+     build:
+       context: .
+       dockerfile: Dockerfile
      expose:
        - 80
      restart: always
