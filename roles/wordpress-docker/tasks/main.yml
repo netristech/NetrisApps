@@ -32,5 +32,8 @@
 - name: Copy dummy wp-config
   command: "docker cp {{ instance_root }}/wp-config.php {{ wp_container }}:/var/www/html/wp-config.php"
   
+- name: Change permissions on wp-config file
+  command: "docker exec -d {{ wp_container }} chown www-data:www-data /var/www/html/wp-config.php"
+  
 - name: Remove default themes
   command: "docker exec -d {{ wp_container }} rm -rf /var/www/html/wp-content/themes/twenty*"
