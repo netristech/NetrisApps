@@ -1,4 +1,9 @@
 ---
+- name: check if Docker is installed
+  stat:
+    path: /usr/bin/docker
+  register: docker
+  
 - name: create backup dir
   file:
     path: "{{ item.path }}"
@@ -10,7 +15,7 @@
   - { path: '/home/netris/backup/{{ inventory_hostname }}', state: 'directory' }
   
 - import_tasks: docker.yml
-  when: docker
+  when: docker.stat.exists == True
   
 - import_tasks: bare_metal.yml
-  when: not docker
+  when: docker.stat.exists == False
