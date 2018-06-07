@@ -3,7 +3,7 @@
   command: "docker exec -d {{ wp_container }} /bin/bash -c 'mysqldump -u root -p{{ na_root_pw }} {{app_name }} > /root/{{ app_name }}_{{ date }}.sql'"
   
 - name: copy db backup to host
-  command: "docker cp {{ wp_container }}:/root/{{ app_name }}_{{ date }}.sql /home/netris/{{ inventory_hostname }}/"
+  command: "docker cp {{ wp_container }}:/root/{{ app_name }}_{{ date }}.sql /home/netris/backup/{{ inventory_hostname }}/"
   
 - name: remove backup file from docker
   command: "docker exec -d {{ wp_container }} /bin/bash -c 'rm -f /root/{{ app_name }}_{{ date }}.sql'"
@@ -11,18 +11,21 @@
 - name: backup {{ app_name }} codebase
   command: "docker exec -d {{ wp_container }} /bin/bash -c 'tar -cvf /root/{{ app_name }}_{{ date }}.tar /var/www/html'"
   
-- name" copy codebase backup  to host
-  command: "docker cp {{ wp_container }}:/root/{{ app_name }}_{{ date }}.tar /home/netris/{{ inventory_hostname }}/"
+- name: copy codebase backup  to host
+  command: "docker cp {{ wp_container }}:/root/{{ app_name }}_{{ date }}.tar /home/netris/backup/{{ inventory_hostname }}/"
   
-  mysql_db:
-    login_user: root
-    login_password: "{{ na_root_pw }}"
-    name: "{{ item.name }}"
-    target: "{{ item.dest }}"
-    state: "{{ item.state }}"
-  with_items:
-  - { name: '{{ app_name }}', dest: '/home/netris/backup/{{ inventory_hostname }}/{{ app_name }}_{{ date }}.sql.xz', state: 'dump' }
-
+- name: remove backup file from docker
+  command: "docker exec -d {{ wp_container }} /bin/bash -c 'rm -f /root/{{ app_name }}_{{ date }}.tar'"  
+  
+- name: compress backed up files  
+  archive:
+    path: 
+    - /home/netris/backup/{{ inventory_hostname }}/{{ app_name }}_{{ date }}.sql
+    - /home/netris/backup/{{ inventory_hostname }}/{{ app_name }}_{{ date }}.tar
+    dest: /home/netris/backup/{{ inventory_hostname }}/{{ app_name }}_{{ date }}.xz
+    format: xz
+    remove: yes
+    
 - name: Change permissions on database backups
   file:
     path: "{{ item.path }}"
@@ -30,15 +33,4 @@
     group: "{{ item.group | default('netris') }}"
     mode: "{{ item.mode | default('0644') }}"
   with_items:
-  - { path: '/home/netris/backup/{{ inventory_hostname }}/{{ app_name }}_{{ date }}.sql.xz' }
-  
-- name: Backup {{ app_name }} codebase
-  archive:
-    path: "{{ item.src }}"
-    dest: "{{ item.dest }}"
-    owner: "{{ item.owner | default('netris') }}"
-    group: "{{ item.group | default('netris') }}"
-    mode: "{{ item.mode | default('0644') }}"
-  with_items:
-  - { dest: '/home/netris/backup/{{ inventory_hostname }}/{{ app_name }}_{{ date }}.tar.xz', src: '/usr/share/nginx/html' }
-© 2018 GitHub, Inc.
+  - { path: '/home/netris/backup/{{ inventory_hostname }}/{{ app_name }}_{{ date }}.xz' }
