@@ -1,6 +1,35 @@
 ---
-- name: copy backup files to docker container
-  command: "docker cp {{ item }} {{ wp_container }}:/root/"
-  with_items:
-  - /home/netris/backup/{{ inventory_hostname }}/{{ app_name }}_{{ restore_to }}.sql
-  - /home/netris/backup/{{ inventory_hostname }}/{{ app_name }}_{{ restore_to }}.tar
+- name: decompress backup file
+  command: "xz -d /home/netris/backup/{{ inventory_hostname }}/{{ app_name }}_{{ restore_to }}.tar.xz"
+
+- name: copy database backup to database container
+  command: "docker cp /home/netris/backup/{{ inventory_hostname }}/{{ app_name }}_{{ restore_to }}.sql {{ db_container }}:/root/"
+  
+- name: copy codebase backup to {{ app_name }} container
+  command: "docker cp /home/netris/backup/{{ inventory_hostname }}/{{ app_name }}_{{ restore_to }}.tar {{ app_container }}:/root/"
+  
+- name: backup existing database
+  command: "docker exec -d {{ db_conatiner }} /bin/bash -c 'mysqldump -u root -p{{ na_root_pw }} {{ app_name }} > /root/{{ app_name }}_old.sql'"
+  
+- name: remove existing database
+  command: "docker exec -d {{ db_container }} /bin/bash -c 'mysqladmin -u root -p{{ na_root_pw }} drop {{ app_name }}'"
+  
+- name: restore database
+ command: "docker exec -d {{ db_container }} /bin/bash -c 'mysql -u root -p{{ na_root_pw }} {{ app_name }} < /root/{{ app_name }}_{{ restore_to }}.sql'"
+ notify:
+ - Restart database
+   
+- name: backup existing codebase
+  command: "docker exec -d {{ app_container }} /bin/bash -c 'tar -cvf /root/{{ app_name }}_old.tar /var/www/html'"
+  
+- name: remove existing codebase
+  command: "docker exec -d {{ app_container }} /bin/bash -c 'rm -rf /var/www/html'"
+  
+- name: restore codebase
+  command: "docker exec -d {{ app_container }} /bin/bash -c 'cd /var/www && tar -xvf /root/{{ app_name }}_{{ restore_to }}.tar'"
+  
+- name: set permisions on codebase
+  command: "docker exec -d {{ app_container }} /bin/bash -c 'chown -R www-data:www-data /var/www/html'"
+  notify:
+  - Restart app
+  
