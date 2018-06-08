@@ -17,7 +17,7 @@
 - name: restore database
  command: "docker exec -d {{ db_container }} /bin/bash -c 'mysql -u root -p{{ na_root_pw }} {{ app_name }} < /root/{{ app_name }}_{{ restore_to }}.sql'"
  notify:
- - Restart database
+ - Restart database docker
    
 - name: backup existing codebase
   command: "docker exec -d {{ app_container }} /bin/bash -c 'tar -cvf /root/{{ app_name }}_old.tar /var/www/html'"
@@ -31,5 +31,5 @@
 - name: set permisions on codebase
   command: "docker exec -d {{ app_container }} /bin/bash -c 'chown -R www-data:www-data /var/www/html'"
   notify:
-  - Restart app
+  - Restart app docker
   
