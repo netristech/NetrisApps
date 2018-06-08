@@ -1,6 +1,16 @@
 ---
-- name: Restart database
+- name: Restart database docker
   command: "docker exec -d {{ db_container }} /bin/bash -c 'service mysqld restart'"
     
-- name: Restart app
+- name: Restart app docker
   command: "docker exec -d {{ app_container }} /bin/bash -c 'service apache2 reload'"
+  
+- name: Restart database
+  service:
+    name: mysql
+    state: reloaded
+    
+- name: Restart app
+  service:
+    name: nginx
+    state: reloaded
