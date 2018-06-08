@@ -1,3 +1,6 @@
 ---
 - name: copy backup files to docker container
-  command: "docker cp /home/netris/backup/{{ instance_name }}/{{ app_name }}_{{ restore_to }}.sql
+  command: "docker cp {{ item }} {{ wp_container }}:/root/"
+  with_items:
+  - /home/netris/backup/{{ inventory_hostname }}/{{ app_name }}_{{ restore_to }}.sql
+  - /home/netris/backup/{{ inventory_hostname }}/{{ app_name }}_{{ restore_to }}.tar
