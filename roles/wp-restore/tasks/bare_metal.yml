@@ -1,0 +1,57 @@
+---
+- name: decompress backup file
+  command: "xz -d /home/netris/backup/{{ inventory_hostname }}/{{ app_name }}_{{ restore_to }}.tar.xz"
+  
+- name: backup existing database
+  mysql_db:
+    login_user: root
+    login_password: "{{ na_root_pw }}"
+    name: "{{ item.name }}"
+    target: "{{ item.dest }}"
+    state: "{{ item.state }}"
+  with_items:
+  - { name: '{{ app_name }}', dest: '/home/netris/backup/{{ inventory_hostname }}/{{ app_name }}_old.sql', state: 'dump' }
+  
+- name: Backup existing codebase
+  archive:
+    path: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ item.owner | default('netris') }}"
+    group: "{{ item.group | default('netris') }}"
+    mode: "{{ item.mode | default('0644') }}"
+  with_items:
+  - { dest: '/home/netris/backup/{{ inventory_hostname }}/{{ app_name }}_old.tar', src: '/usr/share/nginx/html' }
+  
+- name: remove existing database
+  mysql_db:
+    name: {{ app_name }}
+    state: absent
+  
+- name: remove existing codebase
+  file:
+    path: /usr/share/nginx/html
+    state: absent
+  
+- name: restore database
+  mysql_db:
+    name: "{{ item.name }}"
+    state: import
+    target: "{{ item.src }}"
+  with_items:
+  - { name: '{{ app_name }}', src: '/home/netris/backup/{{ inventory_hostname }}/{{ app_name }}_{{ restore_to }}.sql' }
+  notify:
+  - Restart database
+    
+- name: restore codebase
+  unarchive:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    remote_src: yes
+    owner: "{{ item.owner | default('nginx') }}"
+    group: "{{ item.group | default('nginx') }}"
+  with_items:
+  - { src: '/home/netris/backup/{{ inventory_hostname }}/{{ app_name }}_{{ restore_to }}.tar', dest: '/usr/share/nginx/'}
+  notify:
+  - Restart app
+    
+    
