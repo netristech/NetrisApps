@@ -7,9 +7,7 @@
   - roles/lemp/vars/main.yml
   vars:
     app_name: wordpress
-  vars_prompt:
-  - name: "restore-to"
-    prompt: "which day do you wish to restore to? (use date format YYYYmmdd)"
+    restore_to: 20180608
   roles:
   - common
   - wp-restore
