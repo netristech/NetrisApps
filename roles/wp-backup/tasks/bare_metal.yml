@@ -7,16 +7,7 @@
     target: "{{ item.dest }}"
     state: "{{ item.state }}"
   with_items:
-  - { name: '{{ app_name }}', dest: '/home/netris/backup/{{ inventory_hostname }}/{{ app_name }}_{{ date }}.sql.xz', state: 'dump' }
-
-- name: Change permissions on database backups
-  file:
-    path: "{{ item.path }}"
-    owner: "{{ item.owner | default('netris') }}"
-    group: "{{ item.group | default('netris') }}"
-    mode: "{{ item.mode | default('0644') }}"
-  with_items:
-  - { path: '/home/netris/backup/{{ inventory_hostname }}/{{ app_name }}_{{ date }}.sql.xz' }
+  - { name: '{{ app_name }}', dest: '/home/netris/backup/{{ inventory_hostname }}/{{ app_name }}_{{ date }}.sql', state: 'dump' }
   
 - name: Backup {{ app_name }} codebase
   archive:
@@ -26,4 +17,22 @@
     group: "{{ item.group | default('netris') }}"
     mode: "{{ item.mode | default('0644') }}"
   with_items:
-  - { dest: '/home/netris/backup/{{ inventory_hostname }}/{{ app_name }}_{{ date }}.tar.xz', src: '/usr/share/nginx/html' }
+  - { dest: '/home/netris/backup/{{ inventory_hostname }}/{{ app_name }}_{{ date }}.tar', src: '/usr/share/nginx/html' }
+  
+- name: compress backed up files  
+  archive:
+    path: 
+    - /home/netris/backup/{{ inventory_hostname }}/{{ app_name }}_{{ date }}.sql
+    - /home/netris/backup/{{ inventory_hostname }}/{{ app_name }}_{{ date }}.tar
+    dest: /home/netris/backup/{{ inventory_hostname }}/{{ app_name }}_{{ date }}.xz
+    format: xz
+    remove: yes
+    
+- name: Change permissions on backup file
+  file:
+    path: "{{ item.path }}"
+    owner: "{{ item.owner | default('netris') }}"
+    group: "{{ item.group | default('netris') }}"
+    mode: "{{ item.mode | default('0644') }}"
+  with_items:
+  - { path: '/home/netris/backup/{{ inventory_hostname }}/{{ app_name }}_{{ date }}.xz' }
