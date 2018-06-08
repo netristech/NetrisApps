@@ -39,6 +39,7 @@
   - fail2ban
   - python-simplejson
   - python-pip
+  - python-backports-lzma
   
 - name: Check for selinux
   stat:
