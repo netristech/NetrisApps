@@ -24,7 +24,7 @@
     path: 
     - /home/netris/backup/{{ inventory_hostname }}/{{ app_name }}_{{ date }}.sql
     - /home/netris/backup/{{ inventory_hostname }}/{{ app_name }}_{{ date }}.tar
-    dest: /home/netris/backup/{{ inventory_hostname }}/{{ app_name }}_{{ date }}.xz
+    dest: /home/netris/backup/{{ inventory_hostname }}/{{ app_name }}_{{ date }}.tar.xz
     format: xz
     remove: yes
     
@@ -35,4 +35,4 @@
     group: "{{ item.group | default('netris') }}"
     mode: "{{ item.mode | default('0644') }}"
   with_items:
-  - { path: '/home/netris/backup/{{ inventory_hostname }}/{{ app_name }}_{{ date }}.xz' }
+  - { path: '/home/netris/backup/{{ inventory_hostname }}/{{ app_name }}_{{ date }}.tar.xz' }
