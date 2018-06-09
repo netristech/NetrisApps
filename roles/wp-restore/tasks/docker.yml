@@ -1,6 +1,7 @@
 ---
 - name: decompress backup file
   command: "xz -d /home/netris/backup/{{ inventory_hostname }}/{{ app_name }}_{{ restore_to }}.tar.xz"
+  command: "tar -xvf /home/netris/backup/{{ inventory_hostname }}/{{ app_name }}_{{ restore_to }}.tar"
 
 - name: copy database backup to database container
   command: "docker cp /home/netris/backup/{{ inventory_hostname }}/{{ app_name }}_{{ restore_to }}.sql {{ db_container }}:/root/"
