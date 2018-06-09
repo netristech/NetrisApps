@@ -15,9 +15,9 @@
   command: "docker exec -d {{ db_container }} /bin/bash -c 'mysqladmin -u root -p{{ na_root_pw }} drop {{ app_name }}'"
   
 - name: restore database
- command: "docker exec -d {{ db_container }} /bin/bash -c 'mysql -u root -p{{ na_root_pw }} {{ app_name }} < /root/{{ app_name }}_{{ restore_to }}.sql'"
- notify:
- - Restart database docker
+  command: "docker exec -d {{ db_container }} /bin/bash -c 'mysql -u root -p{{ na_root_pw }} {{ app_name }} < /root/{{ app_name }}_{{ restore_to }}.sql'"
+  notify:
+  - Restart database docker
    
 - name: backup existing codebase
   command: "docker exec -d {{ app_container }} /bin/bash -c 'tar -cvf /root/{{ app_name }}_old.tar /var/www/html'"
