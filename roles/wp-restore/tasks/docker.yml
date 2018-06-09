@@ -6,7 +6,7 @@
   command: "docker cp /home/netris/backup/{{ inventory_hostname }}/{{ app_name }}_{{ restore_to }}.tar {{ app_container }}:/root/"
   
 - name: backup existing database
-  command: "docker exec -d {{ db_conatiner }} /bin/bash -c 'mysqldump -u root -p{{ na_root_pw }} {{ app_name }} > /root/{{ app_name }}_old.sql'"
+  command: "docker exec -d {{ db_container }} /bin/bash -c 'mysqldump -u root -p{{ na_root_pw }} {{ app_name }} > /root/{{ app_name }}_old.sql'"
   
 - name: remove existing database
   command: "docker exec -d {{ db_container }} /bin/bash -c 'mysqladmin -u root -p{{ na_root_pw }} drop {{ app_name }}'"
