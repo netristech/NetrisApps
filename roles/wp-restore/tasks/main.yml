@@ -4,6 +4,14 @@
     path: /usr/bin/docker
   register: docker
   
+- name: unarchive backup file
+  unarchive:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    remote_src: yes
+  with_items:
+  - { src: '/home/netris/backup/{{ inventory_hostname }}/{{ app_name }}_{{ restore_to }}.tar.xz', dest: '/home/netris/backup/{{ inventory_hostname }}/' }
+   
 - import_tasks: docker.yml
   when: docker.stat.exists == True
   
