@@ -24,7 +24,7 @@
   
 - name: remove existing database
   mysql_db:
-    name: {{ app_name }}
+    name: "{{ app_name }}"
     state: absent
   
 - name: remove existing codebase
