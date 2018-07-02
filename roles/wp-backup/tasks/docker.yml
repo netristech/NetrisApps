@@ -26,7 +26,7 @@
     format: xz
     remove: yes
     
-- name: Change permissions on database backups
+- name: Change permissions on backups
   file:
     path: "{{ item.path }}"
     owner: "{{ item.owner | default('netris') }}"
