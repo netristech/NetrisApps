@@ -9,7 +9,7 @@
   command: "docker exec -d {{ db_container }} /bin/bash -c 'rm -f /root/{{ app_name }}_{{ date }}.sql'"
   
 - name: backup {{ app_name }} codebase
-  command: "docker exec -d {{ wp_container }} /bin/bash -c 'tar -cvf /root/{{ app_name }}_{{ date }}.tar /var/www/html'"
+  command: "docker exec -d {{ wp_container }} /bin/bash -c 'tar -cvf /root/{{ app_name }}_{{ date }}.tar -C /var/www/html .'"
   
 - name: copy codebase backup  to host
   command: "docker cp {{ wp_container }}:/root/{{ app_name }}_{{ date }}.tar /home/netris/backup/{{ inventory_hostname }}/"
