@@ -17,7 +17,7 @@
   - Restart database docker
    
 - name: backup existing codebase
-  command: "docker exec -d {{ app_container }} /bin/bash -c 'tar -cvf /root/{{ app_name }}_old.tar /var/www/html'"
+  command: "docker exec -d {{ app_container }} /bin/bash -c 'tar -cvf /root/{{ app_name }}_old.tar -C /var/www/html .'"
   
 - name: remove existing codebase
   command: "docker exec -d {{ app_container }} /bin/bash -c 'rm -rf /var/www/html'"
