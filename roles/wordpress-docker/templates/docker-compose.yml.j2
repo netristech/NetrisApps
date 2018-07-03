@@ -3,8 +3,8 @@ version: "3"
 services:
    {{ app_name }}_db:
      image: mariadb:latest
-     #volumes:
-     #  - db_data:/var/lib/mysql
+     volumes:
+       - db_data:/var/lib/mysql
      restart: always
      environment:
        MYSQL_ROOT_PASSWORD: {{ na_root_pw }}
@@ -28,8 +28,8 @@ services:
        WORDPRESS_DB_USER: root
        WORDPRESS_DB_PASSWORD: {{ na_root_pw }}
      container_name: {{ wp_container }}
-#volumes:
-#  db_data:
+volumes:
+  db_data:
 
 networks:
   default:
