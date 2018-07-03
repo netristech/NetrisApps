@@ -1,7 +1,8 @@
 ---
 instance_root: "/usr/share/{{ app_name }}/{{ inventory_hostname }}"
 html_root: /var/www/html
-db_container: "{{ inventory_hostname.split('.')[0] }}_{{ inventory_hostname.split('.')[1] }}_{{ inventory_hostname.split('.')[2] }}_{{ app_name }}_db"
-wp_container: "{{ inventory_hostname.split('.')[0] }}_{{ inventory_hostname.split('.')[1] }}_{{ inventory_hostname.split('.')[2] }}_{{ app_name }}"
+host_split: "{{ inventory_hostname.split('.')[0] }}_{{ inventory_hostname.split('.')[1] }}_{{ inventory_hostname.split('.')[2] }}"
+db_container: "{{ host_split }}_{{ app_name }}_db"
+wp_container: "{{ host_split }}_{{ app_name }}"
 letsencrypt_email: admin@netris.us
 wp_config_dir: "/etc/{{ app_name }}"
