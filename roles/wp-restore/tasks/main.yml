@@ -11,7 +11,6 @@
     remote_src: yes
   with_items:
   - { src: '/home/netris/backup/{{ inventory_hostname }}/{{ app_name }}_{{ restore_to }}.xz', dest: '/home/netris/backup/{{ inventory_hostname }}/' }
-  - { src: '/home/netris/backup/{{ inventory_hostname }}/{{ app_name }}_{{ restore_to }}', dest: '/home/netris/backup/{{ inventory_hostname }}/' }
    
 - import_tasks: docker.yml
   when: docker.stat.exists == True
