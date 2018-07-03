@@ -7,7 +7,7 @@
   - roles/lemp/vars/main.yml
   vars:
     app_name: wordpress
-    restore_to: 20180608
+    restore_to: 20180703
   roles:
   - common
   - wp-restore
