@@ -1,0 +1,7 @@
+---
+instance_root: "/usr/share/{{ app_name }}/{{ inventory_hostname }}"
+host_split: "{{ inventory_hostname.split('.')[0] }}_{{ inventory_hostname.split('.')[1] }}_{{ inventory_hostname.split('.')[2] }}"
+db_container: "{{ host_split }}_{{ app_name }}_db"
+app_container: "{{ host_split }}_{{ app_name }}"
+letsencrypt_email: admin@netris.us
+app_config_dir: "/etc/{{ app_name }}"
