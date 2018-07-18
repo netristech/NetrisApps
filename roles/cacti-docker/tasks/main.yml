@@ -1,0 +1,23 @@
+---
+- name: Create directories
+  file:
+    path: "{{ item.path }}"
+    state: "{{ item.state }}"
+    owner: "{{ item.owner | default('root') }}"
+    group: "{{ item.group | default('root') }}"
+    mode: "{{ item.mode | default('0755') }}"
+  with_items:
+  - { path: '{{ instance_root }}', state: 'directory' }
+  
+- name: Copy template files
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ item.owner | default('root') }}"
+    group: "{{ item.group | default('root') }}"
+    mode: "{{ item.mode | default('0644') }}"
+  with_items:
+  - { src: 'docker-compose.yml.j2', dest: '{{ instance_root }}/docker-compose.yml' }
+    
+- name: Run Docker containers with compose
+  command: "chdir={{ instance_root }} docker-compose up -d"
