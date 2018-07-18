@@ -24,10 +24,10 @@ services:
        VIRTUAL_HOST: {{ inventory_hostname }}
        LETSENCRYPT_HOST: {{ inventory_hostname }}
        LETSENCRYPT_EMAIL: {{ letsencrypt_email }}
-       DB_USER = root
-       DB_PASS = {{ na_root_pw }}
-       DB_ADDRESS = {{ app_name }}_db_{{ host_split }}:3306
-       TIMEZONE = CST       
+       DB_USER: root
+       DB_PASS: {{ na_root_pw }}
+       DB_ADDRESS: {{ app_name }}_db_{{ host_split }}:3306
+       TIMEZONE: CST       
      container_name: {{ app_container }}
 volumes:
   db_data:
