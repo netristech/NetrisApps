@@ -5,4 +5,4 @@ db_container: "{{ host_split }}_{{ app_name }}_db"
 app_container: "{{ host_split }}_{{ app_name }}"
 letsencrypt_email: admin@netris.us
 app_config_dir: "/etc/{{ app_name }}"
-html_root: "/var/www/html/{{ app_name ))"
+html_root: "/var/www/html/{{ app_name }}"
