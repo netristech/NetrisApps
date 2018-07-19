@@ -1,1 +1,9 @@
 ---
+- name: Install SNMP Agent
+  yum:
+    name: "{{ item.name }}"
+    state: "{{ item.state }}"
+    update_cache: yes
+  with_items:
+  - { name: 'net-snmp', state: 'present' }
+  - { name: 'net-snmp-utils', state: 'present' }
