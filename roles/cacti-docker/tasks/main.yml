@@ -33,3 +33,6 @@
   
 - name: Change permissions on symlink
   command: "docker exec -d {{ app_container }} /bin/bash -c 'chown -h www-data:www-data {{ app_root }}/config.php'"
+  
+- name: Remove original config file
+  command: "docker exec -d {{ app_container }} /bin/bash -c 'rm -f {{ app_root }}/include/config.php'"
