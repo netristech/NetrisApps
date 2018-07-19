@@ -2,21 +2,19 @@ version: "3"
 
 services:
    {{ app_name }}_db_{{ host_split }}:
-     image: mariadb:latest
+     image: million12/mariadb:latest
      volumes:
        - db_data:/var/lib/mysql
      restart: always
      environment:
-       MYSQL_ROOT_PASSWORD: {{ na_root_pw }}
-       MYSQL_DATABASE: {{ app_name }}
-       MYSQL_USER: root
-       MYSQL_PASSWORD: {{ na_root_pw }}
+       MARIADB_USER: root
+       MARIADB_PASS: {{ na_root_pw }}
      container_name: {{ db_container }}
 
    {{ app_name }}_{{ host_split }}:
      depends_on:
        - {{ app_name }}_db_{{ host_split }}
-     image: quantumobject/docker-cacti:latest
+     image: polinux/cacti:latest
      expose:
        - 80
      restart: always
@@ -26,8 +24,7 @@ services:
        LETSENCRYPT_EMAIL: {{ letsencrypt_email }}
        DB_USER: root
        DB_PASS: {{ na_root_pw }}
-       DB_ADDRESS: {{ app_name }}_db_{{ host_split }}:3306
-       TIMEZONE: CST       
+       DB_ADDRESS: {{ app_name }}_db_{{ host_split }}
      container_name: {{ app_container }}
 volumes:
   db_data:
