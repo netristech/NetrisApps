@@ -7,7 +7,7 @@ services:
        - db_data:/var/lib/mysql
      restart: always
      environment:
-       MARIADB_USER: root
+       MARIADB_USER: {{ db_user }}
        MARIADB_PASS: {{ na_root_pw }}
      container_name: {{ db_container }}
 
@@ -22,7 +22,7 @@ services:
        VIRTUAL_HOST: {{ inventory_hostname }}
        LETSENCRYPT_HOST: {{ inventory_hostname }}
        LETSENCRYPT_EMAIL: {{ letsencrypt_email }}
-       DB_USER: root
+       DB_USER: (( db_user }}
        DB_PASS: {{ na_root_pw }}
        DB_ADDRESS: {{ app_name }}_db_{{ host_split }}
      container_name: {{ app_container }}
