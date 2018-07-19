@@ -29,4 +29,4 @@
   command: "docker exec -d {{ app_container }} /bin/bash -c 'cp -n {{ html_root }}/config.php {{ app_config_dir }}/'"
   
 - name: Create symlink to config file
-  command: "docker exec -d {{ wp_container }} /bin/bash -c 'ln -s {{ app_config_dir }}/config.php {{ html_root }}/config.php'"  
+  command: "docker exec -d {{ app_container }} /bin/bash -c 'ln -s {{ app_config_dir }}/config.php {{ html_root }}/config.php'"  
