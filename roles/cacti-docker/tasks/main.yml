@@ -26,7 +26,10 @@
   command: "docker exec -d {{ app_container }} /bin/bash -c 'mkdir -p {{ app_config_dir }}'"  
 
 - name: Move config file to new dir
-  command: "docker exec -d {{ app_container }} /bin/bash -c 'cp -n {{ app_root }}/config.php {{ app_config_dir }}/'"
+  command: "docker exec -d {{ app_container }} /bin/bash -c 'cp -n {{ app_root }}/include/config.php {{ app_config_dir }}/'"
   
 - name: Create symlink to config file
-  command: "docker exec -d {{ app_container }} /bin/bash -c 'ln -s {{ app_config_dir }}/config.php {{ app_root }}/config.php'"  
+  command: "docker exec -d {{ app_container }} /bin/bash -c 'ln -s {{ app_config_dir }}/config.php {{ app_root }}/config.php'"
+  
+- name: Change permissions on symlink
+  command: "docker exec -d {{ app_container }} /bin/bash -c 'chown -h www-data:www-data {{ app_root }}/config.php'"
