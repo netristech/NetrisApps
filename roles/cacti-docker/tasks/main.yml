@@ -36,7 +36,13 @@
   command: "docker exec -d {{ app_container }} /bin/bash -c 'ln -s {{ app_config_dir }}/config.php {{ app_root }}/config.php'"
   
 - name: Change permissions on symlink
-  command: "docker exec -d {{ app_container }} /bin/bash -c 'chown -h www-data:www-data {{ app_root }}/config.php'"
+  command: "docker exec -d {{ app_container }} /bin/bash -c 'chown -h www:www {{ app_root }}/config.php'"
   
 - name: Remove original config file
   command: "docker exec -d {{ app_container }} /bin/bash -c 'rm -f {{ app_root }}/include/config.php'"
+  
+- name: Create symlink to html folder
+  command: "docker exec -d {{ app_container }} /bin/bash -c 'ln -s {{ app_root }} /var/www/html/{{ app_name }}'"
+  
+- name: Change permissions on symlink
+  command: "docker exec -d {{ app_container }} /bin/bash -c 'chown -h -R www:www /var/www/html/{{ app_name }}'"
