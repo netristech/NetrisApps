@@ -21,3 +21,12 @@
     
 - name: Run Docker containers with compose
   command: "chdir={{ instance_root }} docker-compose up -d"
+  
+- name: Create config dir
+  command: "docker exec -d {{ app_container }} /bin/bash -c 'mkdir -p {{ app_config_dir }}'"  
+
+- name: Move config file to new dir
+  command: "docker exec -d {{ app_container }} /bin/bash -c 'cp -n {{ html_root }}/config.php {{ app_config_dir }}/'"
+  
+- name: Create symlink to config file
+  command: "docker exec -d {{ wp_container }} /bin/bash -c 'ln -s {{ app_config_dir }}/config.php {{ html_root }}/config.php'"  
