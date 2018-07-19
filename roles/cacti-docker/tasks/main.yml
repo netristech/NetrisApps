@@ -22,11 +22,9 @@
 - name: Run Docker containers with compose
   command: "chdir={{ instance_root }} docker-compose up -d"
   
-- name: Wait for Docker containers to start
-  wait_for:
-    port: 80  
-    host: "{{ app_name }}_{{ host_split }}"
-    delay: 10
+- name: Wait 30 seconds for Docker containers to start
+  wait_for: timeout=30
+  delegate_to: localhost
   
 - name: Create config dir
   command: "docker exec -d {{ app_container }} /bin/bash -c 'mkdir -p {{ app_config_dir }}'"  
