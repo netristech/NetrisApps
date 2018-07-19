@@ -14,3 +14,11 @@
   command: "net-snmp-create-v3-user -ro -A {{ snmp_auth_pass }} -a {{ auth_hash }} -X {{ snmp_priv_pass }} -x {{ enc_cipher }} {{ snmp_user }}"
   notify:
   - Restart net-snmp
+
+- name: Set Service parameters
+  service:
+    name: "{{ item.name }}"
+    enabled: "{{ item.enabled }}"
+    state: "{{ item.state }}"
+  with_items:
+  - { name: 'snmpd', enabled: 'yes', state: 'started' }
