@@ -1,2 +1,4 @@
 ---
 snmp_user: netris
+auth_hash: SHA
+enc_cipher: AES
