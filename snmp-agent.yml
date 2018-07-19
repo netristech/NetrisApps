@@ -1,0 +1,10 @@
+---
+- hosts: webservers
+  remote_user: netris
+  become: yes
+  gather_facts: no
+  vars_files:
+  - roles/snmp-agent/vars/main.yml
+  roles:
+  - common
+  - snmp-agent
