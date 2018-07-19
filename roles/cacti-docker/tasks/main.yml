@@ -25,7 +25,7 @@
 - name: Create config dir
   command: "docker exec -d {{ app_container }} /bin/bash -c 'mkdir -p {{ app_config_dir }}'"  
 
-- name: Move config file to new dir
+- name: Copy config file to new dir
   command: "docker exec -d {{ app_container }} /bin/bash -c 'cp -n {{ app_root }}/include/config.php {{ app_config_dir }}/'"
   
 - name: Create symlink to config file
