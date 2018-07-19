@@ -22,7 +22,7 @@ services:
        VIRTUAL_HOST: {{ inventory_hostname }}
        LETSENCRYPT_HOST: {{ inventory_hostname }}
        LETSENCRYPT_EMAIL: {{ letsencrypt_email }}
-       DB_USER: (( db_user }}
+       DB_USER: {{ db_user }}
        DB_PASS: {{ na_root_pw }}
        DB_ADDRESS: {{ app_name }}_db_{{ host_split }}
      container_name: {{ app_container }}
