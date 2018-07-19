@@ -5,5 +5,5 @@ app_container: "{{ host_split }}_{{ app_name }}"
 db_container: "{{ app_container }}_db"
 letsencrypt_email: admin@netris.us
 app_config_dir: "/etc/{{ app_name }}"
-app_root: "/opt/{{ app_name }}"
+app_root: "/data/www/{{ app_name }}"
 db_user: cactiuser
