@@ -7,3 +7,10 @@
   with_items:
   - { name: 'net-snmp', state: 'present' }
   - { name: 'net-snmp-utils', state: 'present' }
+  notify:
+  - Stop net-snmp
+  
+- name: Create SNMPv3 user
+  command: "net-snmp-create-v3-user -ro -A {{ snmp_auth_pass }} -a SHA -X {{ snmp_priv_pass }} -x AES {{ snmp_user }}"
+  notify:
+  - Restart net-snmp
