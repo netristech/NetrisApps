@@ -1,10 +1,10 @@
 ---
 - name: Stop net-snmp
   service:
-    name: net-snmp
+    name: snmpd
     state: stopped
     
 - name: Restart net-snmp
   service:
-    name: net-snmp
+    name: snmpd
     state: restarted
