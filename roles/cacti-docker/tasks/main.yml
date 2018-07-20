@@ -21,3 +21,6 @@
     
 - name: Run Docker containers with compose
   command: "chdir={{ instance_root }} docker-compose up -d"
+
+- name: Update HTTP root in config files
+  command: "docker exec -d {{ app_container }} /bin/bash -c 'find . -type f -name ''*.conf'' -exec sed -i -e ''s|DocumentRoot /var/www/html|DocumentRoot /var/www/html/cacti|g'' {} \;'"
