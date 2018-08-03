@@ -18,7 +18,7 @@
     mode: "{{ item.mode | default('0644') }}"
   with_items:
   - { src: 'docker-compose.yml.j2', dest: '{{ instance_root }}/docker-compose.yml' }
-  - { src: 'php.ini.j2', dest: '{{ instance_root }}/php.ini' }
+  - { src: 'config.php.j2', dest: '{{ instance_root }}/config.php' }
     
 - name: Run Docker containers with compose
   command: "chdir={{ instance_root }} docker-compose up -d"
@@ -27,7 +27,14 @@
   command: "docker exec -d {{ app_container }} mkdir -p {{ app_config_dir }}"
   
 - name: Copy php config
-  command: "docker cp {{ instance_root }}/php.ini {{ app_container }}:{{ html_root }}/"
+  command: "docker cp {{ instance_root }}/config.php {{ app_container }}:{{ app_config_dir }}/"
   
 - name: Change permissions on html dir
   command: "docker exec -d {{ app_container }} /bin/bash -c 'chown -R {{ http_user }}:{{ http_user }} {{ html_root }}'"
+  
+- name: Remove config file from Docker host
+  file:
+    path: "{{ item.path }}"
+    state: "{{ item.state }}"
+  with_items:
+  - { path: '{{ instance_root }}/config.php', state: 'absent' }
