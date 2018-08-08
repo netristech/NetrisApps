@@ -1,5 +1,5 @@
 ---
-- hosts: webservers
+- hosts: devservers
   remote_user: netris
   become: yes
   gather_facts: no
