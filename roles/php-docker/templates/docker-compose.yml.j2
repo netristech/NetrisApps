@@ -19,13 +19,12 @@ services:
      image: php:latest
      expose:
        - 80
-       - 22
      restart: always
      environment:
        VIRTUAL_HOST: {{ inventory_hostname }}
        LETSENCRYPT_HOST: {{ inventory_hostname }}
        LETSENCRYPT_EMAIL: {{ letsencrypt_email }}
-     container_name: {{ wp_container }}
+     container_name: {{ app_container }}
 volumes:
   db_data:
 
