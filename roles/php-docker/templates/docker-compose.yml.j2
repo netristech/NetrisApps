@@ -20,7 +20,7 @@ services:
      expose:
        - 80
      ports:
-       - 2201:22
+       - "2201:22"
      restart: always
      environment:
        VIRTUAL_HOST: {{ inventory_hostname }}
