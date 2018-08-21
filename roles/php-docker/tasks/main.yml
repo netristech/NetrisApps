@@ -30,7 +30,7 @@
   command: "docker cp {{ instance_root }}/config.php {{ app_container }}:{{ app_config_dir }}/"
   
 - name: Create info.php
-  command: "docker exec -d {{ app_container }} /bin/bash -c 'echo ''<?php phpinfo(); ?>'' > {{ html_root }}\info.php.bak"
+  command: "docker exec -d {{ app_container }} /bin/bash -c 'echo ''<?php phpinfo(); ?>'' > {{ html_root }}/info.php.bak"
   
 - name: Change permissions on html dir
   command: "docker exec -d {{ app_container }} /bin/bash -c 'chown -R {{ http_user }}:{{ http_user }} {{ html_root }}'"
