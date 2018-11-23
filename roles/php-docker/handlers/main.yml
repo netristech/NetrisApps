@@ -1,5 +1,3 @@
 ---
 - name: Restart Apache
-  service:
-    name: apache2
-    state: restarted
+  command: "docker exec -d {{ app_container }} /bin/bash -c 'service apache2 restart'"
