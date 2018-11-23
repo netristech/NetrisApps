@@ -31,10 +31,3 @@
   
 - name: Change permissions on html dir
   command: "docker exec -d {{ app_container }} /bin/bash -c 'chown -R {{ http_user }}:{{ http_user }} {{ html_root }}'"
-  
-- name: Remove config file from Docker host
-  file:
-    path: "{{ item.path }}"
-    state: "{{ item.state }}"
-  with_items:
-  - { path: '{{ instance_root }}/config.php', state: 'absent' }
