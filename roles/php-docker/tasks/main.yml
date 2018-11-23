@@ -19,6 +19,7 @@
   with_items:
   - { src: 'docker-compose.yml.j2', dest: '{{ instance_root }}/docker-compose.yml' }
   - { src: 'config.php.j2', dest: '{{ instance_root }}/config.php' }
+  - { src: 'index.php.j2', dest: '{{ instance_root }}/index.php' }
     
 - name: Run Docker containers with compose
   command: "chdir={{ instance_root }} docker-compose up -d"
@@ -28,6 +29,9 @@
   
 - name: Copy php config
   command: "docker cp {{ instance_root }}/config.php {{ app_container }}:{{ app_config_dir }}/"
+  
+- name: Copy temp index.php
+  command: "docker cp {{ instance_root }}/index.php {{ app_container }}:{{ html_dir }}/"
   
 - name: Change permissions on html dir
   command: "docker exec -d {{ app_container }} /bin/bash -c 'chown -R {{ http_user }}:{{ http_user }} {{ html_root }}'"
