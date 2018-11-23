@@ -16,11 +16,9 @@ services:
    {{ app_name }}_{{ host_split }}:
      depends_on:
        - {{ app_name }}_db_{{ host_split }}
-     image: php:latest
+     image: php:7.2-apache
      expose:
        - 80
-     ports:
-       - "2201:22"
      restart: always
      environment:
        VIRTUAL_HOST: {{ inventory_hostname }}
