@@ -31,7 +31,12 @@
   command: "docker cp {{ instance_root }}/config.php {{ app_container }}:{{ app_config_dir }}/"
   
 - name: Copy temp index.php
-  command: "docker cp {{ instance_root }}/index.php {{ app_container }}:{{ html_dir }}/"
+  command: "docker cp {{ instance_root }}/index.php {{ app_container }}:{{ html_root }}/"
   
 - name: Change permissions on html dir
   command: "docker exec -d {{ app_container }} /bin/bash -c 'chown -R {{ http_user }}:{{ http_user }} {{ html_root }}'"
+  
+- name: enable mod_rewrite
+  command: "docker exec -d {{ app_container }} /bin/bash -c 'a2enmod rewrite'"
+  notify:
+    - restart apache
