@@ -1,6 +1,6 @@
 <?php
 
-  define("DB_HOST", "{{ app_name }}_db_{{ host_split }}");
+  define("DB_HOST", "{{ app_name }}_db_{{ host_split }}:{{ db_port }}");
   define("DB_USER", "root");
   define("DB_PASS", "{{ na_root_pw }}");
   define("DB_DATABASE", "{{ app_name }}");
