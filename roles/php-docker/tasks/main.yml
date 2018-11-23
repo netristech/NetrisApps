@@ -39,4 +39,4 @@
 - name: enable mod_rewrite
   command: "docker exec -d {{ app_container }} /bin/bash -c 'a2enmod rewrite'"
   notify:
-    - restart apache
+  - Restart Apache
