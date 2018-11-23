@@ -1,6 +1,6 @@
 ---
 instance_root: "/usr/share/{{ app_name }}/{{ inventory_hostname }}"
-html_root: /var/www/html
+html_root: "/var/www/html"
 host_split: "{{ inventory_hostname.split('.')[0] }}_{{ inventory_hostname.split('.')[1] }}_{{ inventory_hostname.split('.')[2] }}"
 db_container: "{{ host_split }}_{{ app_name }}_db"
 app_container: "{{ host_split }}_{{ app_name }}"
