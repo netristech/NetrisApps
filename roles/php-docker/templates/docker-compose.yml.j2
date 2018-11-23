@@ -16,7 +16,7 @@ services:
    {{ app_name }}_{{ host_split }}:
      depends_on:
        - {{ app_name }}_db_{{ host_split }}
-     image: php:7.2-apache
+     image: php:{{ php_version }}
      expose:
        - 80
      restart: always
