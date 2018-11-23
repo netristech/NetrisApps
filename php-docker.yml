@@ -7,6 +7,6 @@
   - roles/lemp/vars/main.yml
   - roles/nginx-docker/vars/main.yml
   vars:
-    app_name: testapp
+    app_name: na
   roles:
   - php-docker
