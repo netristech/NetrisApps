@@ -1,0 +1,13 @@
+
+---
+- hosts: NetrisAppointments
+  remote_user: netris
+  become: yes
+  gather_facts: no
+  vars_files:
+  - roles/lemp/vars/main.yml
+  - roles/nginx-docker/vars/main.yml
+  vars:
+    app_name: na
+  roles:
+  - na-docker
