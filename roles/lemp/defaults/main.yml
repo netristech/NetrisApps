@@ -3,7 +3,7 @@ nginx_conns: 1024
 http_port: 80
 instance_root: "/usr/share/{{ app_name }}/{{ inventory_hostname }}"
 host_split: "{{ inventory_hostname.split('.')[0] }}-{{ inventory_hostname.split('.')[1] }}-{{ inventory_hostname.split('.')[2] }}"
-pool_name: "{{ host_split }}_{{ app_name }}"
+pool_name: "{{ host_split }}"
 fpm_sock: "/var/run/php-fpm/php-fpm-{{ pool_name }}.sock"
 http_user: nginx
 max_child: 5
