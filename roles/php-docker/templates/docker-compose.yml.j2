@@ -16,9 +16,9 @@ services:
    {{ app_name }}_{{ host_split }}:
      depends_on:
        - {{ app_name }}_db_{{ host_split }}
+     image: php:{{ php_version }}  
      volumes:
-       - data:{{ app_root }}
-     image: php:{{ php_version }}
+       - html:{{ html_root }}
      expose:
        - 80
      restart: always
