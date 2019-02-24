@@ -18,7 +18,7 @@ services:
        - {{ app_name }}_db_{{ host_split }}
      image: php:{{ php_version }}  
      volumes:
-       - html:{{ html_root }}
+       - app_data:{{ html_root }}
      expose:
        - 80
      restart: always
