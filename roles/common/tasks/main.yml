@@ -28,7 +28,7 @@
     update_cache: yes
   with_items:
   - epel-release
-  - python
+  - python3
   - MySQL-python
   - gcc
   - git
@@ -37,9 +37,9 @@
   - xz
   - openssh-server
   - fail2ban
-  - python-simplejson
-  - python-pip
-  - python-backports-lzma
+  - python3-simplejson
+  - python3-pip
+  - python3-backports-lzma
   
 - name: Check for selinux
   stat:
