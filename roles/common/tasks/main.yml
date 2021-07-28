@@ -43,11 +43,8 @@
   
 - name: Update PIP
   pip:
-    name: "{{ item }}"
+    name: setuptools
     state: latest
-  with_items:
-  - pip
-  - setuptools
   
 - name: Check for selinux
   stat:
