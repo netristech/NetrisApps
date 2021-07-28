@@ -41,6 +41,14 @@
   - python-pip
   - python-backports-lzma
   
+- name: Update PIP
+  pip:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - pip
+    - setuptools
+  
 - name: Check for selinux
   stat:
     path: /etc/selinux/config
