@@ -39,6 +39,7 @@
   - fail2ban
   - python-simplejson
   - python-pip
+  - python-setuptools
   - python-backports-lzma
   
 - name: Update PIP
