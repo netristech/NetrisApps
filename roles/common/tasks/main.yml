@@ -42,6 +42,11 @@
   - python-setuptools
   - python-backports-lzma
   
+- name: Upgrade PIP
+  pip:
+    name: pip==20.3
+    state: latest
+  
 - name: Check for selinux
   stat:
     path: /etc/selinux/config
