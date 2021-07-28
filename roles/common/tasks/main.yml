@@ -42,11 +42,6 @@
   - python-setuptools
   - python-backports-lzma
   
-- name: Update PIP
-  pip:
-    name: ez_setup
-    state: latest
-  
 - name: Check for selinux
   stat:
     path: /etc/selinux/config
