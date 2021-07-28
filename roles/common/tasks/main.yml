@@ -44,7 +44,7 @@
   
 - name: Update PIP
   pip:
-    name: setuptools
+    name: ez_setup
     state: latest
   
 - name: Check for selinux
