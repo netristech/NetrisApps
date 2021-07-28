@@ -1,23 +1,35 @@
----  
-- name: Update Grub
-  dnf:
-    name: grub2-tools
-    state: latest
+---
+- name: Check if EPEL repo is already configured.
+  stat: path={{ epel_repofile_path }}
+  register: epel_repofile_result
+ 
+- name: Install EPEL repo.
+  yum:
+    name: "{{ epel_repo_url }}"
+    state: present
+  register: result
+  when: epel_repofile_result.stat.exists == False
+ 
+- name: Import EPEL GPG key.
+  rpm_key:
+    key: "{{ epel_repo_gpg_key_url }}"
+    state: present
+  when: epel_repofile_result.stat.exists == False
   
 - name: Remove vsftpd if installed
-  dnf:
+  yum:
     name: vsftpd
     state: absent
   
 - name: Install Common Packages
-  dnf:
+  yum:
     name: "{{ item }}"
     state: latest
     update_cache: yes
   with_items:
   - epel-release
-  - python3
-  - MySQL-python3
+  - python
+  - MySQL-python
   - gcc
   - git
   - nano
@@ -25,8 +37,9 @@
   - xz
   - openssh-server
   - fail2ban
-  - python3-simplejson
-  - python3-pip
+  - python-simplejson
+  - python-pip
+  - python-backports-lzma
   
 - name: Check for selinux
   stat:
