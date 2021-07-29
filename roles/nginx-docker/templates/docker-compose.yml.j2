@@ -12,10 +12,6 @@ services:
       - vhost:/etc/nginx/vhost.d
       - html:/usr/share/nginx/html
       - certs:/etc/nginx/certs:ro
-    deploy:
-      resources:
-        limits:
-          memory: 64m
 
   dockergen:
     image: nginxproxy/docker-gen
@@ -32,10 +28,6 @@ services:
       - ./nginx.tmpl:/etc/docker-gen/templates/nginx.tmpl:ro
     environment:
       NGINX_PROXY_CONTAINER: {{ app_name }}
-    deploy:
-      resources:
-        limits:
-          memory: 64m
 
   letsencrypt:
     image: nginxproxy/acme-companion
@@ -54,10 +46,6 @@ services:
       NGINX_PROXY_CONTAINER: {{ app_name }}
       NGINX_DOCKER_GEN_CONTAINER: {{ app_name }}-gen
       DEFAULT_EMAIL: {{ admin_email }}
-    deploy:
-      resources:
-        limits:
-          memory: 64m
 
 volumes:
   conf:
