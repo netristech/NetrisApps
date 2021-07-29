@@ -30,6 +30,8 @@ services:
       - certs:/etc/nginx/certs:ro    
       - /var/run/docker.sock:/tmp/docker.sock:ro
       - ./nginx.tmpl:/etc/docker-gen/templates/nginx.tmpl:ro
+    environment:
+      NGINX_PROXY_CONTAINER: {{ app_name }}
     deploy:
       resources:
         limits:
