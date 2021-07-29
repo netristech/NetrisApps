@@ -27,7 +27,7 @@
     group: "{{ item.group | default('root') }}" 
     mode: "{{ item.mode | default('0644') }}"
   with_items:
-  - { src: 'https://raw.githubusercontent.com/jwilder/nginx-proxy/master/nginx.tmpl', dest: '{{ nginx_proxy_dir }}/nginx.tmpl' }
+  - { src: '{{ nginx_tmpl_url }}', dest: '{{ nginx_proxy_dir }}/nginx.tmpl' }
   
 - name: Create docker network for nginx-proxy
   docker_network:
