@@ -42,10 +42,14 @@
   - python-setuptools
   - python-backports-lzma
   
-- name: Upgrade PIP
+- name: Configure PIP
   pip:
-    name: pip==20.3
+    name: "{{ item }}"
     state: latest
+  with_items:
+  - pip==20.3
+  - setuptools
+  - cryptography==2.2.2
     
 - name: Upgrade Setup Tools
   pip:
