@@ -46,6 +46,11 @@
   pip:
     name: pip==20.3
     state: latest
+    
+- name: Upgrade Setup Tools
+  pip:
+    name: setuptools
+    state: latest
   
 - name: Check for selinux
   stat:
