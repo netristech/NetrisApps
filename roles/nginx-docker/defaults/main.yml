@@ -1,4 +1,4 @@
 ---
 nginx_proxy_dir: "/usr/share/{{ app_name }}"
 admin_email: "admin@netris.us"
-nginx_templ_url: "https://raw.githubusercontent.com/nginx-proxy/nginx-proxy/main/nginx.tmpl"
+nginx_tmpl_url: "https://raw.githubusercontent.com/nginx-proxy/nginx-proxy/main/nginx.tmpl"
