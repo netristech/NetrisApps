@@ -54,7 +54,7 @@
   with_items:
   - pip==20.3
   - setuptools
-  - cryptography==2.2.2
+  - cryptography==2.5
     
 - name: Upgrade Setup Tools
   pip:
