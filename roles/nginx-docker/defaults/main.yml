@@ -1,2 +1,3 @@
 ---
 nginx_proxy_dir: "/usr/share/{{ app_name }}"
+admin_email: "admin@netris.us"
