@@ -1,9 +1,4 @@
----
-- name: Remove Requests if installed
-  yum:
-    name: python-requests.noarch
-    state: absent
-  
+---  
 - name: Install Common Packages
   package:
     name: "{{ item }}"
