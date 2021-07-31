@@ -5,14 +5,11 @@
     state: absent
   
 - name: Install Common Packages
-  yum:
+  package:
     name: "{{ item }}"
-    state: latest
-    update_cache: yes
-  with_items:
-  - epel-release
-  - python
-  - MySQL-python
+    state: present
+  loop:
+  - python3
   - gcc
   - git
   - nano
@@ -20,19 +17,9 @@
   - xz
   - openssh-server
   - fail2ban
-  - python-simplejson
-  - python-pip
-  - python-setuptools
-  - python-backports-lzma
-  
-- name: Configure PIP
-  pip:
-    name: "{{ item }}"
-    state: latest
-  with_items:
-  - pip==20.3
-  - setuptools
-  - cryptography==2.5
+  - python3-simplejson
+  - python3-pip
+  - python3-setuptools
     
 - name: Upgrade Setup Tools
   pip:
