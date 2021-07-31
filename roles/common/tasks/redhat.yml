@@ -15,3 +15,12 @@
     key: "{{ epel_repo_gpg_key_url }}"
     state: present
   when: epel_repofile_result.stat.exists == False
+  
+- name: Configure PIP
+  pip:
+    name: "{{ item }}"
+    state: latest
+  loop:
+  - pip==20.3
+  - setuptools
+  - cryptography==2.5
