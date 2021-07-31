@@ -72,7 +72,7 @@
   - { name: 'sshd', enabled: 'yes', state: 'started' }
   
 - name: Include CentOS Specific Tasks
-  include_tasks: centos.yml
+  include_tasks: redhat.yml
   when: ansible_os_family == "RedHat"
   
 - name: Include Debian Specific Tasks
