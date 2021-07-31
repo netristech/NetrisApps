@@ -9,7 +9,6 @@
     name: "{{ item }}"
     state: present
   loop:
-  - python3
   - gcc
   - git
   - nano
@@ -17,9 +16,6 @@
   - xz
   - openssh-server
   - fail2ban
-  - python3-simplejson
-  - python3-pip
-  - python3-setuptools
     
 - name: Upgrade Setup Tools
   pip:
