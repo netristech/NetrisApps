@@ -42,7 +42,7 @@
     owner: "{{ item.owner | default('root') }}"
     group: "{{ item.group | default('root') }}"
     mode: "{{ item.mode | default('0644') }}"
-  with_items:
+  loop:
   - { src: 'sshd_config.j2', dest: '/etc/ssh/sshd_config', mode: '0600' }
   - { src: 'jail.local.j2', dest: '/etc/fail2ban/jail.local' }
   notify:
@@ -53,6 +53,6 @@
     name: "{{ item.name }}"
     enabled: "{{ item.enabled }}"
     state: "{{ item.state }}"
-  with_items:
+  loop:
   - { name: 'fail2ban', enabled: 'yes', state: 'started' }
   - { name: 'sshd', enabled: 'yes', state: 'started' }
