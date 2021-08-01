@@ -29,6 +29,7 @@
   loop:
   - epel-release
   - python
+  - xz
   - MySQL-python
   - python-simplejson
   - python-pip
