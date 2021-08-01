@@ -9,7 +9,6 @@
   - nano
   - curl
   - tar
-  - xz
   - openssh-server
   - fail2ban
     
