@@ -6,6 +6,10 @@
     update_cache: yes
   loop:
   - python3
+  - apt-transport-https
+  - ca-certificates
+  - gnupg
+  - lsb-release
   - python3-mysqldb
   - python3-simplejson
   - python3-pip
