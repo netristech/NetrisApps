@@ -1,6 +1,6 @@
 ---
 - name: Remove old docker versions
-  yum:
+  package:
     name: "{{ item }}"
     state: absent
   with_items:
@@ -9,26 +9,13 @@
   - docker-common
   - docker-client
   
-- name: Add Docker GPG key.
-  rpm_key:
-    key: "{{ docker_gpg_key_url }}"
-    state: present
-
-- name: Add Docker ce repo
-  get_url:
-    url: "{{ docker_repo_url }}"
-    dest: /etc/yum.repos.d/docker-ce.repo
-    owner: root
-    group: root
-    mode: 0644
-
-- name: Install Docker
-  yum:
-    name: "{{ item.name }}"
-    state: "{{ item.state }}"
-    update_cache: yes
-  with_items:
-  - { name: 'docker-{{ docker_edition }}', state: 'present' }
+- name: Include RHEL Specific Tasks
+  include_tasks: redhat.yml
+  when: ansible_os_family == "RedHat"
+  
+- name: Include Debian Specific Tasks
+  include_tasks: debian.yml
+  when: ansible_os_family == "Debian"
   
 - name: Install Docker compose
   pip: 
