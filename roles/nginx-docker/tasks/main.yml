@@ -6,7 +6,7 @@
     owner: "{{ item.owner | default('root') }}"
     group: "{{ item.group | default('root') }}"
     mode: "{{ item.mode | default('0755') }}"
-  with_items:
+  loop:
   - { path: '{{ nginx_proxy_dir }}', state: 'directory' }
   
 - name: Copy files
@@ -16,7 +16,7 @@
     owner: "{{ item.owner | default('root') }}"
     group: "{{ item.group | default('root') }}"
     mode: "{{ item.mode | default('0644') }}"
-  with_items:
+  loop:
   - { src: 'docker-compose.yml.j2', dest: '{{ nginx_proxy_dir }}/docker-compose.yml' }
   
 - name: Pull nginx template
@@ -26,7 +26,7 @@
     owner: "{{ item.owner | default('root') }}"
     group: "{{ item.group | default('root') }}" 
     mode: "{{ item.mode | default('0644') }}"
-  with_items:
+  loop:
   - { src: '{{ nginx_tmpl_url }}', dest: '{{ nginx_proxy_dir }}/nginx.tmpl' }
   
 - name: Create docker network for nginx-proxy
