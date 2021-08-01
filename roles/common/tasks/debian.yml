@@ -9,6 +9,7 @@
   - apt-transport-https
   - ca-certificates
   - gnupg
+  - xz-utils
   - lsb-release
   - python3-mysqldb
   - python3-simplejson
