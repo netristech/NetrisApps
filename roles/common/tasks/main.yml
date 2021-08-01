@@ -17,6 +17,14 @@
     name: setuptools
     state: latest
   
+- name: Include RHEL / CentOS Specific Tasks
+  include_tasks: redhat.yml
+  when: ansible_os_family == "RedHat"
+  
+- name: Include Debian Specific Tasks
+  include_tasks: debian.yml
+  when: ansible_os_family == "Debian"
+  
 - name: Check for selinux
   stat:
     path: /etc/selinux/config
@@ -48,11 +56,3 @@
   with_items:
   - { name: 'fail2ban', enabled: 'yes', state: 'started' }
   - { name: 'sshd', enabled: 'yes', state: 'started' }
-  
-- name: Include CentOS Specific Tasks
-  include_tasks: redhat.yml
-  when: ansible_os_family == "RedHat"
-  
-- name: Include Debian Specific Tasks
-  include_tasks: debian.yml
-  when: ansible_os_family == "Debian"
