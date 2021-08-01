@@ -8,7 +8,7 @@
   vars:
     app_name: nginx-proxy
   setup:
-    gather_subset: !all
+    gather_subset: '!all'
   roles:
   - common
   - docker
