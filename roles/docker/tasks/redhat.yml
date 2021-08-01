@@ -1,7 +1,7 @@
 ---
 - name: Add Docker GPG key.
   rpm_key:
-    key: "{{ docker_gpg_key_url }}"
+    key: "{{ docker_gpg_rpm_key_url }}"
     state: present
 
 - name: Add Docker ce repo
@@ -17,5 +17,5 @@
     name: "{{ item.name }}"
     state: "{{ item.state }}"
     update_cache: yes
-  with_items:
+  loop:
   - { name: 'docker-{{ docker_edition }}', state: 'present' }
