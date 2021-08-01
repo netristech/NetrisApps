@@ -3,6 +3,18 @@
   apt_key:
     key: "{{ docker_gpg_apt_key_url }}"
     state: present
+    
+- name: Add Docker Repository for Debian
+  apt_repository:
+    repo: "deb [arch=amd64] https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable"
+    state: present
+      
+- name: Index Repo
+  apt:
+    name: "*"
+    state: latest
+    update_cache: yes
+    force_apt_get: yes
 
 - name: Install Docker
   apt:
