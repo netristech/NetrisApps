@@ -1,4 +1,5 @@
 ---
 docker_edition: ce
-docker_gpg_key_url: https://download.docker.com/linux/centos/gpg
+docker_gpg_rpm_key_url: https://download.docker.com/linux/centos/gpg
+docker_gpg_apt_key_url: https://download.docker.com/linux/debian/gpg
 docker_repo_url: https://download.docker.com/linux/centos/docker-ce.repo
