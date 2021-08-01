@@ -2,11 +2,13 @@
 - hosts: all
   remote_user: netris
   become: yes
-  gather_facts: yes
+  gather_facts: no
   vars_files:
   - roles/lemp/vars/main.yml
   vars:
     app_name: nginx-proxy
+  setup:
+    gather_subset: !all
   roles:
   - common
   - docker
