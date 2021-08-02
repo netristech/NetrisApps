@@ -25,10 +25,13 @@
   include_tasks: debian.yml
   when: ansible_os_family == "Debian"
   
-- name: Upgrade Setup Tools
+- name: Configure PIP
   pip:
     name: setuptools
     state: latest
+  loop:
+  - { name: 'setuptools', state: 'latest' }
+  - { name: 'requests', state: 'absent' }
   
 - name: Check for selinux
   stat:
