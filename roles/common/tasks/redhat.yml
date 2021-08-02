@@ -16,11 +16,6 @@
     state: present
   when: epel_repofile_result.stat.exists == False
   
-- name: Remove Requests if installed
-  yum:
-    name: python-requests.noarch
-    state: absent
-  
 - name: Install CentOS 7 Specific Packages
   yum:
     name: "{{ item }}"
