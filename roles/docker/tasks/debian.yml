@@ -23,3 +23,4 @@
     update_cache: yes
   loop:
   - { name: 'docker-{{ docker_edition }}', state: 'present' }
+  - { name: 'python3-docker', state: 'present' }
