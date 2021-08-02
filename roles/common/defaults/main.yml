@@ -1,4 +1,5 @@
 ---
+ssh_user: "netris"
 ssh_port: 22
 pass_auth: 'no'
 root_login: 'no'
