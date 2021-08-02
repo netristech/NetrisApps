@@ -1,4 +1,9 @@
----  
+---
+- name: Remove Requests if installed
+  package:
+    name: python-requests.noarch
+    state: absent
+    
 - name: Install Common Packages
   package:
     name: "{{ item }}"
