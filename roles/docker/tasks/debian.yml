@@ -1,7 +1,7 @@
 ---
 - name: Add Docker GPG key.
   apt_key:
-    key: "{{ docker_gpg_apt_key_url }}"
+    url: "{{ docker_gpg_apt_key_url }}"
     state: present
     
 - name: Add Docker Repository for Debian
