@@ -17,10 +17,13 @@
   include_tasks: debian.yml
   when: ansible_os_family == "Debian"
   
-- name: Install Docker compose
+- name: Install Docker Python Modules
   pip: 
-    name: docker-compose
+    name: "{{ item }}"
     state: present
+  loop:
+  - docker
+  - docker-compose
   
 - name: Set Service parameters
   service:
