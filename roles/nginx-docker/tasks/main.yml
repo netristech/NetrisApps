@@ -30,15 +30,8 @@
   - { src: '{{ nginx_tmpl_url }}', dest: '{{ nginx_proxy_dir }}/nginx.tmpl' }
   
 - name: Create Docker Network
-  ansible_python_interpreter: /usr/bin/python3
   docker_network:
     name: "{{ docker_network_name }}"
-  when: ansible_os_family == "Debian"
-  
-- name: Create Docker Network
-  docker_network:
-    name: "{{ docker_network_name }}"
-  when: ansible_os_family == "RedHat"
     
 - name: Run Docker containers with compose
   command: "chdir={{ nginx_proxy_dir }} docker-compose up -d"
