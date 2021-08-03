@@ -29,6 +29,17 @@
   loop:
   - { src: '{{ nginx_tmpl_url }}', dest: '{{ nginx_proxy_dir }}/nginx.tmpl' }
   
+- name: Change Python Interpreter
+  file:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: root
+    group: root
+    state: link
+  loop:
+  - { src: 'python3', dest: '/usr/bin/python' }
+  when: ansible_os_family == "Debian"
+  
 - name: Create Docker Network
   docker_network:
     name: "{{ docker_network_name }}"
