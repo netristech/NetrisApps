@@ -8,6 +8,7 @@
   - python3
   - apt-transport-https
   - ca-certificates
+  - software-properies-common
   - gnupg
   - xz-utils
   - lsb-release
