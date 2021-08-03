@@ -29,6 +29,10 @@
 - name: Move wp-config file to new dir
   command: "docker exec -d {{ wp_container }} /bin/bash -c 'cp -n {{ html_root }}/wp-config.php {{ wp_config_dir }}/'"
   
+- name: Move wp-config File
+  command: "docker exec -d {{ wp_container }} /bin/bash -c 'cp -n {{ html_root }}/wp-config-docker.php {{ wp_config_dir }}/wp-config.php'"
+  when: ansible_os_family == "Debian"
+  
 - name: Copy dummy wp-config
   command: "docker cp {{ instance_root }}/wp-config.php {{ wp_container }}:{{ html_root }}/"
   
