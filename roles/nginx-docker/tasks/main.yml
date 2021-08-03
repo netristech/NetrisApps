@@ -35,7 +35,7 @@
     name: "{{ docker_network_name }}"
   when: ansible_os_family == "Debian"
   
-- name Create Docker Network
+- name: Create Docker Network
   docker_network:
     name: "{{ docker_network_name }}"
   when: ansible_os_family == "RedHat"
