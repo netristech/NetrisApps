@@ -52,6 +52,27 @@
     mode: "{{ item.mode | default('0644') }}"
   loop:
   - { src: 'jail.local.j2', dest: '/etc/fail2ban/jail.local' }
+
+- name: Check for Existing MOTD
+  stat:
+    path: /etc/motd
+  register: motd
+
+- name: Backup Existing MOTD
+  copy:
+    src: /etc/motd
+    dest: /etc/motd.bak
+  when: motd.stat.exists == True
+
+- name: Copy New MOTD File
+  file:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ item.owner | default('root') }}"
+    group: "{{ item.group | default('root') }}"
+    mode: "{{ item.mode | default('0644') }}"
+  loop:
+  - { src: 'motd', dest: '/etc/motd'}
   
 - name: Set Service parameters
   service:
