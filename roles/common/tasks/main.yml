@@ -65,7 +65,7 @@
   when: motd.stat.exists == True
 
 - name: Copy New MOTD File
-  file:
+  copy:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
     owner: "{{ item.owner | default('root') }}"
