@@ -31,7 +31,7 @@ services:
     cap_add:
       - NET_ADMIN
     privileged: true
-	container_name: {{ app_container }}
+    container_name: {{ app_container }}
 
   {{ app_name }}_db_{{ host_split }}:
     image: tiredofit/mariadb
@@ -43,7 +43,7 @@ services:
       MYSQL_DATABASE: {{ app_name }}
       MYSQL_USER: root
       MYSQL_PASSWORD: {{ na_root_pw }}
-	container_name: {{ db_container }}
+    container_name: {{ db_container }}
 
 volumes:
   data:
