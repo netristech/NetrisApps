@@ -17,8 +17,8 @@ services:
     environment: 
       VIRTUAL_HOST: {{ inventory_hostname }}
       LETSENCRYPT_HOST: {{ inventory_hostname }}
-      LETSENCRYPT_EMAIL: {{ letsencrypt_email }}	  
-      VIRTUAL_NETWORK: {{ docker_network_name }}	  
+      LETSENCRYPT_EMAIL: {{ letsencrypt_email }}
+      VIRTUAL_NETWORK: {{ docker_network_name }}
       VIRTUAL_PORT: 80
       RTP_START: 18000
       RTP_FINISH: 18100
