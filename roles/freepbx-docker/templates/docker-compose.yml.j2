@@ -22,6 +22,7 @@ services:
       VIRTUAL_PORT: 80
       RTP_START: 18000
       RTP_FINISH: 18100
+      ENABLE_ZABBIX: "FALSE"
       DB_EMBEDDED: "FALSE"
       DB_HOST: {{ app_name }}_db_{{ host_split }}
       DB_PORT: 3306
