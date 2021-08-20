@@ -13,7 +13,7 @@ services:
       - data:/data
       - www:/var/www/html
       - assets:/assets/custom
-	restart: always
+    restart: always
     environment: 
       VIRTUAL_HOST: {{ inventory_hostname }}
       LETSENCRYPT_HOST: {{ inventory_hostname }}
