@@ -2,7 +2,8 @@ version: '3'
 
 services:
   {{ app_container }}:
-    container_name: {{ app_container }}  
+    container_name: {{ app_container }}
+    hostname: {{ app_container }}
     image: tiredofit/freepbx
     expose:
       - 80
@@ -37,7 +38,8 @@ services:
     privileged: true
 
   {{ db_container }}:
-    container_name: {{ db_container }}  
+    container_name: {{ db_container }}
+    hostname: {{ db_container }}
     image: tiredofit/mariadb
     restart: always
     volumes:
