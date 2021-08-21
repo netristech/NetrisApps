@@ -15,6 +15,7 @@ services:
       - data:/data
       - www:/var/www/html
       - assets:/assets/custom
+      - db_data:/var/lib/mysql
     restart: always
     environment: 
       VIRTUAL_HOST: {{ inventory_hostname }}
@@ -27,8 +28,8 @@ services:
       HOSTNAME: {{ app_container }}
       WEBROOT: /var/www/html
       ENABLE_ZABBIX: "FALSE"
-      DB_EMBEDDED: "FALSE"
-      DB_HOST: {{ db_container }}
+      DB_EMBEDDED: "TRUE"
+      DB_HOST: localhost
       DB_PORT: 3306
       DB_NAME: {{ app_name }}
       DB_USER: root
@@ -36,20 +37,6 @@ services:
     cap_add:
       - NET_ADMIN
     privileged: true
-
-  {{ db_container }}:
-    container_name: {{ db_container }}
-    hostname: {{ db_container }}
-    image: tiredofit/mariadb
-    restart: always
-    volumes:
-      - db_data:/var/lib/mysql
-    environment:
-      HOSTNAME: {{ db_container }}
-      MYSQL_ROOT_PASSWORD: {{ na_root_pw }}
-      MYSQL_DATABASE: {{ app_name }}
-      MYSQL_USER: root
-      MYSQL_PASSWORD: {{ na_root_pw }}
 
 volumes:
   data:
