@@ -5,10 +5,11 @@ services:
     container_name: {{ app_container }}
     hostname: {{ app_container }}
     image: tiredofit/freepbx
+    ports:
+      - "5060:5060/udp"
+      - "5160:5160/udp"
     expose:
       - 80
-      - 5060/udp
-      - 5160/udp
       - 18000-18100/udp
       - 4445
     volumes:
