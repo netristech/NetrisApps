@@ -6,3 +6,6 @@ host_split: "{{ inventory_hostname.split('.')[0] }}_{{ inventory_hostname.split(
 db_container: "{{ host_split }}_{{ app_name }}_db"
 app_container: "{{ host_split }}_{{ app_name }}"
 letsencrypt_email: admin@netris.us
+ext_sip_port: 5060
+int_sip_port: 5060
+timezone: America/New_York
