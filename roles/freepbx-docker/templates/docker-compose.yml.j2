@@ -6,8 +6,7 @@ services:
     hostname: {{ app_container }}
     image: tiredofit/freepbx
     ports:
-      - 5060:5060/udp
-      - 5160:5160/udp
+      - "{{ ext_sip_port }}:{{ int_sip_port}}/udp"
       - 18000-18100:18000-18100/udp
     expose:
       - 80
@@ -28,6 +27,7 @@ services:
       RTP_FINISH: 18100
       HOSTNAME: {{ app_container }}
       WEBROOT: /var/www/html
+      TIMEZONE: {{ timezone }}
       ENABLE_ZABBIX: "FALSE"
       DB_EMBEDDED: "TRUE"
       DB_HOST: localhost
