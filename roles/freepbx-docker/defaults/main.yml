@@ -8,4 +8,6 @@ app_container: "{{ host_split }}_{{ app_name }}"
 letsencrypt_email: admin@netris.us
 ext_sip_port: 5060
 int_sip_port: 5060
+alt_ext_sip_port: 5160
+alt_int_sip_port: 5160
 timezone: America/New_York
