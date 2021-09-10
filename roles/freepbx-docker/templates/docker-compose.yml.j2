@@ -6,6 +6,7 @@ services:
     hostname: {{ app_container }}
     image: tiredofit/freepbx
     ports:
+      - "{{ ext_sip_port }}:{{ int_sip_port }}"
       - "{{ ext_sip_port }}:{{ int_sip_port}}/udp"
       - 18000-18100:18000-18100/udp
     expose:
